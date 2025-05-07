@@ -22,8 +22,6 @@ brew install --cask whatsapp
 # Install emacs-plus
 brew tap d12frosted/emacs-plus
 brew install emacs-plus
-EMACS_PLUS_VERSION=$(ls /opt/homebrew/opt | grep emacs)
-brew services start d12frosted/emacs-plus/"$EMACS_PLUS_VERSION"
  
 # Install other useful binaries
 brew install git
