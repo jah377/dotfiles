@@ -1,1 +1,16 @@
+# Ignore git metadata
+\.git
+
+# Ignore Emacs temp or backup files
+*#
+*~
+
+# Ignore other random files
 \.DS_Store
+
+# Avoid cluttering with scripts, files, or non-relevant directories
+^/.*\.org
+^/.*\.sh
+backgrounds
+
+
