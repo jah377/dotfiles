@@ -1,0 +1,51 @@
+#+TITLE: My GNU Emacs Configuration
+#+DATE: Wednesday, September 25, 2024
+#+PROPERTY: header-args:emacs-lisp :results silent
+#+STARTUP: overview
+
+* Introduction
+:PROPERTIES:
+:visibility: folded
+:END:
+
+This is my literate Emacs configuration file. It serves as both documentation
+and the source for configuring Emacs. All necessary files to configure Emacs
+are generated from this file by calling ~org-babel-tangle~ (~C-c C-v t~) and stored
+in the =/modules= sub-directory. As such, changes should be made in this
+document, not in the individual =.el= files.
+
+*N.B.* This configuration uses ~setopt~, introduced in Emacs 29.1, in preference to ~setq~.
+
+* Common Library Header
+:PROPERTIES:
+:visibility: folded
+:ID:       33dd0e1d-425b-4bb9-8a23-398884c046b8
+:END:
+
+Copied from [[https://github.com/MArpogaus/emacs.d/blob/master/emacs.org#common-header-for-emacs-libraries][github.com/MArpogaus]].
+
+*N.B.* According to the [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Init-File.html][Emacs manual]], byte-compiling the init does not speed-up
+startup very much, and often leads to problems when you forget to recompile the
+file. Also, from my experience, it may lead to bugs that do not happen when not
+using byte-compile.
+
+#+NAME: header
+#+begin_src shell :var FILENAME="init.el" :results output
+echo ";;; $FILENAME --- Emacs configuration file  -*- lexical-binding: t; no-byte-compile: t -*-
+;; Copyright (C) 2024-$(date +%Y) Jonathan A. Harris
+
+;; Author: Jonathan A. Harris, MSc.
+;; Keywords: configuration
+;; Homepage: https://github.com/jah377/dotfiles
+
+;; This file is not part of GNU Emacs.
+
+;;; Commentary:
+
+;; This file has been generated from 'README.org'. DO NOT EDIT.
+
+;; Changes to the configuration should be done in 'README.org' and then
+;; re-tangled by calling 'C-c C-v C-t'.
+
+;;; Code:"
+#+end_src

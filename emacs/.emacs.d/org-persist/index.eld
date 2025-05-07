@@ -1,0 +1,2 @@
+;;   -*- mode: lisp-data; -*-
+((:container ((elisp org-element--headline-cache) (elisp org-element--cache) (version "2.3")) :persist-file "95/072d94-f7ab-411f-90a0-333989838502" :associated (:hash "d41d8cd98f00b204e9800998ecf8427e" :file "/Users/jonathanharris/.emacs.d/README.org") :expiry 30) (:container ((index "3.2")) :persist-file "7b/ec1d67-a320-4e1b-9f53-c0180c3a14b6" :associated nil :expiry never))
