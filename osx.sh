@@ -36,3 +36,23 @@ tell application "System Events"
 end tell
 EOF
 
+###############################################################################
+# Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
+###############################################################################
+
+# Disable “natural” (Lion-style) scrolling
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+
+###############################################################################
+# Screen                                                                      #
+###############################################################################
+
+# Save screenshots to custom screenshots directory
+SCREENSHOTS_PATH="$HOME/screenshots"
+if [ ! -d "$SCREENSHOTS_PATH" ]; then
+    mkdir "$SCREENSHOTS_PATH"
+fi
+defaults write com.apple.screencapture location -string "${SCREENSHOTS_PATH}"
+
+# Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+defaults write com.apple.screencapture type -string "png"
