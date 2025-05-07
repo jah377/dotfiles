@@ -19,9 +19,9 @@ brew install --cask proton-drive
 brew install --cask keybase
 brew install --cask whatsapp
 
-# Install emacs-plus
+# Install emacs-plus (see emacs.sh)
 brew tap d12frosted/emacs-plus
-brew install emacs-plus
+brew install emacs-plus@30
  
 # Install other useful binaries
 brew install git
