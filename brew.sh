@@ -28,6 +28,7 @@ brew install git
 brew install stow
 brew install cmake   # for vterm
 brew install libtool # for vterm
+brew install enchant # for jinx
 
 # Remove outdated versions
 brew cleanup
