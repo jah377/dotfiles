@@ -5,7 +5,7 @@
 
 echo >> /Users/jonathanharris/.zprofile
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/jonathanharris/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)" 
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Make sure we’re using the latest Homebrew
 brew update
@@ -22,10 +22,12 @@ brew install --cask whatsapp
 # Install emacs-plus (see emacs.sh)
 brew tap d12frosted/emacs-plus
 brew install emacs-plus@30
- 
+
 # Install other useful binaries
 brew install git
 brew install stow
+brew install cmake   # for vterm
+brew install libtool # for vterm
 
 # Remove outdated versions
 brew cleanup
