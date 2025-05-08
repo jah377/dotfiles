@@ -6,8 +6,5 @@ if ! command -v emacs >/dev/null 2>&1; then
     exit 1
 fi
 
-# Start Emacs service (suggested when installing Emacs in brew.sh)
-brew services start d12frosted/emacs-plus/emacs-plus@30
-
-
-
+# # Start Emacs service (suggested when installing Emacs in brew.sh)
+# brew services start d12frosted/emacs-plus/emacs-plus@30
