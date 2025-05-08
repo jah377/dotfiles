@@ -1,4 +1,8 @@
-# Script for setting up git for the first time
+#!/usr/bin/env bash
+#
+# Script Name: git.sh
+# Description: Configure git settings on fresh macOS
+# Notes: Inspired by https://github.com/shakeelmohamed/stow-dotfiles
 
 echo "Enter user.name:"
 read GIT_SETUP_NAME
