@@ -26,7 +26,7 @@ defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
 # Use AppleScript to set custom wallpaper
 WALLPAPER="green_plants.jpg"
-WALLPAPER_PATH="$HOME/dotfiles/backgrounds/$WALLPAPER"
+WALLPAPER_PATH="$HOME/dotfiles/backgrounds/backgrounds/$WALLPAPER"
 
 osascript <<EOF
 tell application "System Events"
