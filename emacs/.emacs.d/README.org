@@ -67,12 +67,16 @@ not depend on any packages.
 ** TODO Define Cloud Storage Location
 
 #+begin_src emacs-lisp
-  (setq user-cloud-path "/Users/jonathanharris/Library/CloudStorage/ProtonDrive-harris.jon@proton.me-folder/"
-        user-settings-path (expand-file-name "emacs_settings" user-cloud-path))
+(setq user-cloud-path (format "/Users/%s/Library/CloudStorage/ProtonDrive-harris.jon@proton.me-folder/"
+                              user-login-name)
+      user-settings-path (expand-file-name "emacs_settings" user-cloud-path))
 
-  ;; Create user-store-path if it does not already exist in the cloud
-    (unless (file-directory-p user-settings-path)
-      (make-directory user-settings-path))
+;; Create user-store-path if it does not already exist in the cloud
+(if (not (file-directory-p user-cloud-path))
+    (error (format "Does not exist: user-cloud-path=%s" user-cloud-path))
+  (if (file-directory-p user-settings-path)
+      (message "user-settings-path already exists")
+    (make-directory user-settings-path)))
 #+end_src
 
 ** Temporarily Configure Garbage Collection
