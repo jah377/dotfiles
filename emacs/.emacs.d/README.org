@@ -355,6 +355,22 @@ Custom packages stored in =~/.emacs.d/lisp=.
   (normal-top-level-add-subdirs-to-load-path))
 #+end_src
 
+*** Add Executable Path
+
+The =exec-path-from-shell= package is a tool to ensure that Emacs correctly
+inherits environment variables such as ~$PATH~ (bash convention) from your
+shell. This is particularly relevant as we wish to make Emacs, and =eglot=, aware
+of our =tool= virtual environment containing python applications. It is necessary
+to add the =venv= path to ~exec-path~ as the applications will serve as the
+back-end for various Emacs packages that provide, for instance, code formatting
+or LSP functionality.
+
+#+begin_src emacs-lisp
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
+#+end_src
+
 ** Tidy Emacs Directory
 :PROPERTIES:
 :ID:       a0a6ce0f-55d9-415f-a70c-48716e9d8c61
@@ -2857,25 +2873,7 @@ configuration will instead rely on =Jupyter Kernels= (see [[id:4d2b331f-7ced-46b
   (python-fill-docstring-style 'pep-257-nn))
 #+end_src
 
-*** Virtual Environments
-**** Add Executable Path
-
-The =exec-path-from-shell= package is a tool to ensure that Emacs correctly
-inherits environment variables such as ~$PATH~ (bash convention) from your
-shell. This is particularly relevant as we wish to make Emacs, and =eglot=, aware
-of our =tool= virtual environment containing python applications. It is necessary
-to add the =venv= path to ~exec-path~ as the applications will serve as the
-back-end for various Emacs packages that provide, for instance, code formatting
-or LSP functionality.
-
-#+begin_src emacs-lisp
-(use-package exec-path-from-shell
-  :defer t
-  :config
-  (exec-path-from-shell-initialize))
-#+end_src
-
-**** TODO Jupyter Kernels
+*** TODO Jupyter Kernels
 :PROPERTIES:
 :ID:       4d2b331f-7ced-46b2-a764-db4ff2b79688
 :END:

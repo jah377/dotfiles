@@ -169,11 +169,6 @@
   ;; Modified pep-257 removes new-line at end of docstring
   (python-fill-docstring-style 'pep-257-nn))
 
-(use-package exec-path-from-shell
-  :defer t
-  :config
-  (exec-path-from-shell-initialize))
-
 (use-package numpydoc
   :commands (numpydoc-generate)
   :custom

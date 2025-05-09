@@ -62,6 +62,10 @@
   (add-to-list 'load-path default-directory)
   (normal-top-level-add-subdirs-to-load-path))
 
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
+
 (use-package no-littering
   :demand t
   :init
