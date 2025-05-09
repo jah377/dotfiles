@@ -169,6 +169,18 @@
   ;; Modified pep-257 removes new-line at end of docstring
   (python-fill-docstring-style 'pep-257-nn))
 
+(use-package jupyter
+  :demand t
+  :after (:all org python ob)
+  :custom
+  (org-babel-default-header-args:jupyter-python
+   '((:session . "py")
+     (:kernel . "python3")
+     (:comments . "link")
+     (:async . "yes")))
+  :config
+  (require 'ob-jupyter))
+
 (use-package numpydoc
   :commands (numpydoc-generate)
   :custom
