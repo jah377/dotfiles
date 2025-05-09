@@ -33,9 +33,10 @@ brew install stow
 # Install Emacs + tooling
 brew tap d12frosted/emacs-plus
 brew install emacs-plus@30
-brew install cmake   # for vterm
-brew install libtool # for vterm
-brew install enchant # for jinx
+brew install cmake    # vterm
+brew install libtool  # vterm
+brew install enchant  # jinx
+brew install autoconf # emacs-jupyter
 
 # Install python + tooling
 brew install python@3.12
