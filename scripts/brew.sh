@@ -10,12 +10,15 @@
 # Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+# Must add 'brew' to path before we can use
+echo 'eval "$($(brew --prefix)/bin/brew shellenv)"' >> /Users/$USER/.zprofile
+echo eval "$($(brew --prefix)/bin/brew shellenv)"
+
 # Make sure we’re using the latest Homebrew
 brew update
 
 # Upgrade any already-installed formulae
 brew upgrade
-
 
 # Install macOS applications
 brew install --cask proton-mail
