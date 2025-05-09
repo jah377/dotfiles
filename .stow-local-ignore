@@ -1,0 +1,19 @@
+#### GNU Stow expects 'Pearl' regex patterns
+
+# Ignore version control files
+^\.git$
+^\.gitignore$
+^\.gitattributes$
+
+# Ignore directories
+^scripts/?$
+
+# Ignore system-specific or secret files
+^\.ssh/?$
+
+# Ignore backup or temporary files
+^\.DS_Store$
+~$                # Matches files ending in ~
+^\.#              # Matches Emacs autosave files like .#file
+\.lock$           # Matches files ending in .lock
+\.elc$            # Matches files ending in .elc
