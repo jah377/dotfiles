@@ -69,3 +69,11 @@ defaults write com.apple.screencapture type -string "png"
 # Only show active applications in dock
 defaults write com.apple.dock static-only -bool true
 killall Dock
+
+###############################################################################
+# Finder                                                                      #
+###############################################################################
+
+# Show hidden files in Finder
+defaults write com.apple.finder AppleShowAllFiles true
+
