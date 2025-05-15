@@ -90,4 +90,11 @@ killall Dock
 # Show hidden files in Finder
 defaults write com.apple.finder AppleShowAllFiles true
 
+###############################################################################
+# Menu Bar                                                                    #
+###############################################################################
+
+# Show battery at %
+defaults write com.apple.controlcenter BatteryShowPercentage -bool true
+
 
