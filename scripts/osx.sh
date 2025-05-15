@@ -43,6 +43,10 @@ EOF
 # Disable “natural” (Lion-style) scrolling
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
+# Display function keys on touchbar; must restart
+defaults write com.apple.touchbar.agent PresentationModeGlobal functionKeys
+pkill "Touch Bar agent"; killall "ControlStrip"
+
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################
