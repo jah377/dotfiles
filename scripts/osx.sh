@@ -14,6 +14,9 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until `.macos` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+# *** DISABLE APPLE INTELLIGENCE ***
+defaults write com.apple.CloudSubscriptionFeatures.optIn "545129924" -bool "false"
+
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
@@ -173,7 +176,7 @@ defaults write com.apple.dock showhidden -bool true
 # Don’t show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
-killall Dock
+killall Dock # MUST BE LAST
 
 ###############################################################################
 # Finder                                                                      #
@@ -204,6 +207,7 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
 # Keep folders on top when sorting by name
 defaults write com.apple.finder _FXSortFoldersFirst -bool true
+defaults write com.apple.finder "_FXSortFoldersFirstOnDesktop" -bool "true"
 
 # Avoid creating .DS_Store files on network or USB volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
@@ -216,6 +220,9 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
 # Show the ~/Library folder
 chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
+
+
+killall Finder # MUST BE LAST
 
 ###############################################################################
 # Menu Bar                                                                    #
