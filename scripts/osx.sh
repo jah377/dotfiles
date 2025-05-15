@@ -90,6 +90,15 @@ killall Dock
 # Show hidden files in Finder
 defaults write com.apple.finder AppleShowAllFiles true
 
+# View items as a list
+defaults write com.apple.finder FXPreferredViewStyle -string "nlsv"
+
+# Show path of file
+defaults write com.apple.finder ShowPathbar -bool true
+
+# Show status of directory in Finder
+defaults write com.apple.finder ShowStatusBar -bool true
+
 ###############################################################################
 # Menu Bar                                                                    #
 ###############################################################################
