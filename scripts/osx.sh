@@ -68,6 +68,19 @@ defaults write com.apple.screencapture type -string "png"
 
 # Only show active applications in dock
 defaults write com.apple.dock static-only -bool true
+
+# Reduce size of icons
+defaults write com.apple.dock tilesize -int 45
+
+# Disable magnification animation when hovering over dock
+defaults write com.apple.dock magnification -bool false
+
+# Show dock at bottom of screen 
+defaults write com.apple.dock orientation -string "bottom"
+
+# Automatically hide and show the dock
+defaults write com.apple.dock autohide -bool true
+
 killall Dock
 
 ###############################################################################
@@ -76,4 +89,5 @@ killall Dock
 
 # Show hidden files in Finder
 defaults write com.apple.finder AppleShowAllFiles true
+
 
