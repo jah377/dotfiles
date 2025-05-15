@@ -37,7 +37,7 @@ end tell
 EOF
 
 ###############################################################################
-# Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
+# Mouse, keyboard, Bluetooth accessories, and input                           #
 ###############################################################################
 
 # Disable “natural” (Lion-style) scrolling
@@ -46,6 +46,43 @@ defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 # Display function keys on touchbar; must restart
 defaults write com.apple.touchbar.agent PresentationModeGlobal functionKeys
 pkill "Touch Bar agent"; killall "ControlStrip"
+
+###############################################################################
+# Touchpad                                                                    #
+###############################################################################
+
+# Disable “natural” (Lion-style) scrolling
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+
+# Hot corners
+# Possible values:
+#  0: no-op
+#  2: Mission Control
+#  3: Show application windows
+#  4: Desktop
+#  5: Start screen saver
+#  6: Disable screen saver
+#  7: Dashboard
+# 10: Put display to sleep
+# 11: Launchpad
+# 12: Notification Center
+# 13: Lock Screen
+
+# Top left screen corner → no-op
+defaults write com.apple.dock wvous-tl-corner -int 0
+defaults write com.apple.dock wvous-tl-modifier -int 0
+
+# Top right screen corner → no-op
+defaults write com.apple.dock wvous-tr-corner -int 0
+defaults write com.apple.dock wvous-tr-modifier -int 0
+
+# Top left screen corner → no-op
+defaults write com.apple.dock wvous-bt-corner -int 0
+defaults write com.apple.dock wvous-bt-modifier -int 0
+
+# Bottom left screen corner → no-op
+defaults write com.apple.dock wvous-bl-corner -int 0
+defaults write com.apple.dock wvous-bl-modifier -int 0
 
 ###############################################################################
 # Screen                                                                      #
