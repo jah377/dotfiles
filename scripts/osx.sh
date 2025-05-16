@@ -74,6 +74,11 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bo
 # Set the timezone; see `sudo systemsetup -listtimezones` for other values
 sudo systemsetup -settimezone "Europe/Brussels" > /dev/null
 
+# Disable default keybindings by replacing plist
+rm ~/Library/Preferences/com.apple.symbolichotkeys.plist
+cp ~/Documents/dotfiles/apple_plists/com.apple.symbolichotkeys.plist ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
+
 ###############################################################################
 # Touchpad                                                                    #
 ###############################################################################
