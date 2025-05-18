@@ -34,13 +34,8 @@ brew install --cask expressvpn
 brew install git
 brew install stow
 
-# Install Emacs + tooling
-brew tap d12frosted/emacs-plus
-brew install emacs-plus@30
-brew install cmake    # vterm
-brew install libtool  # vterm
-brew install enchant  # jinx
-brew install autoconf # emacs-jupyter
+# Install neovim
+brew install neovim
 
 # Install python + tooling
 brew install python@3.12
