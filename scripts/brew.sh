@@ -30,17 +30,16 @@ brew install --cask bitwarden
 brew install --cask freedome
 brew install --cask expressvpn
 brew install --cask vscode
+brew install --cask sketch 
+brew install --cask karabiner-elements
 
 # Install general packages
-brew install git
+brewrew install git
 brew install stow
-
-# Install neovim
 brew install neovim
-
-# Install python + tooling
 brew install python@3.12
 brew install uv
+brew install koekeishiya/formulae/yabai
 
 # Remove outdated versions
 brew cleanup
