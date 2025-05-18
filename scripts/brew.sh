@@ -29,6 +29,7 @@ brew install --cask whatsapp
 brew install --cask bitwarden
 brew install --cask freedome
 brew install --cask expressvpn
+brew install --cask vscode
 
 # Install general packages
 brew install git
