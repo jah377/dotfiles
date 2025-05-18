@@ -43,9 +43,6 @@ EOF
 # Mouse, keyboard, Bluetooth accessories, and input                           #
 ###############################################################################
 
-# Disable “natural” (Lion-style) scrolling
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
-
 # Display function keys on touchbar; must restart
 defaults write com.apple.touchbar.agent PresentationModeGlobal functionKeys
 pkill "Touch Bar agent"; killall "ControlStrip"
@@ -71,12 +68,8 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 # Show language menu in the top right corner of the boot screen
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
-# Set the timezone; see `sudo systemsetup -listtimezones` for other values
-sudo systemsetup -settimezone "Europe/Brussels" > /dev/null
-
 # Disable default keybindings by replacing plist
-rm ~/Library/Preferences/com.apple.symbolichotkeys.plist
-cp ~/Documents/dotfiles/apple_plists/com.apple.symbolichotkeys.plist ~/Library/Preferences/com.apple.symbolichotkeys.plist
+cp ~/dotfiles/apple_plists/com.apple.symbolichotkeys.plist.backup ~/Library/Preferences/com.apple.symbolichotkeys.plist
 
 
 ###############################################################################
@@ -167,9 +160,8 @@ defaults write com.apple.dock dashboard-in-overlay -bool true
 # Don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
 
-# Remove the auto-hiding Dock delay
+# Remove the auto-hiding Dock delay and animation
 defaults write com.apple.dock autohide-delay -float 0
-# Remove the animation when hiding/showing the Dock
 defaults write com.apple.dock autohide-time-modifier -float 0
 
 # Automatically hide and show the Dock
@@ -223,10 +215,6 @@ defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
 defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
 defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
-# Show the ~/Library folder
-chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
-
-
 killall Finder # MUST BE LAST
 
 ###############################################################################
@@ -235,5 +223,3 @@ killall Finder # MUST BE LAST
 
 # Show battery at %
 defaults write com.apple.controlcenter BatteryShowPercentage -bool true
-
-
