@@ -11,8 +11,9 @@
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Must add 'brew' to path before we can use
-echo 'eval "$($(brew --prefix)/bin/brew shellenv)"' >> /Users/$USER/.zprofile
-echo eval "$($(brew --prefix)/bin/brew shellenv)"
+touch /Users/$USER/.zprofile
+echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> $HOME/.zprofile
+echo eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Make sure we’re using the latest Homebrew
 brew update
@@ -25,6 +26,9 @@ brew install --cask proton-mail
 brew install --cask proton-drive
 brew install --cask keybase
 brew install --cask whatsapp
+brew install --cask bitwarden
+brew install --cask freedome
+brew install --cask expressvpn
 
 # Install general packages
 brew install git
