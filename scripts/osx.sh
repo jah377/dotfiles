@@ -119,6 +119,10 @@ defaults write com.apple.dock wvous-bt-modifier -int 0
 defaults write com.apple.dock wvous-bl-corner -int 0
 defaults write com.apple.dock wvous-bl-modifier -int 0
 
+# Move window using `ctrl+cmd` + dragging on any part of window
+# See https://github.com/nikitabobko/AeroSpace
+defaults write -g NSWindowShouldDragOnGesture -bool true
+
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################
