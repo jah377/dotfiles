@@ -32,14 +32,14 @@ brew install --cask expressvpn
 brew install --cask vscode
 brew install --cask sketch 
 brew install --cask karabiner-elements
+brew install --cask nikitabobko/tap/aerospace
 
 # Install general packages
-brewrew install git
+brew install git
 brew install stow
 brew install neovim
 brew install python@3.12
 brew install uv
-brew install koekeishiya/formulae/yabai
 
 # Remove outdated versions
 brew cleanup
