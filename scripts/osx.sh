@@ -2,7 +2,9 @@
 #
 # Script Name: osx.sh
 # Description: Configure osx settings
-# Notes: https://github.com/mathiasbynens/dotfiles/blob/main/.macos
+# Notes: 
+# - https://github.com/michaelx/dotfiles/blob/master/.macos
+# - https://github.com/mathiasbynens/dotfiles/blob/main/.macos
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
@@ -16,6 +18,16 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # *** DISABLE APPLE INTELLIGENCE ***
 defaults write com.apple.CloudSubscriptionFeatures.optIn "545129924" -bool "false"
+
+# Restart automatically if the computer freezes.
+sudo systemsetup -setrestartfreeze on
+
+# Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window.
+sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
+
+# Privacy: don’t send search queries to Apple
+defaults write com.apple.Safari UniversalSearchEnabled -bool false
+defaults write com.apple.Safari SuppressSearchSuggestions -bool true
 
 ###############################################################################
 # General UI/UX                                                               #
@@ -53,7 +65,7 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 # Disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
-# Set a blazingly fast keyboard repeat rate
+# Set a blazingly fast keyboard repeat rate (were 2 and 15).
 defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
@@ -145,9 +157,6 @@ defaults write com.apple.dock magnification -bool false
 # Show dock at bottom of screen 
 defaults write com.apple.dock orientation -string "bottom"
 
-# Automatically hide and show the dock
-defaults write com.apple.dock autohide -bool true
-
 # Wipe all (default) app icons from the Dock
 defaults write com.apple.dock persistent-apps -array
 
@@ -185,6 +194,9 @@ defaults write com.apple.finder AppleShowAllFiles true
 # View items as a list
 defaults write com.apple.finder FXPreferredViewStyle -string "nlsv"
 
+# Save to disk (not to iCloud) by default.
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+
 # Show path of file
 defaults write com.apple.finder ShowPathbar -bool true
 
@@ -193,7 +205,14 @@ defaults write com.apple.finder ShowStatusBar -bool true
 
 # Set $HOME as the default location for new Finder windows
 # For other paths, use `PfLo` and `file:///full/path/here/`
-defaults write com.apple.finder NewWindowTarget -string "PfDe"
+# Computer     : `PfCm`
+# Volume       : `PfVo`
+# $HOME        : `PfHm`
+# Desktop      : `PfDe`
+# Documents    : `PfDo`
+# All My Files : `PfAF`
+# Other…       : `PfLo`
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
 defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
 
 # Show icons for hard drives, servers, and removable media on the desktop
@@ -210,10 +229,19 @@ defaults write com.apple.finder "_FXSortFoldersFirstOnDesktop" -bool "true"
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
-# Automatically open a new Finder window when a volume is mounted
-defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
-defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
-defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
+# # Automatically open a new Finder window when a volume is mounted
+# defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
+# defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
+# defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
+
+# Show all filename extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+# Disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+# Show the ~/Library folder
+chflags nohidden ~/Library
 
 killall Finder # MUST BE LAST
 
