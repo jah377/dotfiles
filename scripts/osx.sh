@@ -19,15 +19,8 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # *** DISABLE APPLE INTELLIGENCE ***
 defaults write com.apple.CloudSubscriptionFeatures.optIn "545129924" -bool "false"
 
-# Restart automatically if the computer freezes.
-sudo systemsetup -setrestartfreeze on
-
 # Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window.
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
-
-# Privacy: don’t send search queries to Apple
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
 
 ###############################################################################
 # General UI/UX                                                               #
