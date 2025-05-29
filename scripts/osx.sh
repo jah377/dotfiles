@@ -139,8 +139,16 @@ defaults write com.apple.screencapture type -string "png"
 
 
 ###############################################################################
-# Dock                                                                        #
+# Menu-Bar / Dock                                                             #
 ###############################################################################
+
+# Automatically hide and show the Menu Bar
+# https://discussions.apple.com/thread/255637558?sortBy=rank
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
+defaults write NSGlobalDomain AppleMenuBarVisibleInFullscreen -bool false 
+
+# Automatically hide and show the Dock
+defaults write com.apple.dock autohide -bool true
 
 # Only show active applications in dock
 defaults write com.apple.dock static-only -bool true
@@ -169,10 +177,6 @@ defaults write com.apple.dock mru-spaces -bool false
 # Remove the auto-hiding Dock delay and animation
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0
-
-# Automatically hide and show the Dock
-defaults write com.apple.dock autohide -bool true
-defaults write NSGlobalDomain _HIHideMenuBar -bool true
 
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
