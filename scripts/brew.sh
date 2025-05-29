@@ -32,7 +32,6 @@ brew install --cask expressvpn
 brew install --cask vscode
 brew install --cask sketch 
 brew install --cask karabiner-elements
-brew install --cask nikitabobko/tap/aerospace
 
 # Install general packages
 brew install git
@@ -41,8 +40,12 @@ brew install neovim
 brew install python@3.12
 brew install uv
 
+# Tile manager + menu bar
+brew install --cask nikitabobko/tap/aerospace
 brew tap FelixKratz/formulae
 brew install felixkratz/formulae/borders 
+brew install sketchybar
+brew install --cask font-hack-nerd-font
 
 # Remove outdated versions
 brew cleanup
