@@ -41,5 +41,8 @@ brew install neovim
 brew install python@3.12
 brew install uv
 
+brew tap FelixKratz/formulae
+brew install felixkratz/formulae/borders 
+
 # Remove outdated versions
 brew cleanup
