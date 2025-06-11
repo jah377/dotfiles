@@ -1,12 +1,56 @@
-1. Download repository zip
-2. Run `brew.sh` to install applications
-3. Run `git.sh` to setup git
-4. Run `osx.sh` to setup settings
-5. Remove `dotfiles` and clone repo 
-6. Setup each application installed using `--cask`
+```
+    ____        __  _____ __
+   / __ \____  / /_/ __(_) /__  _____
+  / / / / __ \/ __/ /_/ / / _ \/ ___/
+ / /_/ / /_/ / /_/ __/ / /  __(__  )
+/_____/\____/\__/_/ /_/_/\___/____/
+```
 
-## skhd
+My dotfiles to setup a dev environment in a **MacOS** machine. Configuration files are managed using GNU Stow.
 
-brew install koekeishiya/formulae/skhd
-skhd -V # confirm it is working
+## Scripts
+
+- `scripts/brew.sh`: Download `homebrew`; install applications
+- `scripts/osx.sh`: Configure **MacOS** settings
+- `scripts/git.sh`: Configure `git` and create key for github
+- `scripts/stow.sh`: Create desired symulinks
+
+## Setup
+
+1. Download repository zip from github.com
+
+2. Install `homebrew` and configure **MacOS**
+
+```sh
+bash brew.sh
+bash osx.sh
+```
+
+3. Configure `git` and add SSH key to github
+
+```sh
+bash git.sh
+```
+
+4. Delete repository zip and clone from github
+
+```sh
+rm -rf ~/Downloads/dotfiles-main
+git clone git@github.com:jah377/dotfiles.git
+```
+
+5. Symulink configuration files
+
+```sh
+bash stow.sh
+```
+
+## Application-Specific Setup
+
+- `raycast`: 
+- `whatsapp`: 
+- `keybase`:
+- `proton-mail`:
+- `proton-drive`:
+
 

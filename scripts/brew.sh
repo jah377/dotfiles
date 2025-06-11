@@ -22,10 +22,8 @@ brew update
 brew upgrade
 
 # Install macOS applications
-brew install --cask proton-mail
-brew install --cask proton-drive
-brew install --cask keybase
-brew install --cask whatsapp
+brew install --cask proton-mail proton-drive
+brew install --cask whatsapp keybase
 brew install --cask bitwarden
 brew install --cask expressvpn
 brew install --cask visual-studio-code
@@ -39,16 +37,6 @@ brew install uv
 
 # Install window manager
 brew install --cask nikitabobko/tap/aerospace
-brew tap FelixKratz/formulae
-brew install felixkratz/formulae/borders
-brew services start felixkratz/formulae/borders
-
-# Install custom menubar
-brew install sketchybar
-brew install --cask font-hack-nerd-font
-brew install --casks font-sketchybar-app-font
-brew install --cask sf-symbols
-brew install font-sf-pro
 
 # Remove outdated versions
 brew cleanup
