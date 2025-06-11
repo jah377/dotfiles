@@ -27,11 +27,8 @@ brew install --cask proton-drive
 brew install --cask keybase
 brew install --cask whatsapp
 brew install --cask bitwarden
-brew install --cask freedome
 brew install --cask expressvpn
-brew install --cask vscode
-brew install --cask sketch 
-brew install --cask karabiner-elements
+brew install --cask visual-studio-code
 
 # Install general packages
 brew install git
