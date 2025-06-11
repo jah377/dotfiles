@@ -40,12 +40,17 @@ brew install neovim
 brew install python@3.12
 brew install uv
 
-# Tile manager + menu bar
+# Install window manager
 brew install --cask nikitabobko/tap/aerospace
 brew tap FelixKratz/formulae
 brew install felixkratz/formulae/borders 
+
+# Install custom menubar
 brew install sketchybar
 brew install --cask font-hack-nerd-font
+brew install --casks font-sketchybar-app-font
+brew install --cask sf-symbols
+brew install font-sf-pro
 
 # Remove outdated versions
 brew cleanup

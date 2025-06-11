@@ -184,6 +184,10 @@ defaults write com.apple.dock showhidden -bool true
 # Don’t show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
+# Group windows by application. 
+# See: https://nikitabobko.github.io/AeroSpace/guide#a-note-on-mission-control
+defaults write com.apple.dock expose-group-apps -bool true
+
 killall Dock # MUST BE LAST
 
 ###############################################################################
