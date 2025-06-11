@@ -38,5 +38,14 @@ brew install uv
 # Install window manager
 brew install --cask nikitabobko/tap/aerospace
 
+# Install custom menubar
+brew tap FelixKratz/formulae
+brew install sketchybar
+brew install --cask font-hack-nerd-font
+chmod +x ~/dotfiles/sketchybar/.config/sketchybar/plugins/*
+
+brew services start sketchybar
+
+
 # Remove outdated versions
 brew cleanup
