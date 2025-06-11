@@ -13,7 +13,7 @@
 # Must add 'brew' to path before we can use
 touch /Users/$USER/.zprofile
 echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> $HOME/.zprofile
-echo eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Make sure we’re using the latest Homebrew
 brew update
