@@ -40,7 +40,8 @@ brew install uv
 # Install window manager
 brew install --cask nikitabobko/tap/aerospace
 brew tap FelixKratz/formulae
-brew install felixkratz/formulae/borders 
+brew install felixkratz/formulae/borders
+brew services start felixkratz/formulae/borders
 
 # Install custom menubar
 brew install sketchybar
