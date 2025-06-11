@@ -41,12 +41,13 @@ brew install --cask nikitabobko/tap/aerospace
 
 # Install custom menubar
 brew tap FelixKratz/formulae
+brew install borders
 brew install sketchybar
 brew install --cask font-hack-nerd-font
 chmod +x ~/dotfiles/sketchybar/.config/sketchybar/plugins/*
 
 brew services start sketchybar
-
+brew services start borders
 
 # Remove outdated versions
 brew cleanup

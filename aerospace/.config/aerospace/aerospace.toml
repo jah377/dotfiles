@@ -6,7 +6,17 @@
 after-login-command = []
 
 # See: https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
+after-startup-command = [
+    # See: https://nikitabobko.github.io/AeroSpace/goodness#
+    'exec-and-forget sketchybar',
+    'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
+]
+
+exec-on-workspace-change = [
+    # See: https://nikitabobko.github.io/AeroSpace/goodness#
+    '/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
 
 start-at-login = true # default: false
 
