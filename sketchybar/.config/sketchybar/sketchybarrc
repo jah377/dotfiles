@@ -1,19 +1,20 @@
 ##### Example Configurations #####
 # https://github.com/forteleaf/sketkchybar-with-aerospace/
 # https://github.com/josean-dev/dev-environment-files/tree/main/.config/sketchybar
+# https://www.josean.com/posts/sketchybar-setup
 
-##### Define Directories #####
+source "$CONFIG_DIR/colors.sh"
+
 PLUGIN_DIR="$CONFIG_DIR/plugins"
-ITEMS_DIR="$CONFIG_DIR/items"
+ITEMS_DIR="$CONFIG_DIR/items"s
 
-##### Bar Appearance #####
-# Configuring the general appearance of the bar.
-# These are only some of the options available. For all options see:
-# https://felixkratz.github.io/SketchyBar/config/bar
-# If you are looking for other colors, see the color picker:
-# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
-
-sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000
+sketchybar --bar height=37        \
+                 blur_radius=30   \
+                 position=top     \
+                 sticky=off       \
+                 padding_left=10  \
+                 padding_right=10 \
+                 color=$BAR_COLOR
 
 ##### Default Property of Sketchybar Items #####
 # See: https://felixkratz.github.io/SketchyBar/config/items
