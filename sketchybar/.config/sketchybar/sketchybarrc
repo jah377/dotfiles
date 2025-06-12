@@ -16,9 +16,9 @@ sketchybar --bar height=37        \
                  padding_right=10 \
                  color=$BAR_COLOR
 
-sketchybar --default icon.font="SF Pro:Regular:17.0"  \
+sketchybar --default icon.font="SF Pro:Regular:15.0"  \
                      icon.color=$WHITE                \
-                     label.font="SF Pro:Regular:14.0" \
+                     label.font="SF Pro:Regular:15.0" \
                      label.color=$WHITE               \
                      padding_left=5                   \
                      padding_right=5                  \
