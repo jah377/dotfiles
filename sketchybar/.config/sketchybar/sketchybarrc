@@ -6,7 +6,7 @@
 source "$CONFIG_DIR/colors.sh"
 
 PLUGIN_DIR="$CONFIG_DIR/plugins"
-ITEMS_DIR="$CONFIG_DIR/items"s
+ITEMS_DIR="$CONFIG_DIR/items"
 
 sketchybar --bar height=37        \
                  blur_radius=30   \
@@ -16,22 +16,16 @@ sketchybar --bar height=37        \
                  padding_right=10 \
                  color=$BAR_COLOR
 
-##### Default Property of Sketchybar Items #####
-# See: https://felixkratz.github.io/SketchyBar/config/items
-
-default=(
-  padding_left=5
-  padding_right=5
-  icon.font="Hack Nerd Font:Bold:17.0"
-  label.font="Hack Nerd Font:Bold:14.0"
-  icon.color=0xffffffff
-  label.color=0xffffffff
-  icon.padding_left=4
-  icon.padding_right=4
-  label.padding_left=4
-  label.padding_right=4
-)
-sketchybar --default "${default[@]}"
+sketchybar --default icon.font="SF Pro:Regular:17.0"  \
+                     icon.color=$WHITE                \
+                     label.font="SF Pro:Regular:14.0" \
+                     label.color=$WHITE               \
+                     padding_left=5                   \
+                     padding_right=5                  \
+                     label.padding_left=4             \
+                     label.padding_right=4            \
+                     icon.padding_left=4              \
+                     icon.padding_right=4
 
 ##### Adding Aerospace Workspace Indicators #####
 # See: https://nikitabobko.github.io/AeroSpace/goodness#show-aerospace-workspaces-in-sketchybar

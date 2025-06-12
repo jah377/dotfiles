@@ -44,6 +44,8 @@ brew tap FelixKratz/formulae
 brew install borders
 brew install sketchybar
 brew install --cask font-hack-nerd-font
+brew install font-sf-pro
+brew install --cask sf-symbols
 chmod +x ~/dotfiles/sketchybar/.config/sketchybar/plugins/*
 
 brew services start sketchybar
