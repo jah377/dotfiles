@@ -49,7 +49,7 @@ automatically-unhide-macos-hidden-apps = true
     inner.vertical =   10
     outer.left =       10
     outer.bottom =     10
-    outer.top =        47
+    outer.top =        47 # sketchybarrc >> -- bar height=37
     outer.right =      10
 
 # 'main' binding mode declaration
