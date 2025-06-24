@@ -40,7 +40,7 @@ brew install --cask nikitabobko/tap/aerospace
 
 # Install terminal
 brew install --cask alacritty
-brew install font-meslo-lg-nerd-font
+brew install --cask font-meslo-lg-nerd-font
 
 # Remove outdated versions
 brew cleanup
