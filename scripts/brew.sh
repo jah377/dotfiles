@@ -41,7 +41,11 @@ brew install --cask nikitabobko/tap/aerospace
 # Install terminal
 brew install --cask alacritty
 brew install --cask font-meslo-lg-nerd-font
-brew install powerlevel10k
+brew install powerlevel10k # improve CLI header
+brew install zsh-autosuggestions 
+brew install zsh-syntax-highlighting
+
+brew install eza # improve `ls`
 
 # Remove outdated versions
 brew cleanup
