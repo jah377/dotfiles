@@ -27,7 +27,6 @@ brew install --cask whatsapp keybase
 brew install --cask bitwarden
 brew install --cask expressvpn
 brew install --cask visual-studio-code
-brew install --cask alacritty
 
 # Install general packages
 brew install git
@@ -38,6 +37,10 @@ brew install uv
 
 # Install window manager
 brew install --cask nikitabobko/tap/aerospace
+
+# Install terminal
+brew install --cask alacritty
+brew install font-meslo-lg-nerd-font
 
 # Remove outdated versions
 brew cleanup
