@@ -4,3 +4,7 @@
     decorations = "Buttonless" # remove macOS buttons
     opacity = 0.8
     blur = true
+
+[font]
+    size = 16
+    normal.family = "MesloLGS Nerd Font Mono"
