@@ -27,6 +27,7 @@ brew install --cask whatsapp keybase
 brew install --cask bitwarden
 brew install --cask expressvpn
 brew install --cask visual-studio-code
+brew install --cask alacritty
 
 # Install general packages
 brew install git
