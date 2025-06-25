@@ -52,8 +52,5 @@ chmod +x ~/dotfiles/sketchybar/.config/sketchybar/items/*
 
 curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.16/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
 
-brew services start sketchybar
-brew services start borders
-
 # Remove outdated versions
 brew cleanup
