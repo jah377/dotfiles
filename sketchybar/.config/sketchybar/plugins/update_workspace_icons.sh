@@ -20,7 +20,7 @@ get_workspace_icons() {
     if [ "${sid_apps}" != "" ]; then
         icon_strip=" "
         while read -r sid_apps; do
-            icon_strip+=" $($CONFIG_DIR/plugins/icon_map_fn.sh "$sid_apps")"
+            icon_strip+="$($CONFIG_DIR/plugins/icon_map_fn.sh "$sid_apps")"
         done <<<"${sid_apps}"
     else
         icon_strip=" —"
