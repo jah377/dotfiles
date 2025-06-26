@@ -5,4 +5,4 @@
 # Make sure it's executable with:
 # chmod +x ~/.config/sketchybar/plugins/calendar.sh
 
-sketchybar --set $NAME label="$(date +'%a %D [ %H:%M ]')"
+sketchybar --set $NAME label="$(date +'%a %D')"

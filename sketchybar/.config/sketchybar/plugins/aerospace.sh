@@ -7,15 +7,20 @@
 
 source "$CONFIG_DIR/colors.sh" # Loads all defined colors
 
-#### Activate `background.drawing` only for active worksapce
+#### Activate `background.drawing` only for active workspace
 
-if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
-  sketchybar --set $NAME background.drawing=on \
-                         background.color=$ACCENT_COLOR \
-                         label.color=$BAR_COLOR \
-                         icon.color=$BAR_COLOR
-else
-  sketchybar --set $NAME background.drawing=off \
-                         label.color=$ACCENT_COLOR \
-                         icon.color=$ACCENT_COLOR
+if [ "$SENDER" = "aerospace_workspace_change" ]; then
+  if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
+    sketchybar --set $NAME background.drawing=on \
+                           background.color=$ACCENT_COLOR \
+                           label.color=$BAR_COLOR \
+                           icon.color=$BAR_COLOR
+  else
+    sketchybar --set $NAME background.drawing=off \
+                           label.color=$ACCENT_COLOR \
+                           icon.color=$ACCENT_COLOR
+  fi
 fi
+
+source "$CONFIG_DIR/plugins/update_workspace_icons.sh"
+
