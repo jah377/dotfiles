@@ -50,7 +50,8 @@ brew install jq
 chmod +x ~/dotfiles/sketchybar/.config/sketchybar/plugins/*
 chmod +x ~/dotfiles/sketchybar/.config/sketchybar/items/*
 
-curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.16/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
+# Periodically check for latest version
+curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.39/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
 
 # Install terminal
 brew install --cask alacritty
