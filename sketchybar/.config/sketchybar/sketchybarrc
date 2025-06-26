@@ -36,6 +36,7 @@ source $ITEM_DIR/front_app.sh
 
 ##### RIGHT Side Items #####
 
+source $ITEM_DIR/clock.sh
 source $ITEM_DIR/calendar.sh
 source $ITEM_DIR/battery.sh
 source $ITEM_DIR/cpu.sh
