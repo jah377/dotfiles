@@ -30,4 +30,4 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # ---- Eza (better ls) -----
 
-alias ls="eza --colors=always --icons=always --long"
+alias ls="eza --color=always --icons=always --long"
