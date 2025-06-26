@@ -5,29 +5,51 @@
 # Make sure it's executable with:
 # chmod +x ~/.config/sketchybar/plugins/battery.sh
 
-PERCENTAGE=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
+source "$CONFIG_DIR/colors.sh" # Loads all defined colors
+
+BATT_PERCENT=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
 CHARGING=$(pmset -g batt | grep 'AC Power')
 
-if [ $PERCENTAGE = "" ]; then
+if [ $BATT_PERCENT = "" ]; then
   exit 0
 fi
 
-case ${PERCENTAGE} in
-  9[0-9]|100) ICON="􀛨"
-  ;;
-  [6-8][0-9]) ICON="􀺸"
-  ;;
-  [3-5][0-9]) ICON="􀺶"
-  ;;
-  [1-2][0-9]) ICON="􀛩"
-  ;;
-  *) ICON="􀛪"
-esac
-
 if [[ $CHARGING != "" ]]; then
-  ICON="􀢋"
+  # sf-pro >> battery.100percent.bolt
+  ICON="􀢋" 
+else
+  case ${BATT_PERCENT} in
+    # sf-pro >> battery.100percent
+    100) ICON="􀛨" ;;
+    # sf-pro >> battery.75percent
+    9[0-9]) ICON="􀺸" ;;
+    8[0-9]) ICON="􀺸" ;;
+    7[0-9]) ICON="􀺸" ;;
+    # sf-pro >> battery.50percent
+    6[0-9]) ICON="􀺶" ;;
+    5[0-9]) ICON="􀺶" ;;
+    4[0-9]) ICON="􀺶" ;;
+    # sf-pro >> battery.25percent
+    3[0-9]) ICON="􀛩" ;;
+    2[0-9]) ICON="􀛩" ;;
+    # sf-pro >> battery.0percent
+    1[0-9]) ICON="􀛪" ;;
+    *) ICON="􀛪";;
+  esac
 fi
 
-# The item invoking this script (name $NAME) will get its icon and label
-# updated with the current battery status
-sketchybar --set $NAME icon="$ICON" label="${PERCENTAGE}%"
+case ${BATT_PERCENT} in
+  9[0-9]|100) BATT_COLOR=$GREEN ;;
+  [6-8][0-9]) BATT_COLOR=$YELLOW ;;
+  [3-5][0-9]) BATT_COLOR=$ORANGE ;;
+  [1-2][0-9]) BATT_COLOR=$RED ;;
+  *) BATT_COLOR=$RED
+esac
+ 
+battery_settings=(
+  icon="$ICON"
+  icon.color=$BATT_COLOR
+  label="${BATT_PERCENT}%"
+)
+
+sketchybar --set $NAME "${battery_settings[@]}"

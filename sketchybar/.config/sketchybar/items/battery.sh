@@ -6,7 +6,6 @@
 # chmod +x ~/.config/sketchybar/items/battery.sh
 
 battery_settings=(
-    icon.color=$WHITE
     label.color=$WHITE
     update_freq=120
     script="$PLUGIN_DIR/battery.sh"
