@@ -52,5 +52,14 @@ chmod +x ~/dotfiles/sketchybar/.config/sketchybar/items/*
 
 curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.16/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
 
+# Install terminal
+brew install --cask alacritty
+brew install --cask font-meslo-lg-nerd-font
+brew install powerlevel10k # improve CLI header
+brew install zsh-autosuggestions 
+brew install zsh-syntax-highlighting
+
+brew install eza # improve `ls`
+
 # Remove outdated versions
 brew cleanup

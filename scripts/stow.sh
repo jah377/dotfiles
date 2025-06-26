@@ -8,5 +8,5 @@ cd dotfiles
 stow aerospace
 stow backgrounds
 
-rm -f ~/.zprofile
-stow zprofile
+rm -f ~/.zprofile ~/.p10k.zsh ~/.zshrc
+stow zsh
