@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 #
-# Script Name: osx.sh
-# Description: Configure osx settings
-# Notes: 
+# SCRIPT NAME: osx.sh
+#
+# DESCRIPTION: Configure osx settings
+#
+# NOTES: 
 # - https://github.com/michaelx/dotfiles/blob/master/.macos
 # - https://github.com/mathiasbynens/dotfiles/blob/main/.macos
 
@@ -57,10 +59,6 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 
 # Disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-
-# Set a blazingly fast keyboard repeat rate (were 2 and 15).
-defaults write NSGlobalDomain KeyRepeat -int 1
-defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
 # Set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
