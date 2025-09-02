@@ -6,7 +6,11 @@
 
 cd dotfiles
 stow aerospace
+stow alacritty
 stow backgrounds
+stow karabiner
+stow nvim
+stow sketchybar
 
 rm -f ~/.zprofile ~/.p10k.zsh ~/.zshrc
 stow zsh
