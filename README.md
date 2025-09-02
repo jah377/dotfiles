@@ -8,49 +8,62 @@
 
 My dotfiles to setup a dev environment in a **MacOS** machine. Configuration files are managed using GNU Stow.
 
-## Scripts
+# Before Cloning the Repo
 
-- `scripts/brew.sh`: Download `homebrew`; install applications
-- `scripts/osx.sh`: Configure **MacOS** settings
-- `scripts/git.sh`: Configure `git` and create key for github
-- `scripts/stow.sh`: Create desired symulinks
+## Install Homebrew
 
-## Setup
-
-1. Download repository zip from github.com
-
-2. Install `homebrew` and configure **MacOS**
-
-```sh
-bash brew.sh
-bash osx.sh
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-3. Configure `git` and add SSH key to github
+## Install and Configure Git
 
-```sh
-bash git.sh
+```
+brew install git
+
+# to configure user values logged to each commit
+git config --global user.name <user>
+git config --global user.email <user_email>
+
+# to generate ssh-key and link to github account
+ssh-keygen -t ed25519 -C <user_email>
+eval "$(ssh-agent -s)"         # start ssh-agent process, add env vars to shell
+ssh-add ~/.ssh/id_ed25519      # load key into ssh-agent
+pbcopy < ~/.ssh/id_ed25519.pub # copy key to clipboard; paste into github
 ```
 
-4. Delete repository zip and clone from github
+# Setup Development Environment
+## Clone Repository 
 
-```sh
-rm -rf ~/Downloads/dotfiles-main
+```
 git clone git@github.com:jah377/dotfiles.git
 ```
 
-5. Symulink configuration files
+## Run Configuration Scripts
 
-```sh
-bash stow.sh
+```
+# to configure macOS settings
+bash ~/dotfiles/scripts/osx.sh
+
+# to download required packages
+bash ~/dotfiles/scripts/brew.sh
+
+# to create symlinks to configuration files
+bash ~/dotfiles/scripts/stow.sh
 ```
 
-## Application-Specific Setup
+## Add Custom Keyboard Input
 
-- `raycast`: 
-- `whatsapp`: 
-- `keybase`:
-- `proton-mail`:
-- `proton-drive`:
+By default in MacOS, `option+<key>` returns a symbol. This is annoying as many
+apps use `option` for keybindings. This cannot be addressed natively. Instead,
+I made a custom keboard bundle `ABC_wo_opt_symbols.bundle` using `ukelele`.
 
+To use, you must copy the file to `/Library`, select in System Settings >>
+Keyboard >> Text Input, and restart the computer 
 
+```
+# to copy custom keyboard layout
+cp -R ~/dotfiles/custom_keyboard/ABC_wo_opt_symbols.bundle ~/Library/Keyboard\ Layout
+```
+
+k
