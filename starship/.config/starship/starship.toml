@@ -32,15 +32,19 @@ truncate_to_repo = false
 "Downloads" = " "
 "Music" = " "
 "Pictures" = " "
+read_only = " 󰌾"
 
 [git_branch]
-style = "fg:green"
-symbol = " "
-format = "[on](white) [$symbol$branch ]($style)"
+style = 'fg:green'
+symbol = ' '
+format = '[on](white) [$symbol$branch ]($style)'
 
 [git_status]
-style = "fg:red"
-format = "([$all_status$ahead_behind]($style) )"
+style = 'fg:red'
+format = '([$all_status$ahead_behind]($style) )'
+
+[git_commit]
+tag_symbol = "  "
 
 [fill]
 symbol = " "
@@ -57,37 +61,23 @@ style = "fg:gray"
 format = "[$duration]($style)"
 
 [palettes.catppuccin_macchiato]
-rosewater = "#f4dbd6"
-flamingo = "#f0c6c6"
-pink = "#f5bde6"
-mauve = "#c6a0f6"
-red = "#ed8796"
-maroon = "#ee99a0"
-peach = "#f5a97f"
-yellow = "#eed49f"
-green = "#a6da95"
-teal = "#8bd5ca"
-sky = "#91d7e3"
-sapphire = "#7dc4e4"
-blue = "#8aadf4"
-lavender = "#b7bdf8"
-text = "#cad3f5"
-subtext1 = "#b8c0e0"
-subtext0 = "#a5adcb"
-overlay2 = "#939ab7"
-overlay1 = "#8087a2"
-overlay0 = "#6e738d"
-surface2 = "#5b6078"
-surface1 = "#494d64"
-surface0 = "#363a4f"
-base = "#24273a"
-mantle = "#1e2030"
-crust = "#181926"
+dark_blue='#61afef'
+blue='#56b6c2'
+red='#e06c75'
+green='#98c379'
+purple='#c678dd'
+cyan='#56b6c2'
+orange='#be5046'
+yellow='#e5c07b'
+gray='#828997'
+white ='#abb2bf'
+black='#2c323c'
 
 [aws]
 symbol = " "
 style = "yellow"
-format = "[$symbol($profile )(\[$duration\] )]($style)"
+# format = "[$symbol($profile )(\[$duration\] )]($style)"
+format = '[$symbol($profile )[$duration] ]($style)'
 
 [buf]
 symbol = " "
@@ -116,9 +106,6 @@ symbol = " "
 [deno]
 symbol = " "
 
-[directory]
-read_only = " 󰌾"
-
 [docker_context]
 symbol = " "
 style = "fg:#06969A"
@@ -140,12 +127,6 @@ symbol = " "
 
 [gcloud]
 symbol = "  "
-
-[git_branch]
-symbol = " "
-
-[git_commit]
-tag_symbol = "  "
 
 [golang]
 symbol = " "
@@ -261,9 +242,10 @@ symbol = "󰏗 "
 [python]
 style = "teal"
 symbol = " "
-format = "[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)"
+# format = "[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)"
+format = "[${symbol}${pyenv_prefix}(${version} )($virtualenv )]($style)"
 pyenv_version_name = true
-pyenv_prefix = ""
+pyenv_prefix = ""   # optional: removes prefix like "pyenv "
 
 [rlang]
 symbol = "󰟔 "

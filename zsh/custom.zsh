@@ -7,6 +7,10 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Starship
+export STARSHIP_CONFIG="$HOME/dotfiles/starship/.config/starship/starship.toml"
+eval "$(starship init zsh)"
+
 # zoxide - a better cd command
 eval "$(zoxide init zsh)"
 
