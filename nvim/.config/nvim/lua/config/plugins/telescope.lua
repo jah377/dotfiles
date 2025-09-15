@@ -1,42 +1,52 @@
+-- plugins/telescope.lua
+-- Fuzzy finder for nvim
+
 return {
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.8",
+    event = "VimEnter",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      -- Use `fzf` for faster fuzzy finding
-      -- Must include `require("telescope").load_extension("fzf")` to use
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { "nvim-telescope/telescope-ui-select.nvim" },
+      -- Useful for getting pretty icons, but requires a Nerd Font.
+      { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
     },
     config = function()
-      require("telescope").load_extension("fzf")
+      -- See `:help telescope` and `:help telescope.setup()`
+      require("telescope").setup({
+        extensions = {
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown(),
+          },
+        },
+      })
 
-      -- Find help documentation
-      vim.keymap.set("n", "<space>fh", require("telescope.builtin").help_tags)
+      -- Enable Telescope extensions if they are installed
+      pcall(require("telescope").load_extension, "fzf")
+      pcall(require("telescope").load_extension, "ui-select")
 
-      -- Find files in current directory
-      vim.keymap.set("n", "<space>fd", require("telescope.builtin").find_files)
+      -- See `:help telescope.builtin`
+      local builtin = require("telescope.builtin")
+      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[F]ind [H]elp" })
+      vim.keymap.set("n", "<leader>fm", builtin.man_pages, { desc = "[F]ind [H]elp" })
+      vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[F]ind [K]eymaps" })
+      vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
+      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[F]ind open [B]uffers" })
+      vim.keymap.set("n", "<leader>fp", builtin.git_files, { desc = "[F]ind git [P]roject files" })
+      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[F]ind directory [F]iles" })
+      vim.keymap.set("n", "<leader>ft", builtin.treesitter, { desc = "[F]ind [T]reesitter" })
+      vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "[F]ind [R]esume search" })
+      vim.keymap.set("n", "<leader>fz", builtin.current_buffer_fuzzy_find, { desc = "[F]ind fuz[Z]y in buffer" })
 
-      -- Find config files
-      vim.keymap.set("n", "<space>fn", function()
-        require("telescope.builtin").find_files {
-          cwd = vim.fn.stdpath("config")
-        }
-      end)
-
-      -- Find plugin package files
-      vim.keymap.set("n", "<space>fp", function()
-        require("telescope.builtin").find_files {
-          cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy")
-        }
-      end)
-
-      -- Find open buffers
-      vim.keymap.set("n", "<space>fb", function()
-        require("telescope.builtin").buffers {
-          sort_mru = true, ignore_current_buffer = true
-        }
-      end)
-    end
-  }
+      -- Grep
+      vim.keymap.set("n", "<leader>fgs", builtin.grep_string, { desc = "[F]ind [G]rep for [S]tring" })
+      vim.keymap.set("n", "<leader>fgd", function()
+        builtin.live_grep({ grep_open_files = false, prompt_title = "Live Grep in Directory" })
+      end, { desc = "[F]ind [G]rep for [D]irectory files" })
+      vim.keymap.set("n", "<leader>fgo", function()
+        builtin.live_grep({ grep_open_files = true, prompt_title = "Live Grep in Open Files" })
+      end, { desc = "[F]ind [G]rep for [O]pen files" })
+    end,
+  },
 }

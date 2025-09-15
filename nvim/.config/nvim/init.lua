@@ -1,9 +1,13 @@
-require("config.lazy")
+-- init.lua
+-- Main entry point for Neovim configuration
 
-vim.opt.shiftwidth = 4	-- n spaces per tab
-vim.opt.clipboard = "unnamedplus" -- allow paste from clipboard
-vim.opt.number = true
-vim.opt.relativenumber = true
+-- core settings
+require("config.options")
+require("config.keymaps")
+require("config.autocmds")
+
+-- 3rd party plugins
+require("config.lazy")
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
