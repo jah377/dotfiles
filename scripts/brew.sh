@@ -4,7 +4,7 @@
 #
 # DESCRIPTION: Install apps/libraries on fresh macOS
 #
-# NOTE: 
+# NOTE:
 # - Inspired by https://github.com/protiumx/.dotfiles/
 # - Call 'brew outdated' to view outdated packages
 # - Call 'brew upgrade <formula>' to update package
@@ -29,7 +29,9 @@ brew install git  # version control tool
 brew install stow # dotfile symlink-farm manager
 
 brew install --cask visual-studio-code
+
 brew install neovim
+brew install npm # required for :Mason
 
 brew tap d12frosted/emacs-plus
 brew install --cask emacs-app
@@ -49,6 +51,6 @@ brew install lazygit          # terminal-based git client
 brew install zsh-autosuggestions     # improved autosuggestions
 brew install zsh-syntax-highlighting # improved highlighting
 brew install eza                     # improve ls command
-brew install zoxide 		     # improve cd command
+brew install zoxide                  # improve cd command
 
-brew install --cask font-fira-code-nerd-fonts 
+brew install --cask font-fira-code-nerd-fonts
