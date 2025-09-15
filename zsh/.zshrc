@@ -1,33 +1,19 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# zsh options
+HISTFILE=~/.zsh_history
+HISTSIZE=5000        # lines kept in memory
+SAVEHIST=5000        # lines saved to file
 
-# Must activate powerlevel10k theme
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+setopt APPEND_HISTORY     # Don’t overwrite, append new commands
+setopt HIST_IGNORE_DUPS   # Ignore duplicate commands
+setopt HIST_IGNORE_SPACE  # Ignore commands starting with a space
+setopt SHARE_HISTORY      # Share history across all shells
+setopt HIST_VERIFY        # Don't automatically run cmd from history
+setopt HIST_EXPIRE_DUPS_FIRST  # Drop duplicates when trimming history file
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+bindkey '^[[A' history-search-backward  # Up arrow: search back for matching prefix
+bindkey '^[[B' history-search-forward   # Down arrow: search forward for matching prefix
 
-# Better zsh history completion functionality
-HISTFILE=$HOME/.zhistory
-SAVEHIST=1000
-HISTSIZE=999
-setopt share_history
-setopt hist_expire_dups_first
-setopt hist_ignore_dups
-setopt hist_verify
-
-bindkey '^[[A' history-search-backward # up-arrow
-bindkey '^[[B' history-search-forward  # down-arrow
-
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# Better syntax highlighting
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# ---- Eza (better ls) -----
-
-alias ls="eza --color=always --icons=always --long"
+# customizations
+[ -f "$HOME/dotfiles/zsh/custom.zsh" ] && source "$HOME/dotfiles/zsh/custom.zsh"
+[ -f "$HOME/dotfiles/zsh/vi_mode.zsh" ] && source "$HOME/dotfiles/zsh/vi_mode.zsh"
+[ -f "$HOME/dotfiles/zsh/aliases.zsh" ] && source "$HOME/dotfiles/zsh/aliases.zsh"
