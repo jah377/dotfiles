@@ -6,7 +6,7 @@
 
 cd dotfiles
 stow aerospace
-stow alacritty
+stow wezterm
 stow backgrounds
 stow karabiner
 stow nvim

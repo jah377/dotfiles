@@ -42,13 +42,13 @@ brew install poetry # package/dependency manager
 
 # ---- Terminal ----
 
-brew install --cask alacritty # terminal
-brew install --cask kitty     # terminal emulator
+brew install --cask wezterm   # terminal emulator
+brew install starship         # shell prompt
 brew install lazygit          # terminal-based git client
 
-brew install powerlevel10k           # zsh theme
 brew install zsh-autosuggestions     # improved autosuggestions
 brew install zsh-syntax-highlighting # improved highlighting
 brew install eza                     # improve ls command
+brew install zoxide 		     # improve cd command
 
-brew install --cask font-meslo-lg-nerd-font # font for terminal
+brew install --cask font-fira-code-nerd-fonts 
