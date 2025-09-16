@@ -7,5 +7,13 @@ alias lg="lazygit"
 alias n="nvim"
 
 # Commands
-alias ls="eza --all --icons=always" # better `ls`
+alias ls="eza -la --icons" # list, hidden, icons
+alias lst="eza -laT --icons" # list-tree, hidden, icons
 alias cd="z" # better `cd`
+
+# Directories
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
