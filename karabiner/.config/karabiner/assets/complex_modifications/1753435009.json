@@ -1,8 +1,8 @@
 {
-  "title": "Change caps_lock to dual keys, escape and left_control.",
+  "title": "Tap Caps Lock for ESC or Hold for Control",
   "rules": [
     {
-      "description": "Change caps_lock to left_control if pressed with other keys, change caps_lock to escape if pressed alone.",
+      "description": "Tap Caps Lock for ESC or Hold for Control",
       "manipulators": [
         {
           "type": "basic",
@@ -16,7 +16,8 @@
           },
           "to": [
             {
-              "key_code": "left_control"
+              "key_code": "left_control",
+              "lazy": true
             }
           ],
           "to_if_alone": [
