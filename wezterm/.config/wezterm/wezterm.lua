@@ -8,10 +8,10 @@ config = {
 	window_close_confirmation = "NeverPrompt",
 	window_decorations = "RESIZE", -- disable title bar; able to resize window
 	window_padding = {
-		left = 10,
-		right = 10,
-		top = 10,
-		bottom = 10,
+		left = 5,
+		right = 5,
+		top = 5,
+		bottom = 0,
 	},
 	default_cursor_style = "SteadyBlock",
 	color_scheme = "Catppuccin Macchiato (Gogh)",
