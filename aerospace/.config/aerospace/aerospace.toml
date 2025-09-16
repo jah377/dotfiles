@@ -1,69 +1,68 @@
-# Notes:
-# - https://github.com/josean-dev/dev-environment-files/blob/main/.config/aerospace/aerospace.toml
-# - https://github.com/omerxx/dotfiles/blob/master/aerospace/aerospace.toml
+start-at-login = true
 
-# See: https://nikitabobko.github.io/AeroSpace/commands
-after-login-command = [
-    'exec-and-forget sketchybar --trigger aerospace_workspace_change',
-    'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
-]
 
 # See: https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-    'exec-and-forget sketchybar --trigger aerospace_workspace_change',
+    # Borders used to indicate active window in AeroSpace workspace
     'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
 ]
 
-exec-on-workspace-change = [
-    '/bin/bash', '-c', 'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
-]
 
-start-at-login = true # default: false
+# See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
 
-# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
-enable-normalization-flatten-containers = true # default
-enable-normalization-opposite-orientation-for-nested-containers = true # default
-
-# Possible values: tiles|accordion
-default-root-container-layout = 'tiles' # default
 
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
-accordion-padding = 30 # default
+default-root-container-layout = 'tiles' # tiles|accordion
+accordion-padding = 30                  # default; irrelevant since using `tiles`
 
-# Organized windows horizontally in a given workspace
-default-root-container-orientation = 'horizontal' # horizontal|vertical|auto
 
-# Mouse lazily follows focused monitor (default in i3) 
+# Possible values: horizontal|vertical|auto
+# 'auto' means: wide monitor (anything wider than high) gets horizontal orientation,
+#               tall monitor (anything higher than wide) gets vertical orientation
+default-root-container-orientation = 'auto'
+
+
+# Mouse follows focus when focused monitor changes
+# See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
+# See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
 
-# Turn off macOS "Hide application" (cmd-h) feature 
+
+# See: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
 automatically-unhide-macos-hidden-apps = true
 
-# See: https://nikitabobko.github.io/AeroSpace/guide#key-mapping
+
+# See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
-    preset = 'qwerty'
+    preset = 'qwerty' # qwerty|dvorak|colemak
+
 
 # See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
     inner.horizontal = 10
     inner.vertical =   10
-    outer.left =       10
-    outer.bottom =     10
-    outer.top =        47 # sketchybarrc >> -- bar height=37
-    outer.right =      10
+    outer.left =       2
+    outer.bottom =     2
+    outer.top =        2
+    outer.right =      2
+
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.main.binding]
+
     alt-shift-f = 'fullscreen'
 
     # See: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
-    cmd-h = [] # Disable "hide application"
+    cmd-h = []     # Disable "hide application"
     cmd-alt-h = [] # Disable "hide others"
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-    alt-slash = 'layout tiles horizontal vertical'     # default
-    alt-comma = 'layout accordion horizontal vertical' # default
+    alt-slash = 'layout tiles horizontal vertical'
+    alt-comma = 'layout accordion horizontal vertical'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
     alt-h = 'focus left'
@@ -82,20 +81,28 @@ automatically-unhide-macos-hidden-apps = true
     alt-equal = 'resize smart +50'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-    alt-1 = 'workspace 1'
-    alt-2 = 'workspace 2'
-    alt-3 = 'workspace 3'
-    alt-4 = 'workspace 4'
-    alt-5 = 'workspace 5'
-    alt-6 = 'workspace 6'
+    alt-1 = 'workspace 1-Term'
+    alt-2 = 'workspace 2-Code'
+    alt-3 = 'workspace 3-Web'
+    alt-4 = 'workspace 4-MS'
+    # alt-5 =
+    # alt-6 =
+    # alt-7 =
+    alt-8 = 'workspace 8-Mail'
+    alt-9 = 'workspace 9-Teams'
+    alt-0 = 'workspace 0-Other'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-    alt-shift-1 = 'move-node-to-workspace 1' 
-    alt-shift-2 = 'move-node-to-workspace 2'
-    alt-shift-3 = 'move-node-to-workspace 3'
-    alt-shift-4 = 'move-node-to-workspace 4'
-    alt-shift-5 = 'move-node-to-workspace 5'
-    alt-shift-6 = 'move-node-to-workspace 6'
+    alt-shift-1 = 'move-node-to-workspace 1-Term'
+    alt-shift-2 = 'move-node-to-workspace 2-Code'
+    alt-shift-3 = 'move-node-to-workspace 3-Web'
+    alt-shift-4 = 'move-node-to-workspace 4-MS'
+    # alt-shift-5 =
+    # alt-shift-6 =
+    # alt-shift-7 =
+    alt-shift-8 = 'move-node-to-workspace 8-Mail'
+    alt-shift-9 = 'move-node-to-workspace 9-Teams'
+    alt-shift-0 = 'move-node-to-workspace 0-Other'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
@@ -104,9 +111,11 @@ automatically-unhide-macos-hidden-apps = true
     alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-    alt-shift-s = 'mode service'
+    alt-shift-semicolon = 'mode service'
     alt-shift-r = 'mode resize'
 
+
+# 'resize' bidning mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
 [mode.resize.binding]
     h = 'resize width -50'
@@ -118,7 +127,8 @@ automatically-unhide-macos-hidden-apps = true
     equal = 'resize smart +50'
     esc = 'mode main'
 
-# 'service' binding mode declaration.
+
+# 'service' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
     esc = ['reload-config', 'mode main']
@@ -126,10 +136,6 @@ automatically-unhide-macos-hidden-apps = true
     f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
     backspace = ['close-all-windows-but-current', 'mode main']
 
-    # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
-    #s = ['layout sticky tiling', 'mode main']
-
-    # `join-with` combines windows into a single "node".
     alt-shift-h = ['join-with left', 'mode main']
     alt-shift-j = ['join-with down', 'mode main']
     alt-shift-k = ['join-with up', 'mode main']
@@ -138,3 +144,57 @@ automatically-unhide-macos-hidden-apps = true
     down = 'volume down'
     up = 'volume up'
     shift-down = ['volume set 0', 'mode main']
+
+
+# See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+# laptop ='built-in'
+# home monitor = 'P24q-10'
+# [AMS] left-office = 'P2422H'
+# [AMS] right-office = 'TODO'
+# [GRN] left-office = 'U2515H'
+# [GRN] right-office = 'TODO'
+[workspace-to-monitor-force-assignment]
+    '1-Term'  = ['P2422H', 'U2515H', 'P24q', 'HP 27mq', 'built-in']
+    '2-Code' = ['P2422H', 'U2515H', 'P24q', 'HP 27mq','built-in']
+    '3-Web'  = ['P2422H', 'U2515H', 'P24q', 'HP 27mq','built-in']
+    '4-MS'   = ['P2422H', 'U2515H', 'P24q', 'HP 27mq','built-in']
+    # '5-XXX' =
+    # '6-XXX' =
+    # '7-XXX' =
+    '8-Mail'   = ['built-in']
+    '9-Teams'  = ['built-in']
+    '0-Other' = ['built-in']
+
+# See: https://nikitabobko.github.io/AeroSpaceguide#on-window-detected-callback
+[[on-window-detected]]
+    if.app-name-regex-substring = 'outlook'
+    run = ['move-node-to-workspace 8-Mail']
+
+[[on-window-detected]]
+    if.app-name-regex-substring = 'teams'
+    run = ['move-node-to-workspace 9-Teams']
+
+
+[[on-window-detected]]
+    if.app-name-regex-substring = 'word|excel|powerpoint'
+    run = ['move-node-to-workspace 4-MS']
+
+[[on-window-detected]]
+    if.app-name-regex-substring = 'emacs|code|vscode'
+    run = ['move-node-to-workspace 2-Code']
+
+[[on-window-detected]]
+    if.app-name-regex-substring = 'kitty|terminal|alacritty|iTerm|wezterm'
+    run = ['move-node-to-workspace 1-Term']
+
+[[on-window-detected]]
+    if.app-name-regex-substring = 'safari|chrome|firefox|brave'
+    run = ['move-node-to-workspace 3-Web']
+
+[[on-window-detected]]
+    if.app-name-regex-substring = 'bitwarden'
+    run = ['layout floating', 'move-node-to-workspace 0-Other']
+
+[[on-window-detected]]
+    if.app-name-regex-substring = 'settings'
+    run = ['layout floating', 'move-node-to-workspace 0-Other']
