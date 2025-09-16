@@ -38,7 +38,7 @@ brew install --cask emacs-app
 
 # ---- Python Tools ----
 
-brew install uv     # packge and project manager
+brew install uv     # package and project manager
 brew install pyenv  # manage multiple python versions
 brew install poetry # package/dependency manager
 
@@ -50,7 +50,9 @@ brew install lazygit          # terminal-based git client
 
 brew install zsh-autosuggestions     # improved autosuggestions
 brew install zsh-syntax-highlighting # improved highlighting
-brew install eza                     # improve ls command
-brew install zoxide                  # improve cd command
+brew install eza    # improve ls command
+brew install zoxide # improve cd command
+brew install fd     # improved find
 
 brew install --cask font-fira-code-nerd-fonts
+brew install --cask font-jetbrains-mono-nerd-fonts

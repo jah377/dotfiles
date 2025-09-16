@@ -1,16 +1,13 @@
-#!/usr/bin/env bash
-#
-# Script Name: stow.sh
-# 
-# Setup config symlinks using GNU Stow
-
-cd dotfiles
+# Create symlinks individually
+cd ~/dotfiles
 stow aerospace
 stow wezterm
+stow starship
 stow backgrounds
 stow karabiner
 stow nvim
-stow sketchybar
+stow editorconfig
 
-rm -f ~/.zprofile ~/.p10k.zsh ~/.zshrc
+# Cannot create symlinks if files already exist
+rm -f ~/.zprofile ~/.zshrc
 stow zsh

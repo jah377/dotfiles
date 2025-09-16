@@ -4,7 +4,7 @@
 #
 # DESCRIPTION: Configure osx settings
 #
-# NOTES: 
+# NOTES:
 # - https://github.com/michaelx/dotfiles/blob/master/.macos
 # - https://github.com/mathiasbynens/dotfiles/blob/main/.macos
 
@@ -140,10 +140,10 @@ defaults write com.apple.screencapture type -string "png"
 # Menu-Bar / Dock                                                             #
 ###############################################################################
 
-# Automatically hide and show the Menu Bar
-# https://discussions.apple.com/thread/255637558?sortBy=rank
-defaults write NSGlobalDomain _HIHideMenuBar -bool true
-defaults write NSGlobalDomain AppleMenuBarVisibleInFullscreen -bool false 
+# # Automatically hide and show the Menu Bar
+# # https://discussions.apple.com/thread/255637558?sortBy=rank
+# defaults write NSGlobalDomain _HIHideMenuBar -bool true
+# defaults write NSGlobalDomain AppleMenuBarVisibleInFullscreen -bool false
 
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
@@ -157,7 +157,7 @@ defaults write com.apple.dock tilesize -int 45
 # Disable magnification animation when hovering over dock
 defaults write com.apple.dock magnification -bool false
 
-# Show dock at bottom of screen 
+# Show dock at bottom of screen
 defaults write com.apple.dock orientation -string "bottom"
 
 # Wipe all (default) app icons from the Dock
@@ -182,7 +182,7 @@ defaults write com.apple.dock showhidden -bool true
 # Don’t show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
-# Group windows by application. 
+# Group windows by application.
 # See: https://nikitabobko.github.io/AeroSpace/guide#a-note-on-mission-control
 defaults write com.apple.dock expose-group-apps -bool true
 
