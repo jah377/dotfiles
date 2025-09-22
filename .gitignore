@@ -1,3 +1,7 @@
+# To exclude hidden git files in telescope
+.git/
+.DS_Store
+
 # Emacs backup files
 *~
 \#*\#
