@@ -1,3 +1,11 @@
+#!/usr/bin/env zsh
+# ====================================================================
+#  Notes:
+#  - Keybindings using `Option` possible in wezterm due to
+#    `keys` configuration in `wezterm.lua`
+#
+# ====================================================================
+
 # zsh options
 HISTFILE=~/.zsh_history
 HISTSIZE=5000        # lines kept in memory
@@ -17,3 +25,10 @@ bindkey '^[[B' history-search-forward   # Down arrow: search forward for matchin
 [ -f "$HOME/.config/zsh/.custom.zsh" ] && source "$HOME/.config/zsh/.custom.zsh"
 [ -f "$HOME/.config/zsh/.vi_mode.zsh" ] && source "$HOME/.config/zsh/.vi_mode.zsh"
 [ -f "$HOME/.config/zsh/.aliases.zsh" ] && source "$HOME/.config/zsh/.aliases.zsh"
+
+# Functions
+fuzzy_find_dirs() {
+  local dir
+  dir=$(fzf --walker=dir) || return
+  cd "$dir" || return
+}
