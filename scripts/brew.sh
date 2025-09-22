@@ -47,12 +47,14 @@ brew install poetry # package/dependency manager
 brew install --cask wezterm   # terminal emulator
 brew install starship         # shell prompt
 brew install lazygit          # terminal-based git client
+brew install tmux             # terminal multiplexer
 
-brew install zsh-autosuggestions     # improved autosuggestions
+brew install zsh-autosuggestions     # improved auto-suggestions
 brew install zsh-syntax-highlighting # improved highlighting
 brew install eza    # improve ls command
 brew install zoxide # improve cd command
 brew install fd     # improved find
+brew install fzf    # fuzzy-finding
 
 brew install --cask font-fira-code-nerd-fonts
 brew install --cask font-jetbrains-mono-nerd-fonts
