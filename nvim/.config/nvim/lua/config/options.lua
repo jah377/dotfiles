@@ -10,11 +10,17 @@ opt.tabstop = 4 -- n spaces shown per tab
 opt.smarttab = true -- context-aware <Tab> indentation
 opt.smartindent = true -- contaxt-aware indentation on new line
 opt.autoindent = true -- copy indentation from prev. line
-opt.breakindent = true -- wrapped lines maintain indentation
 
--- Whitespace representation
+-- Whitespace
 opt.list = true -- show whitespace
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+
+-- Line wrapping
+opt.textwidth = 79 -- max line length before hard wrapping
+opt.wrap = true -- visually break long lines (soft-wrap)
+opt.breakindent = true -- soft-wrap maintains indentation as previous line
+opt.linebreak = true -- soft-wrap at word boundary
+opt.formatoptions:append("tcqvb]") --
 
 -- Line numbers
 opt.number = true -- add line numbers
