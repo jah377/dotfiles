@@ -16,7 +16,9 @@ zle -N zle-keymap-select # register as ZLE widget
 
 # Runs once when a new ZLE session starts (e.g. when a prompt appears)
 zle-line-init() {
-  zle -K viins # initiate 'vi insert' as keymap (can be removed if 'binkey -V has been set elsewhere')
+  # Initiate 'vi insert' as keymap
+  # Can be removed if 'binkey -V' has been set elsewhere
+  zle -K viins
   echo -ne '\e[6 q'
 }
 zle -N zle-line-init
