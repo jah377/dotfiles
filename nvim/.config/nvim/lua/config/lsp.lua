@@ -4,6 +4,7 @@
 -- Enable LSP servers
 -- Language-specific configuration in .config/nvim/lsp/<lang>.lua
 vim.lsp.enable("lua_ls")
+vim.lsp.enable("marksman")
 
 -- Automatically attach LSP when entering a buffer
 -- https://gpanders.com/blog/whats-new-in-neovim-0-11/#builtin-auto-completion
