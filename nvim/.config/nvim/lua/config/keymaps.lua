@@ -8,12 +8,6 @@ kmap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" }
 kmap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 kmap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
--- Simplify saving and quitting files
-kmap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true })
-kmap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true })
-kmap.set("n", "<leader>q", ":q<CR>", { noremap = true, silent = true })
-kmap.set("n", "<leader>q", ":q<CR>", { noremap = true, silent = true })
-
 -- Manipulate buffers
 kmap.set("n", "<leader>bn", ":bn<cr>", { desc = "[B]uffer [N]ext" })
 kmap.set("n", "<leader>bp", ":bp<cr>", { desc = "[B]uffer [P]revious" })
