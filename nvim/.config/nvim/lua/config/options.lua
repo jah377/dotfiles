@@ -1,7 +1,5 @@
 local opt = vim.opt
 
-vim.g.have_nerd_font = true -- must have NF installed & selected in terminal
-
 -- Indentation
 opt.expandtab = true -- convert tabs to spaces
 opt.softtabstop = 4 -- n spaces applied with <Tab>
