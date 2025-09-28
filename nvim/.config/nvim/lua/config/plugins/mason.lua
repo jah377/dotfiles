@@ -3,14 +3,15 @@ return {
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+
+    -- Useful status updates for LSP
+    -- See https://github.com/j-hui/fidget.nvim
+    -- NOTE: `opts={}` is the same as calling `require("fidget").setup({})`
+    { "j-hui/fidget.nvim", opts = {} },
   },
   config = function()
-    local mason = require("mason")
-    local mason_lspconfig = require("mason-lspconfig")
-    local mason_tool_installer = require("mason-tool-installer")
-
-    -- enable mason and configure icons
-    mason.setup({
+    -- Enable mason and configure icons
+    require("mason").setup({
       ui = {
         icons = {
           package_installed = "✓",
@@ -20,14 +21,17 @@ return {
       },
     })
 
-    mason_lspconfig.setup({
+    -- Ensured LSPs installed
+    -- Configured in `~/.config/nvim/lsp/<lsp>.lua`
+    require("mason-lspconfig").setup({
       ensure_installed = {
         "lua_ls",
         "pyright",
+        "marksmen",
       },
     })
 
-    mason_tool_installer.setup({
+    require("mason-tool-installer").setup({
       ensure_installed = {
         "prettierd", -- prettier formatter
         "stylua", -- lua formatter
