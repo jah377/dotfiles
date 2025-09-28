@@ -1,4 +1,19 @@
--- Bootstrap lazy.nvim
+-- =============================================================================
+-- TITLE : lazy.nvim
+--
+-- ABOUT :
+--   Bootstraps the 'lazy.nvim' plugin manager by cloning it if not present,
+--   preprends it to the runtime path, and initializes 'lazy.nvim' with
+--   plugins. Initialized in 'init.lua'.
+--
+-- DOCS :
+--   > lazy.nvim github  : https://github.com/folke/lazy.nvim
+--   > lazy.nvim website : https://lazy.folke.io/installation
+--
+-- TUTORIALS :
+--   > Tj Devries :  https://youtu.be/_kPg0VBRxJc?si=M-jDh69L7sXH0Ggh
+--
+-- =============================================================================
 
 -- Look for lazy.nvim in data path, otherwise clone repo
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

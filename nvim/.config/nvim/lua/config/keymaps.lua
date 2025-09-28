@@ -1,7 +1,10 @@
 -- ============================================================================
 -- TITLE: NeoVim keymaps
--- ABOUT: sets some quality-of-life keymaps
---   - Package-specific kbd defined in `~/.config/plugins/<plugin>.lua`
+--
+-- ABOUT:
+--    File sets some quality-of-life keymaps. Package-specific keymaps are
+--    define in `~/.config/plugins/<plugin>.lua`
+--
 -- ============================================================================
 
 local kmap = vim.keymap

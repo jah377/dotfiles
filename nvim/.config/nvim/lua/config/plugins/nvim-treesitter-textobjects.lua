@@ -1,3 +1,16 @@
+-- =============================================================================
+-- TITLE : nvim-treesittertextobjects.nvim
+--
+-- ABOUT : Syntax aware text-objects, select, move, swap, and peek support
+--
+-- LINKS :
+--   > github : https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+--
+-- TUTORIALS :
+--   > Mr. Jakobs : https://youtu.be/E4qXZv34NQQ?si=UmMqqCnXOlOAnV8_
+--
+-- =============================================================================
+
 return {
   "nvim-treesitter/nvim-treesitter-textobjects",
   dependencies = {

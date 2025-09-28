@@ -1,3 +1,10 @@
+-- ============================================================================
+-- TITLE : Global nvim variables
+--
+-- ABOUT : File used to define global variables used throughout config
+--
+-- ============================================================================
+
 local global = vim.g
 
 -- Set <space> as leader key

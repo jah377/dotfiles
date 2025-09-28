@@ -1,5 +1,19 @@
--- `:Inspect` to view applied highlights of object at point
--- `:InspectTree` to view tree of object at point
+-- =============================================================================
+-- TITLE : nvim-treesitter.nvim
+--
+-- ABOUT : Treesitter configurations and abstraction layer for Neovim.
+--
+-- LINKS :
+--   > github : https://github.com/nvim-treesitter/nvim-treesitter
+--
+-- TUTORIALS :
+--   > Tj Devries   : https://youtu.be/MpnjYb-t12A?si=IF_lYH1fR62-bnwd
+--   > Rad Lectures : https://www.youtube.com/watch?v=cdAMq2KcF4w&t=3324s
+--
+-- NOTES :
+--   > `:Inspect` to view applied highlights of object at point
+--   > `:InspectTree` to view tree of object at point
+-- =============================================================================
 
 return {
   {
@@ -15,6 +29,9 @@ return {
           "vimdoc",
           "query",
           "markdown",
+          "dockerfile",
+          "bash",
+          "json",
           "markdown_inline",
           "python",
         },

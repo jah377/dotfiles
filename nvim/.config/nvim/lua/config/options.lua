@@ -1,3 +1,12 @@
+-- ============================================================================
+-- TITLE : Global nvim options
+--
+-- ABOUT :
+--    File used to define global settings. See `after/ftplugin/<ft>.lua` for
+--    file-type specific settings.
+--
+-- ============================================================================
+
 local opt = vim.opt
 
 -- Indentation
