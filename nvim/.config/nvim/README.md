@@ -7,8 +7,7 @@ This configuration requires the following dependencies:
 - [fzf](https://github.com/junegunn/fzf) : to fuzzy-find/filter text, filenames, lists
 - [fd-find](https://github.com/sharkdp/fd) : to find files/directories
 - [ripgrep](https://github.com/BurntSushi/ripgrep) : to search text inside files across directories
-- [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) : to "prettify" nvim
-  with icons
+- [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) : to "prettify" nvim with icons
 
 ## Directory Structure
 
@@ -21,6 +20,7 @@ This configuration requires the following dependencies:
 │       ├── autocmds.lua  # Autocommands
 │       ├── keymaps.lua   # Key mappings
 │       ├── lazy.lua      # lazy.nvim setup
+│       ├── globals.lua   # Global variables
 │       └── options.lua   # General Neovim options
 │
 ├── lua/plugins/          # Plugin specifications (loaded by lazy.nvim)
