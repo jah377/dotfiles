@@ -1,7 +1,24 @@
+-- ================================================================================================
+-- TITLE : Mason
+--
+-- ABOUT :
+--
+-- LINKS :
+--   > github                  : https://github.com/neovim/nvim-lspconfig
+--   > mason.nvim (dep)        : https://github.com/mason-org/mason.nvim
+--   > cmp-nvim-lsp (dep)      : https://github.com/hrsh7th/cmp-nvim-lsp
+--
+-- FILES :
+--   > lsp_servers/            : Contains server-specific setting files
+--   > lsp_servers/init.lua    : Enables servers
+--   > utils/on_attach.lua     : Configure buffer-local LSP setup
+--   > utils/diagnostics.lua   : Configure LSP diagnostics
+--
+-- ================================================================================================
+
 return {
   "williamboman/mason.nvim",
   dependencies = {
-    "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
 
     -- Useful status updates for LSP
@@ -18,16 +35,6 @@ return {
           package_pending = "➜",
           package_uninstalled = "✗",
         },
-      },
-    })
-
-    -- Ensured LSPs installed
-    -- Configured in `~/.config/nvim/lsp/<lsp>.lua`
-    require("mason-lspconfig").setup({
-      ensure_installed = {
-        "lua_ls",
-        "pyright",
-        "marksmen",
       },
     })
 

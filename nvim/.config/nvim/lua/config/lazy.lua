@@ -34,9 +34,6 @@ end
 -- Hey! Put lazy into the runtimepath for neovim!
 vim.opt.rtp:prepend(lazypath)
 
--- Must setup `mapleader` and `maplocalleader` before loading lazy.nvim
--- Ensures mappings are correct; see https://lazy.folke.io/installation
-
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
