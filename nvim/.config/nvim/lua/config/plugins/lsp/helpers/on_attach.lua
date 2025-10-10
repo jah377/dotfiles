@@ -12,14 +12,7 @@
 
 local M = {}
 
-M.on_attach = function(event)
-  -- Do not configure if LSP client unavailable
-  local client = vim.lsp.get_client_by_id(event.data.client_id)
-  if not client then
-    return
-  end
-
-  local bufnr = event.buf
+M.on_attach = function(client, bufnr)
   local keymap = vim.keymap.set
   local opts = {
     noremap = true, -- prevent non-recursive mapping

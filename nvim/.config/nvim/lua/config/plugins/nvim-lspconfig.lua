@@ -46,21 +46,19 @@ return {
 
     mason_lsp.setup({ ensure_installed = servers })
 
-    -- Extend 'nvim-lspconfig' server config with customizations
+    -- Set default server configuration
+    -- See https://neovim.io/doc/user/lsp.html#vim.lsp.config()
+    vim.lsp.config("*", {
+      capabilities = capabilities,
+      on_attach = on_attach_config.on_attach,
+    })
+
+    -- Extend custom settings from 'lsp/<server>.lua', if exists
     for _, server_name in ipairs(servers) do
-      local server_config = {
-        on_attach = on_attach_config.on_attach,
-        capabilities = capabilities,
-      }
-
-      -- Concat custom settings from 'lsp/<server>.lua', if exists
-      local has_custom_config, custom_config = pcall(require, "config.plugins.lsp." .. server_name)
-      if has_custom_config then
-        server_config = vim.tbl_extend("force", server_config, custom_config)
-        print(server_config)
+      local has_lua, custom_config = pcall(require, "config.plugins.lsp" .. server_name)
+      if has_lua then
+        vim.lsp.config(server_name, custom_config)
       end
-
-      vim.lsp.config(server_name, server_config)
     end
 
     -- Setup diagnostics
