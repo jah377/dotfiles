@@ -2,7 +2,7 @@ return {
   {
     "stevearc/conform.nvim",
     event = "VeryLazy",
-    dependencies = { "WhoIsSethDaniel/mason-tool-installer.nvim" },
+    dependencies = { "WhoIsSethDaniel/mason-tool-installer.nvim", "williamboman/mason.nvim" },
     config = function()
       local mason_tools = require("mason-tool-installer")
       local conform = require("conform")
@@ -15,7 +15,12 @@ return {
 
       -- Install non-lsp tools
       mason_tools.setup({
-        ensure_installed = ensure_installed,
+        ensure_installed = {
+        "stylua", -- lua formatter
+        "ruff", -- python formatter
+        "prettierd", -- daemon markdown formatter (faster)
+        "prettier", -- markdown formatter (slower)
+      },
         auto_update = true,
         run_on_start = true,
       })

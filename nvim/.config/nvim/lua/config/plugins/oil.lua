@@ -5,6 +5,10 @@ return {
     ---@type oil.SetupOpts
     opts = {},
     dependencies = { { "echasnovski/mini.icons", opts = {} } },
+
+    -- Ensures 'oil' works correctly in all situations
+    lazy = false,
+
     config = function()
       require("oil").setup({
         columns = {

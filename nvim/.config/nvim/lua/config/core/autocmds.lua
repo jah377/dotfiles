@@ -15,6 +15,12 @@ autocmd("TextYankPost", {
   end,
 })
 
+autocmd({ "InsertLeave", "FocusLost", "BufLeave" }, {
+  desc = "Autosavefiles when switching windows",
+  pattern = { "*" },
+  command = "silent! w",
+})
+
 autocmd("FileType", {
   desc = "Automatically Split help Buffers to the right",
   pattern = "help",

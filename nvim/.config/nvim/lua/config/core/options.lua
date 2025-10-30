@@ -15,11 +15,11 @@ opt.softtabstop = 4 -- n spaces applied with <Tab>
 opt.shiftwidth = 4 -- n spaces when indenting with << & >
 opt.tabstop = 4 -- n spaces shown per tab
 opt.smarttab = true -- context-aware <Tab> indentation
-opt.smartindent = true -- contaxt-aware indentation on new line
-opt.autoindent = true -- copy indentation from prev. line
+opt.smartindent = true -- context-aware indentation on new line
+opt.autoindent = true -- copy indentation from previous line
 
--- Whitespace
-opt.list = true -- show whitespace
+-- White-space
+opt.list = true -- show white space
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Line wrapping
@@ -27,7 +27,6 @@ opt.textwidth = 79 -- max line length before hard wrapping
 opt.wrap = true -- visually break long lines (soft-wrap)
 opt.breakindent = true -- soft-wrap maintains indentation as previous line
 opt.linebreak = true -- soft-wrap at word boundary
-opt.formatoptions:append("tcqvb]") --
 
 -- Line numbers
 opt.number = true -- add line numbers
@@ -53,6 +52,7 @@ opt.smartcase = true -- override if \C or 1+ uppercase in search term
 opt.inccommand = "split" -- live preview substitutions
 
 -- Language and Spellcheck
+-- `]s` = jump to next miss
 -- `]s` (next), `[s` (prev), `]zq` (add to dict), `zw` (rm from dict)
 opt.spelllang = "en"
 opt.spell = true

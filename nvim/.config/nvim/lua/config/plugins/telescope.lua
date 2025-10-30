@@ -25,37 +25,39 @@ return {
 
     -- See `:help telescope.builtin`
     local builtin = require("telescope.builtin")
-    vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[F]ind [H]elp" })
-    vim.keymap.set("n", "<leader>fm", builtin.man_pages, { desc = "[F]ind [H]elp" })
-    vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[F]ind [K]eymaps" })
-    vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
-    vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[F]ind open [B]uffers" })
-    vim.keymap.set("n", "<leader>fp", builtin.git_files, { desc = "[F]ind git [P]roject files" })
-    vim.keymap.set("n", "<leader>ft", builtin.treesitter, { desc = "[F]ind [T]reesitter" })
-    vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "[F]ind [R]esume search" })
-    vim.keymap.set("n", "<leader>fz", builtin.current_buffer_fuzzy_find, { desc = "[F]ind fuz[Z]y in buffer" })
+    local keymap = vim.keymap
+
+    keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find Help" })
+    keymap.set("n", "<leader>fm", builtin.man_pages, { desc = "Find Man-Pages" })
+    keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Find Keymaps" })
+    keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Find Diagnostics" })
+    keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find Buffers" })
+    keymap.set("n", "<leader>fp", builtin.git_files, { desc = "Find Git Files" })
+    keymap.set("n", "<leader>ft", builtin.treesitter, { desc = "Find Treesitter Objects" })
+    keymap.set("n", "<leader>fr", builtin.resume, { desc = "Resume Search" })
+    keymap.set("n", "<leader>fz", builtin.current_buffer_fuzzy_find, { desc = "Fuzzy Find in Buffer" })
 
     -- Search files, including hidden
-    vim.keymap.set("n", "<leader>ff", function()
+    keymap.set("n", "<leader>ff", function()
       builtin.find_files({ hidden = true })
-    end, { desc = "[F]ind directory [F]iles" })
+    end, { desc = "Find All Files" })
 
-    vim.keymap.set("n", "<leader>fc", function()
+    keymap.set("n", "<leader>fc", function()
       builtin.find_files({ cwd = "~/dotfiles/", hidden = true })
-    end, { desc = "[F]ind [C]onfig files" })
+    end, { desc = "Find Config Files" })
 
     -- Search lazy package files
-    vim.keymap.set("n", "<space>fl", function()
+    keymap.set("n", "<space>fl", function()
       builtin.find_files({ cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy") })
-    end, { desc = "[F]ind [L]azy files" })
+    end, { desc = "Find Lazyvim Files" })
 
     -- Search using grep
-    vim.keymap.set("n", "<leader>fgs", builtin.grep_string, { desc = "[F]ind [G]rep for [S]tring" })
-    vim.keymap.set("n", "<leader>fgd", function()
+    keymap.set("n", "<leader>fgs", builtin.grep_string, { desc = "Grep: Strings" })
+    keymap.set("n", "<leader>fgd", function()
       builtin.live_grep({ grep_open_files = false, prompt_title = "Live Grep in Directory" })
-    end, { desc = "[F]ind [G]rep for [D]irectory files" })
-    vim.keymap.set("n", "<leader>fgo", function()
+    end, { desc = "Grep: Directory Files" })
+    keymap.set("n", "<leader>fgo", function()
       builtin.live_grep({ grep_open_files = true, prompt_title = "Live Grep in Open Files" })
-    end, { desc = "[F]ind [G]rep for [O]pen files" })
+    end, { desc = "Grep: Open Files" })
   end,
 }
