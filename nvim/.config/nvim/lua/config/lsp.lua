@@ -96,5 +96,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     opts.desc = "List document classes"
     keymap.set("n", "<leader>ltc", "<cmd>Telescope lsp_document_symbols symbols=class<CR>", opts)
+
+    -- Detach LSP clients in current buffer
+    opts.desc = "Deactivate LSP in buffer"
+    keymap.set("n", "<leader>lX", function()
+      local bufnr = vim.api.nvim_get_current_buf()
+      local active_clients = vim.lsp.get_clients({ bufnr = bufnr })
+      for _, client in ipairs(active_clients) do
+        vim.lsp.buf_detach_client(bufnr, client.id)
+      end
+    end, opts)
   end,
 })
