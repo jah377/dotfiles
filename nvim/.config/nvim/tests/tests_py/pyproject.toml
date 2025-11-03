@@ -9,3 +9,11 @@ dependencies = [
     "numpy>=2.3.4",
     "pandas>=2.3.3",
 ]
+
+[tool.ruff]
+include = ["*.py"]
+indent-width = 4
+line-length = 79
+
+[tool.isort]
+float_to_top=true
