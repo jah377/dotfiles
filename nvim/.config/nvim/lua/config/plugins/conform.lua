@@ -2,25 +2,26 @@ return {
   {
     "stevearc/conform.nvim",
     event = "VeryLazy",
-    dependencies = { "WhoIsSethDaniel/mason-tool-installer.nvim", "williamboman/mason.nvim" },
+    dependencies = {
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+      "williamboman/mason.nvim",
+    },
+
     config = function()
       local mason_tools = require("mason-tool-installer")
       local conform = require("conform")
+
       local ensure_installed = {
         "stylua", -- lua formatter
         "ruff", -- python formatter
+        "isort", -- python imports formatter
         "prettierd", -- daemon markdown formatter (faster)
         "prettier", -- markdown formatter (slower)
       }
 
       -- Install non-lsp tools
       mason_tools.setup({
-        ensure_installed = {
-        "stylua", -- lua formatter
-        "ruff", -- python formatter
-        "prettierd", -- daemon markdown formatter (faster)
-        "prettier", -- markdown formatter (slower)
-      },
+        ensure_installed = ensure_installed,
         auto_update = true,
         run_on_start = true,
       })
@@ -30,8 +31,11 @@ return {
         formatters_by_ft = {
           lua = { "stylua" },
           python = {
-            "ruff_format", -- to run the ruff formatter
-            "ruff_fix", -- to fix auto-fixable lint errors
+            "isort",
+            "ruff_format", -- fix lint errors
+            "ruff_fix", -- formatter subcommand
+            -- -- Use isort for isort.float_to_top=true
+            -- "ruff_organize_imports", -- organize imports
           },
           markdown = { "prettierd", "prettier", stop_after_first = true },
         },
