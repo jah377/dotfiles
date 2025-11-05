@@ -44,67 +44,36 @@ vim.diagnostic.config({
 
 -- Configure keybindings
 -- See `:help vim.lsp.*` for available functions
-local keymap = vim.keymap
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(event)
-    -- ========================================
-    -- Keymaps
-    -- ========================================
-
-    local buf = vim.lsp.buf
-    local opts = { buffer = event.buf, silent = true }
-
-    opts.desc = "Restart LSP"
-    keymap.set("n", "<leader>lx", ":LspRestart<CR>", opts)
-
-    opts.desc = "Rename symbol"
-    keymap.set("n", "<leader>ln", buf.rename, opts)
-
-    opts.desc = "List code actions"
-    keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
-
-    opts.desc = "List diagnostics for file"
-    keymap.set("n", "<leader>lD", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
-
-    opts.desc = "List references"
-    keymap.set("n", "<leader>lr", "<cmd>Telescope lsp_references<CR>", opts)
-
-    opts.desc = "List definitions"
-    keymap.set("n", "<leader>ld", "<cmd>Telescope lsp_definitions<CR>", opts)
-
-    opts.desc = "List implementations"
-    keymap.set("n", "<leader>li", "<cmd>Telescope lsp_implementations<CR>", opts)
-
-    opts.desc = "List document symbols"
-    keymap.set("n", "<leader>ld", "<cmd>Telescope lsp_document_symbols<CR>", opts)
-
-    opts.desc = "List workspace symbols"
-    keymap.set("n", "<leader>ls", "<cmd>Telescope lsp_workspace_symbols<CR>", opts)
-
-    -- Type definitions
-
-    opts.desc = "List all type definitions"
-    keymap.set("n", "<leader>ltd", "<cmd>Telescope lsp_type_definitions<CR>", opts)
-
-    opts.desc = "List document functions"
-    keymap.set("n", "<leader>ltf", "<cmd>Telescope lsp_document_symbols symbols=function<CR>", opts)
-
-    opts.desc = "List document variables"
-    keymap.set("n", "<leader>ltv", "<cmd>Telescope lsp_document_symbols symbols=variable<CR>", opts)
-
-    opts.desc = "List document classes"
-    keymap.set("n", "<leader>ltc", "<cmd>Telescope lsp_document_symbols symbols=class<CR>", opts)
-
-    -- Detach LSP clients in current buffer
-    opts.desc = "Deactivate LSP in buffer"
-    keymap.set("n", "<leader>lX", function()
-      local bufnr = vim.api.nvim_get_current_buf()
-      local active_clients = vim.lsp.get_clients({ bufnr = bufnr })
-      for _, client in ipairs(active_clients) do
-        vim.lsp.buf_detach_client(bufnr, client.id)
+    local nmap = function(keys, func, desc)
+      if desc then
+        desc = "LSP: " .. desc
       end
-    end, opts)
+
+      vim.keymap.set("n", keys, func, {
+        buffer = event.buf, -- only apply to current buffer
+        desc = desc, -- description of kbd
+        silent = true, -- don't show cmd in cmdline when mapping executed
+      })
+    end
+
+    -- Default keybindings
+    nmap("grn", vim.lsp.buf.rename, "Rename Variable")
+    nmap("gra", vim.lsp.buf.code_action, "Code Actions")
+    nmap("grr", "<cmd>Telescope lsp_references<CR>", "References")
+    nmap("gri", "<cmd>Telescope lsp_implementations<CR>", "Implementations")
+    nmap("grt", "<cmd>Telescope lsp_type_definitions<CR>", "Type Definitions")
+    nmap("g0", "<cmd>Telescope lsp_document_symbols<CR>", "Document Symbols")
+    nmap("K", vim.lsp.buf.hover, "LSP: Display Hover Info")
+
+    -- Extras
+    nmap("<C-k>", vim.lsp.buf.signature_help, "Display Signature Help")
+    nmap("grx", ":LspRestart<CR>", "Restart LSP")
+    nmap("grd", function()
+      vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+    end, "Toggle Diagnostics")
   end,
 })
