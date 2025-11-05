@@ -1,10 +1,10 @@
 return {
   {
-    'echasnovski/mini.nvim',
+    "echasnovski/mini.nvim",
     config = function()
       -- Add statusline at bottom of the window
-      local statusline = require "mini.statusline"
-      statusline.setup { use_icons = vim.g.have_neard_font }
+      local statusline = require("mini.statusline")
+      statusline.setup({ use_icons = vim.g.have_neard_font })
       statusline.section_location = function()
         return "%2l:%-2v"
       end
@@ -42,27 +42,27 @@ return {
           animation = require("mini.indentscope").gen_animation.none(),
         },
         options = {
-          border = 'both',
+          border = "both",
           indent_at_cursor = true,
           try_as_border = true,
         },
-        symbol = '|',
+        symbol = "|",
       })
 
       -- Visualize keywords by highlighting regex patterns
-      local hipatterns = require('mini.hipatterns')
+      local hipatterns = require("mini.hipatterns")
       hipatterns.setup({
         highlighters = {
           -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-          fixme     = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-          hack      = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-          todo      = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-          note      = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
+          fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+          hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+          todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+          note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
 
           -- Highlight hex color strings (`#rrggbb`) using that color
           hex_color = hipatterns.gen_highlighter.hex_color(),
         },
       })
-    end
-  }
+    end,
+  },
 }
