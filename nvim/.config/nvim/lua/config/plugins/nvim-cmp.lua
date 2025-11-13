@@ -40,7 +40,7 @@ return {
         max_view_entries = 15,
       },
       mapping = cmp.mapping.preset.insert({
-        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-CR>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
         ["<C-k>"] = cmp.mapping.select_prev_item(),

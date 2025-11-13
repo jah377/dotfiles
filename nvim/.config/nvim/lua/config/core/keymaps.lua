@@ -9,13 +9,6 @@
 
 local kbd = vim.keymap.set
 
---  Use CTRL+<hjkl> to switch between windows
---  See `:help wincmd` for a list of all window commands
-kbd("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-kbd("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-kbd("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-kbd("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-
 -- Center screen when jumping
 kbd("n", "n", "nzzzv", { desc = "Next search result (centered)" })
 kbd("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
