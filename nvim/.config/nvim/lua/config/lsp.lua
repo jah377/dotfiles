@@ -72,8 +72,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- Extras
     nmap("<C-k>", vim.lsp.buf.signature_help, "Display Signature Help")
     nmap("grx", ":LspRestart<CR>", "Restart LSP")
-    nmap("grd", function()
+    nmap("gT", function()
       vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-    end, "Toggle Diagnostics")
+    end, "Toggle Diagnostics") -- kbd overwrites "Go to next tab page"
   end,
 })
