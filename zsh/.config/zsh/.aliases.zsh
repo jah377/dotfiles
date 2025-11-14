@@ -13,7 +13,8 @@ alias lst="eza -laT --icons" # return list-tree + hidden
 alias src="source .venv/bin/activate" # activate python .venv
 alias py="source .venv/ben/activate && ipython"
 alias cdd="fzf_dirs_and_cd $HOME" # fzf and jump into directory
-alias cdc="cd ~/dotfiles && nvim" # jump into config
+alias tc="tmux new-session -n config"
+alias nc="cd ~/dotfiles && nvim" # jump into config
 alias ff="fzf --walker=file,hidden" # return file name
 
 # Directories

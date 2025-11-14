@@ -1,9 +1,25 @@
 # My Wish List
 
+### Documenation
+
+- Python-related
+  - Vim-Slime
+    - [] Select line
+    - [] Select region
+    - [] Select function
+    - [] Select class
+    - [] Select if-statement
+  - LSP
+    - Install `goto-preview.nvim`
+    - Jump to definition
+    - Jump to type-definition
+    - Jump to implementation
+    - Close all
+
 ## Functionality
 
 - Python
-  - [] Ability to use interactie jupyter kernel (`iron.nvim`)
+  - [x] Ability to use interactie jupyter kernel (`iron.nvim`)
   - [] Ability to create, edit, and work with jupyter notebooks (`molten.nvim`)
 
 - Markdown
