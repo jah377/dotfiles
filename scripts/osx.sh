@@ -256,3 +256,6 @@ killall Finder # MUST BE LAST
 
 # Show battery at %
 defaults write com.apple.controlcenter BatteryShowPercentage -bool true
+
+sudo scutil --set ComputerName "jharris"
+sudo scutil --set LocalHostName "jharris"

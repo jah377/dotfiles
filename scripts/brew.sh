@@ -48,6 +48,7 @@ brew install --cask wezterm   # terminal emulator
 brew install starship         # shell prompt
 brew install lazygit          # terminal-based git client
 brew install tmux             # terminal multiplexer
+brew install yq               # required tmux nerd-font
 
 brew install zsh-autosuggestions     # improved auto-suggestions
 brew install zsh-syntax-highlighting # improved highlighting

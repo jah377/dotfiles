@@ -1,0 +1,20 @@
+[project]
+name = "tests-py"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ipykernel>=7.1.0",
+    "matplotlib>=3.10.7",
+    "numpy>=2.3.4",
+    "pandas>=2.3.3",
+]
+
+[tool.ruff]
+include = ["*.py"]
+indent-width = 4
+line-length = 79
+
+[tool.isort]
+float_to_top=true
