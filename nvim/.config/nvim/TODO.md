@@ -9,6 +9,8 @@
     - [] Select function
     - [] Select class
     - [] Select if-statement
+    - [x] Select code cell
+
   - LSP
     - Install `goto-preview.nvim`
     - Jump to definition
