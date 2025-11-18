@@ -47,7 +47,7 @@ return {
     end, { desc = "Find Config Files" })
 
     -- Search lazy package files
-    keymap.set("n", "<space>fl", function()
+    keymap.set("n", "<space>fL", function()
       builtin.find_files({ cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy") })
     end, { desc = "Find Lazyvim Files" })
 
