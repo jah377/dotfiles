@@ -52,8 +52,11 @@ opt.smartcase = true -- override if \C or 1+ uppercase in search term
 opt.inccommand = "split" -- live preview substitutions
 
 -- Language and Spellcheck
--- `]s` = jump to next miss
--- `]s` (next), `[s` (prev), `]zq` (add to dict), `zw` (rm from dict)
+-- ']s' to jump to next mistake
+-- '[s' to jump to previous mistake
+-- 'z=' to see suggestions
+-- ']zq' to add to dictionary
+-- 'zw' to remove from ditionary
 opt.spelllang = "en"
 opt.spell = true
 
