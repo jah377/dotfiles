@@ -27,6 +27,12 @@ autocmd("FileType", {
   command = "wincmd L",
 })
 
+-- Aggressively autoload files changed outside of Neovim
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+  command = "checktime",
+})
+
 -- Show cursorline only on active windows
 -- From https://github.com/folke/dot/blob/master/nvim/lua/config/autocmds.lua
 autocmd({ "InsertLeave", "WinEnter" }, {
