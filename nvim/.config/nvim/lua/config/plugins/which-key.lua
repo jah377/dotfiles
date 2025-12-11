@@ -11,7 +11,6 @@ return {
         { "<leader>f", group = "find" },
         { "<leader>fg", group = "grep-find" },
         { "<leader>fl", group = "lsp-find" },
-        { "<leader>g", group = "git" },
         { "<leader>b", group = "buffer" },
       },
       icons = {
