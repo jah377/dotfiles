@@ -16,6 +16,14 @@ My dotfiles to setup a dev environment in a **MacOS** machine. Configuration fil
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+Run these commands in your terminal to add Homebrew to your PATH:
+
+```
+echo >> /Users/<USER>/.zprofile
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/<USER>/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
 ## Install and Configure Git
 
 ```
@@ -31,6 +39,8 @@ eval "$(ssh-agent -s)"         # start ssh-agent process, add env vars to shell
 ssh-add ~/.ssh/id_ed25519      # load key into ssh-agent
 pbcopy < ~/.ssh/id_ed25519.pub # copy key to clipboard; paste into github
 ```
+
+With the key copied to the clipboard, go to Github >> Account >> Settings >> SSH & GPG keys >> New SSH Key, and paste. This will allow you to clone the repository.
 
 # Setup Development Environment
 
@@ -75,9 +85,9 @@ cp -R ~/dotfiles/custom_keyboard/ABC_wo_opt_symbols.bundle ~/Library/Keyboard\ L
 ## Enable Full Disk Access
 
 Apps `wezterm`, `alacritty`, and `karabiner` require full disk access
-permission. To grant access, go to _System Settings > Privacy & Security > Full Disk Access_.
+permission. To grant access, go to _System Settings >> Privacy & Security >> Full Disk Access_.
 
 ## Enable Accessibility
 
 Apps `borders`, `aerospace`, and `Raycast` need full control of the machine. To
-grant access, go to _System Settings > Privacy & Security > Accessibility_.
+grant access, go to _System Settings >> Privacy & Security >> Accessibility_.
