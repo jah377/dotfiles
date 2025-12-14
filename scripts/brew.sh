@@ -15,6 +15,7 @@ brew install --cask bitwarden        # OS-agnostic password manager
 brew install --cask raycast          # smart spotlight replacement
 brew install --cask expressvpn       # virtual private network tool
 brew install --cask whatsapp keybase # messaging-apps
+brew install --cask google-chrome
 
 # ---- User Experience ----
 
@@ -22,6 +23,9 @@ brew install --cask hiddenbar          # hide less-useful menubar items
 brew install --cask ukelele            # create custom keyboard input .bundle
 brew install --cask karabiner-elements # keyboard remapping utility
 brew install --cask nikitabobko/tap/aerospace # i3-like window manager
+
+brew tap FelixKratz/formulae
+brew install borders # highlight around active window borders
 
 # ---- Programming Tools ----
 

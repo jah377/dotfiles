@@ -82,12 +82,14 @@ cp -R ~/dotfiles/custom_keyboard/ABC_wo_opt_symbols.bundle ~/Library/Keyboard\ L
 
 # Additional Configurations
 
-## Enable Full Disk Access
+## Must Enable Permissions
+
+### Enable Full Disk Access
 
 Apps `wezterm`, `alacritty`, and `karabiner` require full disk access
 permission. To grant access, go to _System Settings >> Privacy & Security >> Full Disk Access_.
 
-## Enable Accessibility
+### Enable Accessibility
 
 Apps `borders`, `aerospace`, and `Raycast` need full control of the machine. To
 grant access, go to _System Settings >> Privacy & Security >> Accessibility_.
