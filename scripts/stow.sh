@@ -7,6 +7,7 @@ stow backgrounds
 stow karabiner
 stow nvim
 stow editorconfig
+stow tmux
 
 # Cannot create symlinks if files already exist
 rm -f ~/.zprofile ~/.zshrc
