@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Create symlinks individually
 cd ~/dotfiles
 stow aerospace

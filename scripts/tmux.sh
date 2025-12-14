@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Must download package manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
