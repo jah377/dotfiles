@@ -40,7 +40,9 @@ ssh-add ~/.ssh/id_ed25519      # load key into ssh-agent
 pbcopy < ~/.ssh/id_ed25519.pub # copy key to clipboard; paste into github
 ```
 
-With the key copied to the clipboard, go to Github >> Account >> Settings >> SSH & GPG keys >> New SSH Key, and paste. This will allow you to clone the repository.
+With the key copied to the clipboard, go to Github >> Account >> Settings >>
+SSH & GPG keys >> New SSH Key, and paste. This will allow you to clone the
+repository.
 
 # Setup Development Environment
 
@@ -87,9 +89,18 @@ cp -R ~/dotfiles/custom_keyboard/ABC_wo_opt_symbols.bundle ~/Library/Keyboard\ L
 ### Enable Full Disk Access
 
 Apps `wezterm`, `alacritty`, and `karabiner` require full disk access
-permission. To grant access, go to _System Settings >> Privacy & Security >> Full Disk Access_.
+permission. To grant access, go to _System Settings >> Privacy & Security >>
+Full Disk Access_.
 
 ### Enable Accessibility
 
 Apps `borders`, `aerospace`, and `Raycast` need full control of the machine. To
-grant access, go to _System Settings >> Privacy & Security >> Accessibility_.
+grant access, go to _System Settings > Privacy & Security > Accessibility_.
+
+## Applications
+
+### tmux
+
+The script `tmux.sh` clones the tmux package-manager. To install packages,
+start a tmux-session, jump to `tmux.conf`, and call `<leader> I` to install
+3rd-party packages.
