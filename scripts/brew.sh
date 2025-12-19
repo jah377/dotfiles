@@ -57,6 +57,7 @@ brew install yq               # required tmux nerd-font
 
 brew install zsh-autosuggestions     # improved auto-suggestions
 brew install zsh-syntax-highlighting # improved highlighting
+brew install zsh-vi-mode             # vi-mode in terminal
 brew install eza    # improve ls command
 brew install zoxide # improve cd command
 brew install fd     # improved find

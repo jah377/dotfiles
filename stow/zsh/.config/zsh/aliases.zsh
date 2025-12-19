@@ -14,6 +14,3 @@ alias ff="fzf --walker=file,hidden" # return file name
 # Directories
 alias ..="cd .."
 alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ......="cd ../../../../.."

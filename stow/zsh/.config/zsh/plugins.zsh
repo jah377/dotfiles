@@ -1,15 +1,23 @@
 # ==============================================================================
-# Plugin Initialization
+# Plugins
 # ==============================================================================
 
-# zsh-autosuggestions - suggests commands as you type based on history
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Vi-mode in terminal
+# See https://github.com/jeffreytse/zsh-vi-mode
+source /opt/homebrew/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
-# zsh-syntax-highlighting - syntax highlighting for commands
+# Syntax-highlighting for commands
+# See https://github.com/zsh-users/zsh-syntax-highlighting
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# zoxide - a better cd command (smarter directory jumping)
+# Smarter 'cd' command
+# See https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init zsh)"
 
-# fzf - fuzzy finder for files and command history
+# Command-line fuzzy finding
+# See https://github.com/junegunn/fzf
 source <(fzf --zsh)
+
+# Customizable CL prompt formatter
+# See https://github.com/starship/starship
+eval "$(starship init zsh)"

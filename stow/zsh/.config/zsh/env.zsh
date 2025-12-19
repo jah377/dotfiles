@@ -2,19 +2,12 @@
 # Environment Variables & PATH Configuration
 # ==============================================================================
 
-# Homebrew
-# See https://docs.brew.sh/Manpage#shellenv-shell
-eval "$(/opt/homebrew/bin/brew shellenv)"
-export HOMEBREW_NO_AUTO_UPDATE=1
 
 # History
 export HISTFILE=~/.zsh_history
 export HISTSIZE=5000        # lines kept in memory
 export SAVEHIST=5000        # lines saved to file
 
-# Vi mode
-export KEYTIMEOUT=1            # Makes switching modes quicker
-export VI_MODE_SET_CURSOR=true # trigger cursor shape changes when switching modes
 
 # fzf configuration
 # See: https://github.com/catppuccin/fzf
@@ -28,7 +21,7 @@ FZF_THEME=" \
 export FZF_DEFAULT_OPTS="--padding=5% --height=40% --layout=reverse $FZF_THEME"
 
 # Starship prompt configuration
-export STARSHIP_CONFIG="$HOME/dotfiles/starship/.config/starship/starship.toml"
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 
 # Uncomment to prioritize Homebrew python over system python
 # PATH="$(brew --prefix)/opt/python@3.12/libexec/bin:$PATH"
