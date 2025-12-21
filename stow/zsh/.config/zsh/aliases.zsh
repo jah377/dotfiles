@@ -7,7 +7,7 @@ alias lst="eza -laT --icons --group-directories-first --no-permissions --no-file
 
 # Nice to have
 alias src="source .venv/bin/activate" # activate python .venv
-alias py="source .venv/ben/activate && ipython"
+alias py="source .venv/bin/activate && ipython"
 alias config="cd ~/dotfiles" # jump into config
 alias ff="fzf --walker=file,hidden" # return file name
 
