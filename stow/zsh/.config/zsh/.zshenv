@@ -18,3 +18,8 @@ export LANG=en_US.UTF-8
 
 # Default browser CLI tools use to open links
 export BROWSER=safari
+
+# History configuration
+export HISTFILE=~/.zsh_history
+export HISTSIZE=5000        # lines kept in memory
+export SAVEHIST=5000        # lines saved to file
