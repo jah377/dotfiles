@@ -13,13 +13,7 @@ configuration is separated into modules, each with their own responsibility.
     ├── .zshenv          # Establish minimum, universal environment
     ├── .zprofile        # Login shell configuration
     ├── .zshrc           # Control interactive shell behavior (load modules)
-    ├── aliases.zsh      # Command aliases
-    ├── completion.zsh   # Shell completion configuration
-    ├── env.zsh          # Environment variables and PATH
-    ├── functions.zsh    # Custom shell functions
-    ├── keybindings.zsh  # Keybindings and vi-mode setup
-    ├── plugins.zsh      # Plugin initialization (zoxide, fzf, etc.)
-    └── prompt.zsh       # Prompt configuration (starship)
+    └── modules
 ```
 
 ## Resources
