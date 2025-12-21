@@ -9,8 +9,6 @@
 #   - One-time initialization tasks
 #
 # Note: Most interactive configuration is in .zshrc
-#       Environment variables are in env.zsh (sourced by .zshrc)
-#
 # ==============================================================================
 
 # Homebrew
