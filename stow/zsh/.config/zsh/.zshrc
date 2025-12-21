@@ -18,15 +18,17 @@ setopt HIST_NO_STORE            # do not save history commands
 setopt HIST_REDUCE_BLANKS       # strip superfluous blanks
 setopt INC_APPEND_HISTORY       # don’t wait for shell to exit to save history lines
 
-# setopt HIST_ALLOW_CLOBBER       # related to shell clobber setting
-# setopt HIST_IGNORE_ALL_DUPS     # remove old event if new one is a duplicate
-# setopt HIST_LEX_WORDS           # related to how white space is saved
-# setopt HIST_NO_FUNCTIONS        # do not save function commands
-# setopt HIST_SAVE_NO_DUPS        # omit older duplicates of newer commands
-# setopt HIST_SUBST_PATTERN       # use pattern matching for substitutions
-# setopt HIST_VERIFY              # expand command line without executing it
 
-# Automatically source all .zsh files (excluding dot files)
-for config_file in "$HOME/.config/zsh"/[^.]*.zsh; do
-  source "$config_file"
-done
+# Initialize cli packages
+source "$ZDOTDIR/eza.zsh"
+source "$ZDOTDIR/fzf.zsh"
+source "$ZDOTDIR/starship.zsh"
+source "$ZDOTDIR/zoxide.zsh"
+
+# Initalize zsh packages
+source "$ZDOTDIR/zsh_vi.zsh"
+source "$ZDOTDIR/zsh_completion.zsh"
+source "$ZDOTDIR/zsh_highlighting.zsh"
+
+# MUST source aliases after packages initialized
+source "$ZDOTDIR/aliases.zsh"
