@@ -2,14 +2,14 @@
 # See https://github.com/junegunn/fzf
 source <(fzf --zsh)
 
-FZF_CONFIG="--padding=5% --height=40% --layout=reverse"
+MY_FZF_CONFIG="--padding=5% --height=40% --layout=reverse"
 
 # See: https://github.com/catppuccin/fzf
-FZF_THEME=" \
+MY_FZF_THEME=" \
 --color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
 --color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
 --color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
 --color=selected-bg:#45475A \
 --color=border:#6C7086,label:#CDD6F4"
 
-export FZF_DEFAULT_OPTS="$FZF_CONFIG $FZF_THEME"
+export FZF_DEFAULT_OPTS="$MY_FZF_CONFIG $MY_FZF_THEME"
