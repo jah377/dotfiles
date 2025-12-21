@@ -1,1 +1,1 @@
-export EZA_CONFIG_DIR="$HOME/.config/eza"
+export EZA_CONFIG_DIR="$XDG_CONFIG_HOME/eza"
