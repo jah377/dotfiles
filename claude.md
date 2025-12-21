@@ -64,33 +64,6 @@ dotfiles/
 - **lazygit**: Terminal UI for git
 - **neovim**: Text editor (set as `$EDITOR`)
 
-## Known Issues & Technical Debt
-
-### Current Issues
-
-**Priority 0 (Critical - Breaks Functionality)**
-1. **.zprofile:18** - Hardcoded `/opt/homebrew` path breaks on Intel Macs
-   - Impact: Shell won't initialize correctly on Intel systems
-   - Fix: Add platform detection for Homebrew path
-
-**Priority 1 (High - Should Fix Soon)**
-1. **aliases.zsh:10** - Typo: `ben/activate` should be `bin/activate`
-   - Impact: Python virtual environment activation fails
-2. **.zshenv:23** - `HISTFILE` in `$HOME` instead of `$ZDOTDIR`
-   - Impact: Violates XDG specification, clutters home directory
-3. **zsh_completion.zsh:1, zsh_highlighting.zsh:3, zsh_vi.zsh:3** - No existence checks before sourcing
-   - Impact: Shell errors if plugins not installed or on Intel Mac with different paths
-
-**Priority 2 (Low - Nice to Have)**
-1. **.zprofile:12** - Comment references non-existent `env.zsh` file
-   - Impact: Confusing documentation
-
-### Next Actions
-- [ ] Fix P0 issue: Add Homebrew path detection
-- [ ] Fix aliases.zsh typo
-- [ ] Move HISTFILE to `$ZDOTDIR/.zsh_history`
-- [ ] Add existence checks to all plugin source statements
-
 ## Installation
 
 ### Prerequisites
@@ -114,6 +87,7 @@ brew install \
 ```
 
 ### Deployment
+
 ```bash
 # Clone the repository
 git clone <repository-url> ~/dotfiles
