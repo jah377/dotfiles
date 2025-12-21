@@ -6,7 +6,12 @@
 /_____/\____/\__/_/ /_/_/\___/____/
 ```
 
-My dotfiles to setup a dev environment in a **MacOS** machine. Configuration files are managed using GNU Stow.
+My dotfiles to setup a dev environment in a **MacOS** machine. Configuration
+files are managed using GNU Stow. These dotfiles are inspired by a number of
+resources:
+
+- [Webpro/awesome-dotfiles](https://github.com/webpro/awesome-dotfiles?tab=readme-ov-file)
+- [Github does dotfiles](https://dotfiles.github.io)
 
 # Before Cloning the Repo
 
