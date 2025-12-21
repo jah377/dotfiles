@@ -1,22 +1,67 @@
-# To exclude hidden git files in telescope
+# Git directory
 .git/
-.DS_Store
 
-# Emacs backup files
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Shell history files
+*.zsh_history
+*.bash_history
+*.zsh_sessions/
+*.lesshst
+
+# Vim/Neovim temporary/backup files
+*.swp
+*.swo
+*.swn
+*~
+.*.sw[a-z]
+Session.vim
+.netrwhist
+
+# Emacs temporary/backup files
 *~
 \#*\#
-
-# Emacs auto-save files
 .#*
-
-# Emacs byte-compiled files
+*.eld
 *.elc
 
-# Emacs dumped/serialized files
-*.eld
+# VSCode temporary/backup files
+.vscode/
+*.code-workspace
 
-# File containing personal information
-\emacs/.emacs.d/personal.el
+# General cache directories
+cache/
+.cache/
 
-# Emacs directories
-\emacs/.emacs.d/elpa/
+# Python cache/local directories
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Machine-specific configs (use *.local pattern for local overrides)
+*.local
+*.local.*
+.env
+.env.*
+
+# Secrets and credentials
+*secret*
+*credential*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Temporary or test files
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+test/
+sandbox/
