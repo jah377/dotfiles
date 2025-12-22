@@ -9,6 +9,13 @@
 
 local opt = vim.opt
 
+-- Performance
+opt.updatetime = 250 -- faster completion and CursorHold events (default: 4000ms)
+opt.timeoutlen = 300 -- time to wait for mapped sequence (affects which-key)
+
+-- Colors
+opt.termguicolors = true -- enable 24-bit RGB colors
+
 -- Indentation
 opt.expandtab = true -- convert tabs to spaces
 opt.softtabstop = 4 -- n spaces applied with <Tab>
@@ -42,14 +49,25 @@ opt.cursorline = true -- highlight line at point
 opt.cursorcolumn = false -- highlight column at point
 opt.scrolloff = 10 -- min. lines displayed above/below point
 
+-- Visual guides
+opt.colorcolumn = "80" -- visual guide at 80 chars
+
 -- Command-line
 opt.showmode = false -- defer to statusline
 opt.cmdheight = 0 -- disable until needed
 
+-- Completion menu
+opt.completeopt = "menu,menuone,noselect" -- better completion experience
+opt.pumheight = 10 -- max items to show in popup menu
+opt.pumblend = 10 -- popup menu transparency (0-100)
+
 -- Searching and Substitutions
 opt.ignorecase = true -- case-insensitive searching
 opt.smartcase = true -- override if \C or 1+ uppercase in search term
+opt.hlsearch = true -- highlight search results
 opt.inccommand = "split" -- live preview substitutions
+opt.grepprg = "rg --vimgrep" -- use ripgrep for :grep
+opt.grepformat = "%f:%l:%c:%m" -- format for ripgrep results
 
 -- Language and Spellcheck
 -- ']s' to jump to next mistake
@@ -60,6 +78,39 @@ opt.inccommand = "split" -- live preview substitutions
 -- Note: Spell check enabled per-filetype in after/ftplugin/
 opt.spelllang = "en"
 opt.spell = false
+
+-- File handling
+opt.backup = false -- don't create backup files
+opt.writebackup = false -- don't backup before overwriting
+opt.swapfile = false -- don't use swapfile (we have undofile)
+opt.confirm = true -- ask to save instead of failing commands
+
+-- Formatting
+opt.formatoptions = "jcroqlnt"
+-- j: Remove comment leader when joining lines
+-- c: Auto-wrap comments using textwidth
+-- r: Continue comments after <Enter> in insert mode
+-- o: Continue comments after 'o' or 'O' in normal mode
+-- q: Allow formatting comments with 'gq'
+-- l: Don't break long lines in insert mode
+-- n: Recognize numbered lists
+-- t: Auto-wrap text using textwidth
+
+-- UI characters
+opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ", -- suppress ~ at end of buffer
+}
+
+-- Messages
+opt.shortmess:append("IWc")
+-- I: Don't show intro message
+-- W: Don't show "written" when saving
+-- c: Don't show completion messages
 
 -- Misc.
 opt.undofile = true -- store undos between sessions

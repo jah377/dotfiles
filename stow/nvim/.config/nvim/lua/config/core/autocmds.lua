@@ -93,3 +93,31 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end
   end,
 })
+
+-- Disable auto-commenting on new lines
+autocmd("FileType", {
+  desc = "Disable auto-commenting on new line",
+  callback = function()
+    vim.opt_local.formatoptions:remove({ "r", "o" })
+  end,
+})
+
+-- Create parent directories when saving (if they don't exist)
+autocmd("BufWritePre", {
+  desc = "Create parent directories on save",
+  callback = function(event)
+    local file = vim.loop.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+  end,
+})
+
+-- Remove trailing whitespace on save
+autocmd("BufWritePre", {
+  desc = "Remove trailing whitespace on save",
+  pattern = { "*" },
+  callback = function()
+    local save_cursor = vim.fn.getpos(".")
+    vim.cmd([[%s/\s\+$//e]])
+    vim.fn.setpos(".", save_cursor)
+  end,
+})

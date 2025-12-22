@@ -22,6 +22,9 @@
 Session.vim
 .netrwhist
 
+# Neovim spell files (custom dictionaries are machine-specific)
+stow/nvim/.config/nvim/spell/
+
 # Emacs temporary/backup files
 *~
 \#*\#
