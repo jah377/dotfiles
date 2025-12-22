@@ -1,6 +1,7 @@
 # CLI tool shortcuts
 alias lg="lazygit"
 alias n="nvim"
+alias tm="~/dotfiles/scripts/tmux_config.sh" # start tmux dev environment
 alias cd=z # use zoxide instead
 
 MY_EZA_DEFAULTS="--icons --group-directories-first --no-user --git"
