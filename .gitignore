@@ -65,3 +65,6 @@ temp/
 *.backup
 test/
 sandbox/
+
+# Tmux plugins (managed by TPM)
+stow/tmux/.config/tmux/plugins/

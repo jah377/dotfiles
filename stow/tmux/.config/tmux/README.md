@@ -12,7 +12,7 @@ See the following resources used to learn and configure `tmux`:
 - Session :: collection of windows and panes
   - Typically you would organize into per-project "workspace"
   - Example, `nvim` in one pane and a `python` REPL in the other
-- Sever :: background `tmux` process that manages all sessions
+- Server :: background `tmux` process that manages all sessions
   - Closing terminal will end sessions and processes
   - "Detaching" session will keep processes running; can "attach" later
 
@@ -35,9 +35,9 @@ See the following resources used to learn and configure `tmux`:
 
 # Keybindings
 
-**Note:** See `.tmux.conf` for custom keybindings
+**Note:** See `tmux.conf` and `remappings.conf` for custom keybindings
 
-- `C-b` :: leader button
+- `C-Space` :: leader button (custom; default is `C-b`)
 
 Windows:
 
@@ -69,17 +69,22 @@ Interactive Commands:
 
 # Configuring
 
-To install the `tpm`, the tmux package manager:
+To install `tpm` (tmux plugin manager):
 
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 ```
 
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+To install `catppuccin` theme:
+
+```bash
+mkdir -p ~/.config/tmux/plugins/catppuccin/tmux
+git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
 ```
 
-To install the `catppuccin` theme:
 
-```
-mkdir -p tmux/.config/tmux/plugins/catppuccin/tmux
-git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/dotfiles/tmux/.config/tmux/plugins/catppuccin/tmux
+To install plugins (including catppuccin theme):
 
-```
+1. Start tmux: `tmux`
+2. Press `<leader> I` (that's `C-Space` then `Shift+i`) to install all plugins
+3. TPM will automatically install all plugins listed in `tmux.conf`
