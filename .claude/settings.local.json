@@ -6,7 +6,11 @@
       "Bash(test:*)",
       "Bash(git clone:*)",
       "Bash(git -C /Users/jharris/dotfiles ls-files:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(git config:*)",
+      "Bash(mkdir:*)",
+      "Bash(git mv:*)",
+      "Bash(rmdir:*)"
     ]
   }
 }
