@@ -4,7 +4,8 @@
       "Bash(tree:*)",
       "WebSearch",
       "Bash(test:*)",
-      "Bash(git clone:*)"
+      "Bash(git clone:*)",
+      "Bash(git -C /Users/jharris/dotfiles ls-files:*)"
     ]
   }
 }
