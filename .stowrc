@@ -1,2 +1,2 @@
---dir=~/dotfiles/stow
---target=~/
+--dir=stow
+--target=~

@@ -1,4 +1,4 @@
-#### GNU Stow expects 'Pearl' regex patterns
+#### GNU Stow expects Perl regex patterns
 
 # Ignore version control files
 ^\.git$
@@ -6,18 +6,33 @@
 ^\.gitattributes$
 
 # Ignore directories
-^scripts/?$
-^apple_plists/?$
+^scripts$
+^apple_plists$
+^backgrounds$
+^custom_keyboard$
+^\.claude$
+^\.github$
 
 # Ignore system-specific or secret files
-^\.ssh/?$
+^\.ssh$
+^\.env.*$
+.*\.local$
 
 # Ignore backup or temporary files
 ^\.DS_Store$
 ~$                # Matches files ending in ~
-^\.#              # Matches Emacs autosave files like .#file
+^\.#.*$           # Matches Emacs autosave files like .#file
 \.lock$           # Matches files ending in .lock
 \.elc$            # Matches files ending in .elc
 
+# Ignore documentation and meta files (root level)
+^README\.md$
+^CLAUDE\.md$
+^claude\.md$
+^LICENSE$
+^INSTALL\.md$
+^TODO\.md$
+^CHANGELOG\.md$
+
 # Ignore files
-^\.rayconfig
+.*\.rayconfig$
