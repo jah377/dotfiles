@@ -15,10 +15,15 @@ autocmd("TextYankPost", {
   end,
 })
 
-autocmd({ "InsertLeave", "FocusLost", "BufLeave" }, {
-  desc = "Autosavefiles when switching windows",
+autocmd({ "InsertLeave", "FocusLost" }, {
+  desc = "Autosave modified files",
   pattern = { "*" },
-  command = "silent! w",
+  callback = function()
+    -- Only save if buffer is modifiable, modified, has a name, and isn't special
+    if vim.bo.modifiable and vim.bo.modified and vim.bo.buftype == "" then
+      vim.cmd("silent! write")
+    end
+  end,
 })
 
 autocmd("FileType", {

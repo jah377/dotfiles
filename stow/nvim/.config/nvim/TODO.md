@@ -1,6 +1,6 @@
 # My Wish List
 
-### Documenation
+### Documentation
 
 - Python-related
   - Vim-Slime

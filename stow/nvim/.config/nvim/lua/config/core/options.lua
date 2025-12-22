@@ -55,10 +55,11 @@ opt.inccommand = "split" -- live preview substitutions
 -- ']s' to jump to next mistake
 -- '[s' to jump to previous mistake
 -- 'z=' to see suggestions
--- ']zq' to add to dictionary
--- 'zw' to remove from ditionary
+-- 'zg' to add to dictionary
+-- 'zw' to remove from dictionary
+-- Note: Spell check enabled per-filetype in after/ftplugin/
 opt.spelllang = "en"
-opt.spell = true
+opt.spell = false
 
 -- Misc.
 opt.undofile = true -- store undos between sessions
