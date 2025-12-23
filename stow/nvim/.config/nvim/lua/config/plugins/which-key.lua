@@ -1,32 +1,48 @@
+-- [[ Show available keybindings in a popup as you type ]]
+-- See: https://github.com/folke/which-key.nvim
+
 return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
       preset = "modern",
-      win = {
-        height = { max = math.huge },
+      keys = {
+        scroll_up = "<c-p>",   -- default <c-d>
+        scroll_down = "<c-n>", -- default <c-u>
       },
+
+      -- Window configuration
+      win = {
+        height = { min = 4, max = 25 }, -- Reasonable height limits
+      },
+
+      -- Key group definitions
       spec = {
         { "<leader>f", group = "find" },
-        { "<leader>fg", group = "grep-find" },
-        { "<leader>fl", group = "lsp-find" },
-        { "<leader>b", group = "buffer" },
+        { "<leader>g", group = "grep" },
+        { "<leader>c", group = "code" },
+        { "<leader>w", group = "workspace" },
+        { "<leader>b", group = "buffers" },
+        { "<leader>x", group = "diagnostics" },
       },
+
+      -- Custom icons
       icons = {
-        rules = false,
-        breadcrumb = " ", -- symbol used in the command line area that shows your active key combo
-        separator = "󱦰  ", -- symbol used between a key and it's label
-        group = "󰹍 ", -- symbol prepended to a group
+        breadcrumb = "»", -- Active key combo separator in command line
+        separator = "➜", -- Key-description separator
+        group = "󰹍 ", -- Group prefix icon
       },
     },
+
+    -- Custom keymaps
     keys = {
       {
         "<leader>?",
         function()
           require("which-key").show({ global = false })
         end,
-        desc = "local-keymap",
+        desc = "Show buffer keymaps",
       },
     },
   },
