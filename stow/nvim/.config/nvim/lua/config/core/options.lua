@@ -94,14 +94,14 @@ opt.formatoptions = "jcroqlnt"
 -- t: auto-wrap text using textwidth
 
 -- UI characters
-opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ", -- suppress ~ at end of buffer
-}
+-- opt.fillchars = {
+--   foldopen = "",
+--   foldclose = "",
+--   fold = " ",
+--   foldsep = " ",
+--   diff = "╱",
+--   eob = " ", -- suppress ~ at end of buffer
+-- }
 
 -- Messages
 opt.shortmess:append("IWc")
