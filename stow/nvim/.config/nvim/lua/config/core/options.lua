@@ -1,12 +1,7 @@
--- ============================================================================
--- TITLE : Global nvim options
---
--- ABOUT :
---    File used to define global settings. See `after/ftplugin/<ft>.lua` for
---    file-type specific settings.
---
--- ============================================================================
+-- [[ Settings options ]]
+-- File-specific settings in 'after/ftplugin/<ft>.lua'
 
+-- See `:help vim.o`
 local opt = vim.opt
 
 -- Performance
@@ -17,56 +12,58 @@ opt.timeoutlen = 300 -- time to wait for mapped sequence (affects which-key)
 opt.termguicolors = true -- enable 24-bit RGB colors
 
 -- Indentation
-opt.expandtab = true -- convert tabs to spaces
-opt.softtabstop = 4 -- n spaces applied with <Tab>
-opt.shiftwidth = 4 -- n spaces when indenting with << & >
-opt.tabstop = 4 -- n spaces shown per tab
-opt.smarttab = true -- context-aware <Tab> indentation
+opt.expandtab = true   -- convert tabs to spaces
+opt.softtabstop = 4    -- n spaces applied with <Tab>
+opt.shiftwidth = 4     -- n spaces when indenting with << & >
+opt.tabstop = 4        -- n spaces shown per tab
+opt.smarttab = true    -- context-aware <Tab> indentation
 opt.smartindent = true -- context-aware indentation on new line
-opt.autoindent = true -- copy indentation from previous line
+opt.autoindent = true  -- copy indentation from previous line
 
--- White-space
-opt.list = true -- show white space
-opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+-- Sets how neovim will display certain whitespace characters in the editor.
+--  See `:help 'list'`
+--  and `:help 'listchars'`
+vim.opt.list = true -- show white space
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Line wrapping
-opt.textwidth = 79 -- max line length before hard wrapping
-opt.wrap = true -- visually break long lines (soft-wrap)
+opt.textwidth = 79     -- max line length before hard wrapping
+opt.wrap = true        -- visually break long lines (soft-wrap)
 opt.breakindent = true -- soft-wrap maintains indentation as previous line
-opt.linebreak = true -- soft-wrap at word boundary
+opt.linebreak = true   -- soft-wrap at word boundary
 
 -- Line numbers
-opt.number = true -- add line numbers
-opt.relativenumber = true -- display relative line numbers
+opt.number = true         -- display line numbers
+opt.relativenumber = true -- use "relative" line numbers instead
 
 -- Window splitting
-opt.splitright = true -- vertical splits to the right
-opt.splitbelow = true -- horizontal splits below
+opt.splitright = true     -- vertical splits to the right
+opt.splitbelow = true     -- horizontal splits below
 opt.winborder = "rounded" -- border style of float window
 
 -- Cursor
-opt.cursorline = true -- highlight line at point
+opt.cursorline = true    -- highlight line at point
 opt.cursorcolumn = false -- highlight column at point
-opt.scrolloff = 10 -- min. lines displayed above/below point
+opt.scrolloff = 10       -- min. lines displayed above/below point
 
 -- Visual guides
 opt.colorcolumn = "80" -- visual guide at 80 chars
 
 -- Command-line
 opt.showmode = false -- defer to statusline
-opt.cmdheight = 0 -- disable until needed
+opt.cmdheight = 0    -- disable until needed
 
 -- Completion menu
 opt.completeopt = "menu,menuone,noselect" -- better completion experience
-opt.pumheight = 10 -- max items to show in popup menu
-opt.pumblend = 10 -- popup menu transparency (0-100)
+opt.pumheight = 10                        -- max items to show in popup menu
+opt.pumblend = 10                         -- popup menu transparency (0-100)
 
 -- Searching and Substitutions
-opt.ignorecase = true -- case-insensitive searching
-opt.smartcase = true -- override if \C or 1+ uppercase in search term
-opt.hlsearch = true -- highlight search results
-opt.inccommand = "split" -- live preview substitutions
-opt.grepprg = "rg --vimgrep" -- use ripgrep for :grep
+opt.hlsearch = true            -- highlight search results
+opt.inccommand = "split"       -- live preview substitutions
+opt.ignorecase = true          -- case-insensitive searching
+opt.smartcase = true           -- override if \C or 1+ uppercase in search term
+opt.grepprg = "rg --vimgrep"   -- use ripgrep for :grep
 opt.grepformat = "%f:%l:%c:%m" -- format for ripgrep results
 
 -- Language and Spellcheck
@@ -80,21 +77,21 @@ opt.spelllang = "en"
 opt.spell = false
 
 -- File handling
-opt.backup = false -- don't create backup files
+opt.backup = false      -- don't create backup files
 opt.writebackup = false -- don't backup before overwriting
-opt.swapfile = false -- don't use swapfile (we have undofile)
-opt.confirm = true -- ask to save instead of failing commands
+opt.swapfile = false    -- don't use swapfile (we have undofile)
+opt.confirm = true      -- ask to save instead of failing commands
 
 -- Formatting
 opt.formatoptions = "jcroqlnt"
--- j: Remove comment leader when joining lines
--- c: Auto-wrap comments using textwidth
--- r: Continue comments after <Enter> in insert mode
--- o: Continue comments after 'o' or 'O' in normal mode
--- q: Allow formatting comments with 'gq'
--- l: Don't break long lines in insert mode
--- n: Recognize numbered lists
--- t: Auto-wrap text using textwidth
+-- j: remove comment leader when joining lines
+-- c: auto-wrap comments using textwidth
+-- r: continue comments after <Enter> in insert mode
+-- o: continue comments after 'o' or 'O' in normal mode
+-- q: allow formatting comments with 'gq'
+-- l: don't break long lines in insert mode
+-- n: recognize numbered lists
+-- t: auto-wrap text using textwidth
 
 -- UI characters
 opt.fillchars = {
@@ -108,12 +105,12 @@ opt.fillchars = {
 
 -- Messages
 opt.shortmess:append("IWc")
--- I: Don't show intro message
--- W: Don't show "written" when saving
--- c: Don't show completion messages
+-- I: don't show intro message
+-- W: don't show "written" when saving
+-- c: don't show completion messages
 
 -- Misc.
-opt.undofile = true -- store undos between sessions
-opt.mouse = "a" -- enable mouse-mode; useful for resizing splits
+opt.undofile = true           -- store undos between sessions
+opt.mouse = "a"               -- enable mouse-mode; useful for resizing splits
 opt.clipboard = "unnamedplus" -- sync clipboard between OS and nvim
-opt.signcolumn = "yes" -- avoid buffer shifting when sign displayed
+opt.signcolumn = "yes"        -- avoid buffer shifting when sign displayed
