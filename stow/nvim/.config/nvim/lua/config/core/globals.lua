@@ -1,9 +1,4 @@
--- ============================================================================
--- TITLE : Global nvim variables
---
--- ABOUT : File used to define global variables used throughout config
---
--- ============================================================================
+-- [[ Global variables ]]
 
 local global = vim.g
 
