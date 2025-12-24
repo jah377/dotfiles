@@ -12,13 +12,13 @@ opt.timeoutlen = 300 -- time to wait for mapped sequence (affects which-key)
 opt.termguicolors = true -- enable 24-bit RGB colors
 
 -- Indentation
-opt.expandtab = true   -- convert tabs to spaces
-opt.softtabstop = 4    -- n spaces applied with <Tab>
-opt.shiftwidth = 4     -- n spaces when indenting with << & >
-opt.tabstop = 4        -- n spaces shown per tab
-opt.smarttab = true    -- context-aware <Tab> indentation
+opt.expandtab = true -- convert tabs to spaces
+opt.softtabstop = 4 -- n spaces applied with <Tab>
+opt.shiftwidth = 4 -- n spaces when indenting with << & >
+opt.tabstop = 4 -- n spaces shown per tab
+opt.smarttab = true -- context-aware <Tab> indentation
 opt.smartindent = true -- context-aware indentation on new line
-opt.autoindent = true  -- copy indentation from previous line
+opt.autoindent = true -- copy indentation from previous line
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
@@ -27,43 +27,43 @@ vim.opt.list = true -- show white space
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Line wrapping
-opt.textwidth = 79     -- max line length before hard wrapping
-opt.wrap = true        -- visually break long lines (soft-wrap)
+opt.textwidth = 79 -- max line length before hard wrapping
+opt.wrap = true -- visually break long lines (soft-wrap)
 opt.breakindent = true -- soft-wrap maintains indentation as previous line
-opt.linebreak = true   -- soft-wrap at word boundary
+opt.linebreak = true -- soft-wrap at word boundary
 
 -- Line numbers
-opt.number = true         -- display line numbers
+opt.number = true -- display line numbers
 opt.relativenumber = true -- use "relative" line numbers instead
 
 -- Window splitting
-opt.splitright = true     -- vertical splits to the right
-opt.splitbelow = true     -- horizontal splits below
+opt.splitright = true -- vertical splits to the right
+opt.splitbelow = true -- horizontal splits below
 opt.winborder = "rounded" -- border style of float window
 
 -- Cursor
-opt.cursorline = true    -- highlight line at point
+opt.cursorline = true -- highlight line at point
 opt.cursorcolumn = false -- highlight column at point
-opt.scrolloff = 10       -- min. lines displayed above/below point
+opt.scrolloff = 10 -- min. lines displayed above/below point
 
 -- Visual guides
 opt.colorcolumn = "" -- visual guide at 80 chars
 
 -- Command-line
 opt.showmode = false -- defer to statusline
-opt.cmdheight = 0    -- disable until needed
+opt.cmdheight = 0 -- disable until needed
 
 -- Completion menu
 opt.completeopt = "menu,menuone,noselect" -- better completion experience
-opt.pumheight = 10                        -- max items to show in popup menu
-opt.pumblend = 10                         -- popup menu transparency (0-100)
+opt.pumheight = 10 -- max items to show in popup menu
+opt.pumblend = 10 -- popup menu transparency (0-100)
 
 -- Searching and Substitutions
-opt.hlsearch = true            -- highlight search results
-opt.inccommand = "split"       -- live preview substitutions
-opt.ignorecase = true          -- case-insensitive searching
-opt.smartcase = true           -- override if \C or 1+ uppercase in search
-opt.grepprg = "rg --vimgrep"   -- use ripgrep for :grep
+opt.hlsearch = true -- highlight search results
+opt.inccommand = "split" -- live preview substitutions
+opt.ignorecase = true -- case-insensitive searching
+opt.smartcase = true -- override if \C or 1+ uppercase in search
+opt.grepprg = "rg --vimgrep" -- use ripgrep for :grep
 opt.grepformat = "%f:%l:%c:%m" -- format for ripgrep results
 
 -- Language and Spellcheck
@@ -76,21 +76,22 @@ opt.spelllang = "en"
 opt.spell = false -- enable per-ft in 'after/ftplugin/'
 
 -- File handling
-opt.backup = false      -- don't create backup files
+opt.backup = false -- don't create backup files
 opt.writebackup = false -- don't backup before overwriting
-opt.swapfile = false    -- don't use swapfile (we have undofile)
-opt.confirm = true      -- ask to save instead of failing commands
+opt.swapfile = false -- don't use swapfile (we have undofile)
+opt.confirm = true -- ask to save instead of failing commands
 
 -- Formatting
-opt.formatoptions = "jcroqlnt"
--- j: remove comment leader when joining lines
--- c: auto-wrap comments using textwidth
--- r: continue comments after <Enter> in insert mode
--- o: continue comments after 'o' or 'O' in normal mode
--- q: allow formatting comments with 'gq'
--- l: don't break long lines in insert mode
--- n: recognize numbered lists
--- t: auto-wrap text using textwidth
+vim.opt.formatoptions = vim.opt.formatoptions
+  + "a" -- auto-formatting
+  - "t" -- auto-wrap text using 'textwidth'
+  + "c" -- auto-wrap comments using 'textwidth'
+  + "q" -- allow formatting comments w/ `gq`
+  - "o" -- auto-continue comments on pressing `o|O`
+  + "r" -- auto-continue comments on pressing `enter`
+  + "n" -- recognize 'formatlistpat' while formatting
+  + "j" -- auto-remove comments when joining lines
+  - "2" -- disable heuristics in paragraph formatting
 
 -- Messages
 opt.shortmess:append("IWc")
@@ -99,7 +100,8 @@ opt.shortmess:append("IWc")
 -- c: don't show completion messages
 
 -- Misc.
-opt.undofile = true           -- store undos between sessions
-opt.mouse = "a"               -- enable mouse-mode; useful for resizing splits
+opt.undofile = true -- store undos between sessions
+opt.mouse = "a" -- enable mouse-mode; useful for resizing splits
 opt.clipboard = "unnamedplus" -- sync clipboard between OS and nvim
-opt.signcolumn = "yes"        -- avoid buffer shifting when sign displayed
+opt.signcolumn = "yes" -- avoid buffer shifting when sign displayed
+
