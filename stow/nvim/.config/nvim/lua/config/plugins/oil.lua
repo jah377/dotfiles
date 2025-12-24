@@ -1,13 +1,18 @@
+-- [[ Oil.nvim: Nvim file explorer ]]
+-- See: https://github.com/stevearc/oil.nvim
+
 return {
   {
     "stevearc/oil.nvim",
     ---@module 'oil'
     ---@type oil.SetupOpts
-    opts = {},
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
-
-    -- Ensures 'oil' works correctly in all situations
-    lazy = false,
+    dependencies = {
+      -- Provide icon column per doc
+      { "echasnovski/mini.icons", opts = {} }
+    },
+    keys = {
+      { "<leader>-", "<cmd>Oil --float<CR>", desc = "Open Oil" },
+    },
 
     config = function()
       require("oil").setup({
@@ -17,17 +22,22 @@ return {
           "size",
           "mtime",
         },
-        view_options = { show_hidden = true },
+        view_options = {
+          show_hidden = true, -- Always show hidden files
+        },
         keymaps = {
-          ["q"] = "actions.close",
+          ["q"] = "actions.close", -- Quick close with 'q'
         },
         float = {
           max_width = 0.8,
           max_height = 0.8,
+          border = "rounded", -- Add visual border
+          padding = 2,
         },
-      })
 
-      vim.keymap.set("n", "<leader>-", "<cmd>Oil --float<CR>", { desc = "Open Oil" })
+        -- Enable trash support for safer file operations
+        delete_to_trash = true,
+      })
     end,
   },
 }
