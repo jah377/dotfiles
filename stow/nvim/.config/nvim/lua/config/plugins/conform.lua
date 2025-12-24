@@ -1,3 +1,6 @@
+-- [[ Conform.nvim: Lightweight formatter ]]
+-- See: https://github.com/stevearc/conform.nvim
+
 return {
   {
     "stevearc/conform.nvim",
@@ -12,11 +15,10 @@ return {
       local conform = require("conform")
 
       local ensure_installed = {
-        "stylua", -- lua formatter
-        "ruff", -- python formatter
-        "isort", -- python imports formatter
+        "stylua",    -- lua formatter
+        "ruff",      -- python formatter and linter
         "prettierd", -- daemon markdown formatter (faster)
-        "prettier", -- markdown formatter (slower)
+        "prettier",  -- markdown formatter (slower fallback)
       }
 
       -- Install non-lsp tools
@@ -31,11 +33,9 @@ return {
         formatters_by_ft = {
           lua = { "stylua" },
           python = {
-            "isort",
-            "ruff_format", -- fix lint errors
-            "ruff_fix", -- formatter subcommand
-            -- -- Use isort for isort.float_to_top=true
-            -- "ruff_organize_imports", -- organize imports
+            "ruff_organize_imports",
+            "ruff_fix",
+            "ruff_format",
           },
           markdown = { "prettierd", "prettier", stop_after_first = true },
         },
@@ -43,9 +43,7 @@ return {
           lsp_format = "fallback",
         },
         format_on_save = {
-          -- Options passed to `conform.format()`
-          timeout_ms = 1000,
-          lsp_format = "fallback",
+          timeout_ms = 3000,
         },
         notify_on_error = true,
         notify_no_formatters = true,
