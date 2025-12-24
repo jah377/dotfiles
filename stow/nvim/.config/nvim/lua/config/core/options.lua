@@ -5,7 +5,7 @@
 local opt = vim.opt
 
 -- Performance
-opt.updatetime = 250 -- faster completion and CursorHold events (default: 4000ms)
+opt.updatetime = 250 -- faster completion/events (default: 4000ms)
 opt.timeoutlen = 300 -- time to wait for mapped sequence (affects which-key)
 
 -- Colors
@@ -47,7 +47,7 @@ opt.cursorcolumn = false -- highlight column at point
 opt.scrolloff = 10       -- min. lines displayed above/below point
 
 -- Visual guides
-opt.colorcolumn = "80" -- visual guide at 80 chars
+opt.colorcolumn = "" -- visual guide at 80 chars
 
 -- Command-line
 opt.showmode = false -- defer to statusline
@@ -62,7 +62,7 @@ opt.pumblend = 10                         -- popup menu transparency (0-100)
 opt.hlsearch = true            -- highlight search results
 opt.inccommand = "split"       -- live preview substitutions
 opt.ignorecase = true          -- case-insensitive searching
-opt.smartcase = true           -- override if \C or 1+ uppercase in search term
+opt.smartcase = true           -- override if \C or 1+ uppercase in search
 opt.grepprg = "rg --vimgrep"   -- use ripgrep for :grep
 opt.grepformat = "%f:%l:%c:%m" -- format for ripgrep results
 
@@ -72,9 +72,8 @@ opt.grepformat = "%f:%l:%c:%m" -- format for ripgrep results
 -- 'z=' to see suggestions
 -- 'zg' to add to dictionary
 -- 'zw' to remove from dictionary
--- Note: Spell check enabled per-filetype in after/ftplugin/
 opt.spelllang = "en"
-opt.spell = false
+opt.spell = false -- enable per-ft in 'after/ftplugin/'
 
 -- File handling
 opt.backup = false      -- don't create backup files
@@ -92,16 +91,6 @@ opt.formatoptions = "jcroqlnt"
 -- l: don't break long lines in insert mode
 -- n: recognize numbered lists
 -- t: auto-wrap text using textwidth
-
--- UI characters
--- opt.fillchars = {
---   foldopen = "",
---   foldclose = "",
---   fold = " ",
---   foldsep = " ",
---   diff = "╱",
---   eob = " ", -- suppress ~ at end of buffer
--- }
 
 -- Messages
 opt.shortmess:append("IWc")
