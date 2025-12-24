@@ -16,8 +16,8 @@ config.window_close_confirmation = "NeverPrompt"
 config.window_decorations = "RESIZE" -- disable title bar
 
 config.window_padding = {
-  left = 10,
-  right = 10,
+  left = 0,
+  right = 0,
   top = 0,
   bottom = 0,
 }
