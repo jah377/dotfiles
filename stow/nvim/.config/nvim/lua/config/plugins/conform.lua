@@ -1,4 +1,6 @@
 -- [[ Conform.nvim: Lightweight formatter ]]
+-- Tool installation handled in 'plugins/mason-tool-installer.lua'
+-- LSP servers installed in 'plugins/lsp/mason.lua'
 -- See: https://github.com/stevearc/conform.nvim
 
 return {
@@ -11,33 +13,21 @@ return {
     },
 
     config = function()
-      local mason_tools = require("mason-tool-installer")
       local conform = require("conform")
 
-      local ensure_installed = {
-        "stylua",    -- lua formatter
-        "ruff",      -- python formatter and linter
-        "prettierd", -- daemon markdown formatter (faster)
-        "prettier",  -- markdown formatter (slower fallback)
-      }
-
-      -- Install non-lsp tools
-      mason_tools.setup({
-        ensure_installed = ensure_installed,
-        auto_update = true,
-        run_on_start = true,
-      })
-
-      -- Configure formatters
       conform.setup({
         formatters_by_ft = {
           lua = { "stylua" },
           python = {
-            "ruff_organize_imports",
-            "ruff_fix",
-            "ruff_format",
+            "isort",       -- organize inputs
+            "ruff_fix",    -- fix linting issues
+            "ruff_format", -- fix formatting issues
           },
-          markdown = { "prettierd", "prettier", stop_after_first = true },
+          markdown = {
+            "prettierd", -- daemon formatter (fast)
+            "prettier",  -- formatter (slow fallback)
+            stop_after_first = true,
+          },
         },
         default_format_opts = {
           lsp_format = "fallback",
