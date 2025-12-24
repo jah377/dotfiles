@@ -11,12 +11,16 @@ if tmux has-session -t nvim 2>/dev/null; then
 else
   # Create new session with nvim in first window
   tmux new-session -s nvim -c ~/dotfiles -n nvim -d nvim
+
   # Create second window named "claude" with claude-code
   tmux new-window -t nvim:2 -c ~/dotfiles -n claude claude
+
   # Create third window named "git" with lazygit
   tmux new-window -t nvim:3 -c ~/dotfiles -n git lazygit
+
   # Select the first window (nvim) to start there
   tmux select-window -t nvim:1
+
   # Attach to the session
   tmux attach-session -t nvim
 fi
