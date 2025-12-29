@@ -25,10 +25,24 @@ return {
 
     -- See `:help telescope.builtin`
     local builtin = require("telescope.builtin")
+    local actions = require("telescope.actions")
     local keymap = vim.keymap
 
-    keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find Help" })
-    keymap.set("n", "<leader>fm", builtin.man_pages, { desc = "Find Man-Pages" })
+    -- Helper to open new buffer with vertical split
+    local function open_vertical(picker_fn)
+      return function()
+        picker_fn({
+          attach_mappings = function(_, map)
+            map("i", "<CR>", actions.select_vertical)
+            map("n", "<CR>", actions.select_vertical)
+            return true
+          end,
+        })
+      end
+    end
+
+    keymap.set("n", "<leader>fh", open_vertical(builtin.help_tags), { desc = "Find Help" })
+    keymap.set("n", "<leader>fm", open_vertical(builtin.man_pages), { desc = "Find Man-Pages" })
     keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Find Keymaps" })
     keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Find Diagnostics" })
     keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find Buffers" })
