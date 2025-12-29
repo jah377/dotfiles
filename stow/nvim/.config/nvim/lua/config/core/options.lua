@@ -81,17 +81,16 @@ opt.writebackup = false -- don't backup before overwriting
 opt.swapfile = false -- don't use swapfile (we have undofile)
 opt.confirm = true -- ask to save instead of failing commands
 
--- Formatting
+-- Formatting (default: 'tcqj')
 vim.opt.formatoptions = vim.opt.formatoptions
-  + "a" -- auto-formatting
   - "t" -- auto-wrap text using 'textwidth'
-  + "c" -- auto-wrap comments using 'textwidth'
-  + "q" -- allow formatting comments w/ `gq`
-  - "o" -- auto-continue comments on pressing `o|O`
-  + "r" -- auto-continue comments on pressing `enter`
-  + "n" -- recognize 'formatlistpat' while formatting
+  + "c" -- auto-wrap comment + insert comment leader
+  - "r" -- insert comment leader after <enter>
+  - "o" -- insert comment leader after 'o' or 'O'
+  + "q" -- allow formatting with 'gq'
+  - "a" -- auto format paragraphs (only comments if 'c' set)
+  + "n" -- recognize number lists when formatting
   + "j" -- auto-remove comments when joining lines
-  - "2" -- disable heuristics in paragraph formatting
 
 -- Messages
 opt.shortmess:append("IWc")
@@ -104,4 +103,3 @@ opt.undofile = true -- store undos between sessions
 opt.mouse = "a" -- enable mouse-mode; useful for resizing splits
 opt.clipboard = "unnamedplus" -- sync clipboard between OS and nvim
 opt.signcolumn = "yes" -- avoid buffer shifting when sign displayed
-
