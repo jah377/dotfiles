@@ -1,29 +1,38 @@
+-- [[ Mini: Library of 40+ independent Lua modules ]]
+-- See https://github.com/nvim-mini/mini.nvim
+
 return {
   {
     "echasnovski/mini.nvim",
     config = function()
-      -- Add statusline at bottom of the window
+      -- [[ Add statusline at bottom of window ]]
+      -- See https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-statusline.md
       local statusline = require("mini.statusline")
-      statusline.setup({ use_icons = vim.g.have_neard_font })
+      statusline.setup({ use_icons = vim.g.have_nerd_font })
       statusline.section_location = function()
         return "%2l:%-2v"
       end
 
-      -- Comment text-objects in normal-mode
-      -- `gcip` to comment inner-paragraph
-      -- `dgc` to delete whole comment block
-      -- `dcc` to comment entire line
+      -- [[ Comment text-objects in normal-mode ]]
+      -- See https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-comment.md
+      -- >> `gcc` to comment entire line
+      -- >> `gcip` to comment inner-paragraph
+      -- >> `dgc` to delete whole comment block
       require("mini.comment").setup()
 
-      -- Automatically insert paired quotes or brackets
+      -- [[ Automatically insert pairs ]]
+      -- See https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-pairs.md
       require("mini.pairs").setup()
 
-      -- Highlight word at point
+      -- [[ Underline word at point ]]
+      -- See https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-cursorword.md
       require("mini.cursorword").setup()
 
-      -- Highlight trailing whitespace
-      -- Custom autocmd removes whitespaces before saving
+      -- [[ Highlight trailing whitespace ]]
+      -- See https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-trailspace.md
       require("mini.trailspace").setup()
+
+      -- Remove trailing whitespace before saving
       vim.api.nvim_create_autocmd("BufWritePre", {
         desc = "Trim trailing whitespace and final blank lines before saving",
         group = vim.api.nvim_create_augroup("MiniTrailspaceTrim", { clear = true }),
@@ -32,12 +41,14 @@ return {
           require("mini.trailspace").trim_last_lines()
         end,
       })
-      -- Provide icons
+
+      -- [[ Provide icons ]]
+      -- See https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-icons.md
       require("mini.icons").setup()
 
-      -- Visualize indentation
+      -- [[ Visualize indentation lines ]]
+      -- See https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-indentscope.md
       require("mini.indentscope").setup({
-        version = false,
         draw = {
           animation = require("mini.indentscope").gen_animation.none(),
         },
@@ -49,7 +60,8 @@ return {
         symbol = "|",
       })
 
-      -- Visualize keywords by highlighting regex patterns
+      -- [[ Highlight keywords defined by regex patterns ]]
+      -- See https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-hipatterns.md
       local hipatterns = require("mini.hipatterns")
       hipatterns.setup({
         highlighters = {
@@ -63,6 +75,14 @@ return {
           hex_color = hipatterns.gen_highlighter.hex_color(),
         },
       })
+
+      -- [[ Surround actions ]]
+      -- See https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-surround.md
+      -- >> `saiw"      |word -> "word"
+      -- >> `savf)"`    |(word) -> "(word)"
+      -- >> `sd"`       |"word" -> word
+      -- >> `sr'_`      `"|'word'"` -> `"_word_"`
+      require("mini.surround").setup()
     end,
   },
 }
