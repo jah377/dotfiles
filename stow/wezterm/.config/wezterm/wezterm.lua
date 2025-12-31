@@ -11,9 +11,10 @@ config.font_size = 14
 config.default_cursor_style = "SteadyBlock"
 config.color_scheme = "Catppuccin Mocha"
 config.automatically_reload_config = true
-config.enable_tab_bar = false        -- use 'tmux' instead of tabs
+config.enable_tab_bar = false -- use 'tmux' instead of tabs
 config.window_close_confirmation = "NeverPrompt"
 config.window_decorations = "RESIZE" -- disable title bar
+config.enable_kitty_keyboard = true -- necessary to use 'C-=' binding
 
 config.window_padding = {
   left = 0,
@@ -29,7 +30,7 @@ config.send_composed_key_when_right_alt_is_pressed = false -- default: true
 config.keys = {
   {
     -- Disable 'C-=' as kbd used for smart selection in treesitter.lua
-    key = "=",
+    key = "mapped:=",
     mods = "CTRL",
     action = wezterm.action.DisableDefaultAssignment,
   },
