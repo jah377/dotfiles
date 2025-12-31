@@ -1,15 +1,5 @@
--- =============================================================================
--- TITLE : nvim-treesittertextobjects.nvim
---
--- ABOUT : Syntax aware text-objects, select, move, swap, and peek support
---
--- LINKS :
---   > github : https://github.com/nvim-treesitter/nvim-treesitter-textobjects
---
--- TUTORIALS :
---   > Mr. Jakobs : https://youtu.be/E4qXZv34NQQ?si=UmMqqCnXOlOAnV8_
---
--- =============================================================================
+-- [[ Nvim Treesitter Text Objects: syntax-aware text-objects ]]
+-- See https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 
 return {
   "nvim-treesitter/nvim-treesitter-textobjects",
@@ -26,6 +16,7 @@ return {
           include_surrounding_whitespace = false,
           keymaps = {
             -- You can use the capture groups defined in textobjects.scm
+            -- >> 'vaf' to select entire function
             ["af"] = { query = "@function.outer", desc = "Select outer part of function" },
             ["if"] = { query = "@function.inner", desc = "Select inner part of function" },
             ["ac"] = { query = "@class.outer", desc = "Select outer part of class" },
