@@ -1,20 +1,13 @@
--- =============================================================================
--- TITLE : nvim-treesitter.nvim
---
--- ABOUT : Treesitter configurations and abstraction layer for Neovim.
---
--- LINKS :
---   > github : https://github.com/nvim-treesitter/nvim-treesitter
---
--- TUTORIALS :
---   > Tj Devries   : https://youtu.be/MpnjYb-t12A?si=IF_lYH1fR62-bnwd
---   > Rad Lectures : https://www.youtube.com/watch?v=cdAMq2KcF4w&t=3324s
---
--- NOTES :
---   > `:Inspect` to view applied highlights of object at point
---   > `:InspectTree` to view tree of object at point
--- =============================================================================
+-- [[ Nvim Treesitter: code syntax parser ]]
+-- See https://github.com/nvim-treesitter/nvim-treesitter
 
+-- Tutorials
+--  > Tj Devries   : https://youtu.be/MpnjYb-t12A?si=IF_lYH1fR62-bnwd
+--  > Rad Lectures : https://www.youtube.com/watch?v=cdAMq2KcF4w&t=3324s
+
+-- `:checkhealth nvim-treesitter` to confirm everything is working correctly
+-- `:Inspect` to view applied highlights of object at point
+-- `:InspectTree` to view tree of object at point
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -34,10 +27,14 @@ return {
           "json",
           "markdown_inline",
           "python",
+          "yaml",
+          "toml",
+          "comment",
+          "regex",
         },
 
         -- Install `ensure_installed` parsers synchronously
-        sync_install = false, -- install asynch
+        sync_install = false, -- install asynchronously
 
         -- Automatically install missing parsers when entering buffer
         auto_install = false, -- only install parsers in `ensure_installed`
