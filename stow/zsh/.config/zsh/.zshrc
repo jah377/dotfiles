@@ -16,8 +16,7 @@ setopt HIST_IGNORE_DUPS         # do not save duplicate of prior command
 setopt HIST_IGNORE_SPACE        # do not save if line starts with space
 setopt HIST_NO_STORE            # do not save history commands
 setopt HIST_REDUCE_BLANKS       # strip superfluous blanks
-setopt INC_APPEND_HISTORY       # don’t wait for shell to exit to save history lines
-
+setopt INC_APPEND_HISTORY       # don't wait for shell to exit to save history lines
 
 # Initialize cli packages
 source "$ZDOTDIR/eza.zsh"
@@ -29,6 +28,9 @@ source "$ZDOTDIR/zoxide.zsh"
 source "$ZDOTDIR/zsh_vi.zsh"
 source "$ZDOTDIR/zsh_completion.zsh"
 source "$ZDOTDIR/zsh_highlighting.zsh"
+
+# Initialize other tooling
+source "$ZDOTDIR/hooks.zsh"
 
 # MUST source aliases after packages initialized
 source "$ZDOTDIR/aliases.zsh"
