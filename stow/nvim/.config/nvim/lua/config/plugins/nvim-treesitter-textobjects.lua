@@ -1,10 +1,7 @@
 -- [[ Nvim Treesitter Text Objects: syntax-aware text-objects ]]
 -- See https://github.com/nvim-treesitter/nvim-treesitter-textobjects
---
--- Usage examples:
---   - Select: 'vaf' (visual mode + af), 'dif' (delete inner function), 'yac' (yank class)
---   - Move: ']m' (next function start), '[M' (previous function end)
---   - Swap: '<leader>a' (swap parameter with next), '<leader>A' (swap with previous)
+
+-- Documented in 'docs/treesitter_text_objects.md'
 
 return {
   "nvim-treesitter/nvim-treesitter-textobjects",
