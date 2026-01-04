@@ -11,6 +11,7 @@
 --   > cmp-buffer (dep)                   : https://github.com/hrsh7th/cmp-buffer
 --   > cmp-path (dep)                     : https://github.com/hrsh7th/cmp-path
 --   > cmp-nvim-lsp-signature-help (dep)  : https://github.com/hrsh7th/cmp-nvim-lsp-signature-help
+--   > codeium (dep)                      : https://github.com/Exafunction/codeium.nvim
 -- ================================================================================================
 
 return {
@@ -45,8 +46,8 @@ return {
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
         ["<C-k>"] = cmp.mapping.select_prev_item(),
         ["<C-j>"] = cmp.mapping.select_next_item(),
-        ["<C-n>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-p>"] = cmp.mapping.scroll_docs(4),
+        ["<C-n>"] = cmp.mapping.scroll_docs(4),
+        ["<C-p>"] = cmp.mapping.scroll_docs(-4),
 
         -- Jumping between snippet inputs
         ["<Tab>"] = cmp.mapping(function(fallback)
