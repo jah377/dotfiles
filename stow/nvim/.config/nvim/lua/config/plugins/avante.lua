@@ -1,4 +1,6 @@
--- [[ Avante : Cursor-like experience in nvim ]]
+-- [[ Avante : AI-powered code completion and chat in Neovim ]]
+-- Provides Cursor-like AI assistance with inline code generation
+-- Authentication: Set ANTHROPIC_API_KEY environment variable
 -- See https://github.com/yetone/avante.nvim
 
 return {
@@ -20,23 +22,23 @@ return {
     providers = {
       claude = {
         endpoint = "https://api.anthropic.com",
-        model = "claude-sonnet-4-20250514",
+        model = "claude-sonnet-4-5-20250929",
         timeout = 30000, -- Timeout in milliseconds
         extra_request_body = {
-          temperature = 0.75,
-          max_tokens = 20480,
+          temperature = 0.3, -- Lower temperature for more deterministic code generation
+          max_tokens = 8192, -- Maximum output tokens for Claude models
         },
       },
     },
   },
   dependencies = {
-    "nvim-lua/plenary.nvim",
-    "MunifTanjim/nui.nvim",
-    "nvim-telescope/telescope.nvim", -- for file_selector provider
-    "stevearc/dressing.nvim", -- for input provider dressing
-    "echasnovski/mini.nvim", -- for icons
+    "nvim-lua/plenary.nvim", -- Lua utility functions
+    "MunifTanjim/nui.nvim", -- UI component library
+    "nvim-telescope/telescope.nvim", -- File picker for file selection
+    "stevearc/dressing.nvim", -- Enhanced UI for inputs and selections
+    "echasnovski/mini.nvim", -- Icons and additional utilities
     {
-      -- support for image pasting
+      -- Image pasting support for AI chat (paste images directly into prompts)
       "HakonHarnes/img-clip.nvim",
       event = "VeryLazy",
       opts = {
@@ -53,7 +55,7 @@ return {
       },
     },
     {
-      -- Make sure to set this up properly if you have lazy=true
+      -- Markdown rendering in Avante chat windows for better readability
       "MeanderingProgrammer/render-markdown.nvim",
       opts = {
         file_types = { "markdown", "Avante" },
