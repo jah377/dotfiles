@@ -29,7 +29,7 @@ config.send_composed_key_when_right_alt_is_pressed = false -- default: true
 
 config.keys = {
   {
-    -- Disable 'C-=' as kbd used for smart selection in treesitter.lua
+    -- Disable 'C-=', kbd used for smart selection in treesitter.lua
     key = "mapped:=",
     mods = "CTRL",
     action = wezterm.action.DisableDefaultAssignment,
