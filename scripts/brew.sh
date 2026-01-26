@@ -41,6 +41,10 @@ brew install npm # required for :Mason
 brew tap d12frosted/emacs-plus
 brew install --cask emacs-app
 
+# ---- Latex tools ----
+brew install --cask mactex # TeX distribution to compile .tex
+brew install --cask skim # display compiled PDF output
+
 # ---- Python Tools ----
 
 brew install uv     # package and project manager
