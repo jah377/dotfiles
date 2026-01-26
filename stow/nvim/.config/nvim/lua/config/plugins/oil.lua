@@ -8,7 +8,7 @@ return {
     ---@type oil.SetupOpts
     dependencies = {
       -- Provide icon column per doc
-      { "echasnovski/mini.icons", opts = {} }
+      { "echasnovski/mini.icons", opts = {} },
     },
     keys = {
       { "<leader>-", "<cmd>Oil --float<CR>", desc = "Open Oil" },
