@@ -22,6 +22,7 @@ When working with this dotfiles repository, you should:
 **Primary Platform**: macOS (Apple Silicon)
 
 **Philosophy**:
+
 - Clean `$HOME` directory using XDG Base Directory specification
 - Modular, readable configuration files
 - Minimal dependencies
@@ -48,15 +49,18 @@ dotfiles/
 ## Configured Tools
 
 ### Shell Environment
+
 - **zsh**: Primary shell with extensive customization
 - **Homebrew**: Package manager (required dependency)
 
 ### ZSH Plugins
+
 - `zsh-autosuggestions`: Command suggestions based on history
 - `zsh-syntax-highlighting`: Real-time syntax highlighting
 - `zsh-vi-mode`: Vi key bindings in the shell
 
 ### CLI Tools
+
 - **starship**: Fast, customizable prompt
 - **fzf**: Fuzzy finder for files and history
 - **zoxide**: Smarter `cd` command (aliased to `cd`)
@@ -67,6 +71,7 @@ dotfiles/
 ## Installation
 
 ### Prerequisites
+
 ```bash
 # Install Homebrew (if not already installed)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -102,6 +107,7 @@ stow -t ~ stow/emacs
 ```
 
 ### Post-Installation
+
 1. Restart your shell or run `exec zsh`
 2. Verify Homebrew is in PATH: `which brew`
 3. Verify plugins loaded: `echo $ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE`
@@ -109,6 +115,7 @@ stow -t ~ stow/emacs
 ## Critical Implementation Details
 
 ### XDG Directory Structure
+
 - Bootstrap `.zshenv` lives in `$HOME` (zsh requirement, cannot be relocated)
 - Actual configs live in `~/.config/zsh/` (XDG-compliant)
 - History should be in `$ZDOTDIR` or `$XDG_DATA_HOME`, NOT `$HOME`
@@ -116,6 +123,7 @@ stow -t ~ stow/emacs
 ## Coding Practices & Standards
 
 ### Shell Scripting
+
 1. **Quote variables**: `"$variable"` not `$variable`
 2. **Check existence**: Use `[[ -f file ]]` before sourcing
 3. **Test commands**: Use `command -v tool` before using tool
@@ -124,18 +132,21 @@ stow -t ~ stow/emacs
 6. **Use absolute paths**: Or verify PWD before using relative paths
 
 ### File Organization
+
 1. **One concern per file**: Each `.zsh` file handles one tool/feature
 2. **Descriptive names**: `zsh_highlighting.zsh` not `hl.zsh`
 3. **Comments at top**: Explain purpose and link to documentation
 4. **Group related configs**: Keep tool configs together
 
 ### Environment Variables
+
 1. **Set in `.zshenv`**: For universal variables needed by all shells
 2. **Set in `.zprofile`**: For login shell setup (PATH modifications)
 3. **Set in `.zshrc`**: For interactive shell options only
 4. **Use XDG variables**: Prefer `$XDG_CONFIG_HOME` over hardcoded paths
 
 ### Documentation
+
 1. **Explain "why" not "what"**: Code shows what, comments explain why
 2. **Link to official docs**: Reference upstream documentation
 3. **Note platform-specific code**: Mark macOS/Linux-only sections
@@ -144,6 +155,7 @@ stow -t ~ stow/emacs
 ## Troubleshooting
 
 ### Shell won't start / immediate exit
+
 ```bash
 # Check syntax errors
 zsh -n ~/.config/zsh/.zshrc
@@ -160,6 +172,7 @@ zsh -x
 ```
 
 ### Plugins not loading
+
 ```bash
 # Verify Homebrew packages installed
 brew list | grep zsh-
@@ -178,6 +191,7 @@ grep "source.*zsh" ~/.config/zsh/*.zsh
 ```
 
 ### Commands not found after Homebrew install
+
 ```bash
 # Reload shell environment
 exec zsh
@@ -195,6 +209,7 @@ eval "$(/usr/local/bin/brew shellenv)"     # Intel
 ```
 
 ### Slow shell startup
+
 ```bash
 # Profile startup time
 time zsh -i -c exit
@@ -210,6 +225,7 @@ zsh -x -i -c exit 2>&1 | head -50
 ```
 
 ### History not saving
+
 ```bash
 # Check HISTFILE location
 echo $HISTFILE
@@ -222,6 +238,7 @@ setopt | grep HIST
 ```
 
 ### fzf / zoxide / starship not working
+
 ```bash
 # Check if installed
 command -v fzf
@@ -241,20 +258,24 @@ grep -r "eval.*starship" ~/.config/zsh/
 ## Performance Considerations
 
 ### Shell Startup Time
+
 **Target**: <200ms for interactive shell startup
 
 **Measure**:
+
 ```bash
 time zsh -i -c exit
 ```
 
 **Common Bottlenecks**:
+
 1. Plugin sourcing (especially syntax highlighting)
 2. `eval` calls (brew, starship, zoxide, fzf)
 3. Large history files
 4. Network operations during init
 
 **Optimization Strategies**:
+
 ```bash
 # Lazy load heavy plugins
 # Instead of sourcing immediately, defer until needed
@@ -268,6 +289,7 @@ time zsh -i -c exit
 ```
 
 ### History File Size
+
 - Current limit: 5000 lines (HISTSIZE, SAVEHIST)
 - Monitor size: `wc -l $HISTFILE`
 - Large files slow shell exit
@@ -290,6 +312,7 @@ Understanding where each tool stores its configuration:
 ## Maintenance Guidelines
 
 ### What to Avoid
+
 - ❌ Don't add unused features "for future use"
 - ❌ Don't install plugins without understanding their impact
 - ❌ Don't hardcode paths (use `command -v` or existence checks)
@@ -297,6 +320,7 @@ Understanding where each tool stores its configuration:
 - ❌ Don't commit secrets, credentials, or history files
 
 ### What to Prefer
+
 - ✅ Simple, readable code over clever one-liners
 - ✅ Explicit error handling over silent failures
 - ✅ Portable solutions over platform-specific hacks
@@ -307,6 +331,7 @@ Understanding where each tool stores its configuration:
 ## Security Considerations
 
 ### Repo-Specific Concerns
+
 - **`.zsh_history`**: Now gitignored. Contains command history which may include secrets, tokens, passwords
 - **Machine-specific configs**: Use `*.local` suffix (already in `.gitignore`)
 - **Plugin auditing**: All plugins (`zsh-*`, starship, etc.) execute arbitrary code - verify sources before installing
@@ -320,6 +345,7 @@ Understanding where each tool stores its configuration:
 - [GNU Stow Manual](https://www.gnu.org/software/stow/manual/stow.html)
 - [Homebrew Documentation](https://docs.brew.sh/)
 - [Conventional Commits](https://www.conventionalcommits.org/)
+- [Neovim documentation](https://neovim.io/doc/user/)
 
 ---
 
