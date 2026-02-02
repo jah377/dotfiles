@@ -29,8 +29,5 @@ source "$ZDOTDIR/zsh_vi.zsh"
 source "$ZDOTDIR/zsh_completion.zsh"
 source "$ZDOTDIR/zsh_highlighting.zsh"
 
-# Initialize other tooling
-source "$ZDOTDIR/hooks.zsh"
-
 # MUST source aliases after packages initialized
 source "$ZDOTDIR/aliases.zsh"
