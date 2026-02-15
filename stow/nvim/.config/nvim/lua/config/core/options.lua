@@ -83,7 +83,7 @@ opt.confirm = true -- ask to save instead of failing commands
 
 -- Formatting (default: 'tcqj')
 vim.opt.formatoptions = vim.opt.formatoptions
-  - "t" -- auto-wrap text using 'textwidth'
+  + "t" -- auto-wrap text using 'textwidth'
   + "c" -- auto-wrap comment + insert comment leader
   - "r" -- insert comment leader after <enter>
   - "o" -- insert comment leader after 'o' or 'O'
