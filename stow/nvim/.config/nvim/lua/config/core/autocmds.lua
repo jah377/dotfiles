@@ -29,7 +29,6 @@ autocmd("BufReadPost", {
   end,
 })
 
-
 -- Show cursorline only on active windows
 -- From https://github.com/folke/dot/blob/master/nvim/lua/config/autocmds.lua
 augroup("ActiveCursorlineGroup", { clear = true })
@@ -66,8 +65,6 @@ autocmd("FileType", {
     "man",
     "Oil",
     "checkhealth",
-    "neotest-output-panel",
-    "neotest-summary",
     "lazy",
   },
   command = [[
