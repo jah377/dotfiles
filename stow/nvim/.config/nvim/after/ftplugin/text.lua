@@ -1,2 +1,4 @@
--- Enable spell check for text files
-vim.opt_local.spell = true
+local set = vim.opt_local
+
+set.spell = true -- enable spellcheck
+set.shiftwidth = 4 -- spaces per tab
