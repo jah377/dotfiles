@@ -16,6 +16,7 @@ return {
 
     _99.setup({
       provider = _99.Providers.ClaudeCodeProvider, -- default: OpenCodeProvider
+      model = "claude-haiku-4-5",
       logger = {
         level = _99.DEBUG,
         path = "/tmp/" .. basename .. ".99.debug",
