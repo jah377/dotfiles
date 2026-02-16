@@ -23,6 +23,7 @@ source "$ZDOTDIR/eza.zsh"
 source "$ZDOTDIR/fzf.zsh"
 source "$ZDOTDIR/starship.zsh"
 source "$ZDOTDIR/zoxide.zsh"
+source "$ZDOTDIR/claude_monitor.zsh"
 
 # Initalize zsh packages
 source "$ZDOTDIR/zsh_vi.zsh"
