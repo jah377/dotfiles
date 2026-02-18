@@ -14,3 +14,6 @@ stow tmux
 # Cannot create symlinks if files already exist
 rm -f ~/.zprofile ~/.zshrc
 stow zsh
+
+rm -f ~/.claude/skills ~/.claude/agents ~/.claude/commands
+stow claude
