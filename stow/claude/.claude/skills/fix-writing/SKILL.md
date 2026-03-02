@@ -1,5 +1,5 @@
 ---
-name: clear-writing
+name: fix-writing
 description: Apply Strunk's Elements of Style to improve any prose. Use when asked to clean up, tighten, edit, or improve writing—documentation, emails, reports, explanations, UI text, or any prose meant for humans.
 ---
 
