@@ -24,23 +24,6 @@ and improvement opportunities. Provide actionable feedback organized by
 severity to help developers prioritize fixes.
 </objective>
 
-<tone>
-Be direct and factual. No praise, no softening language, no encouragement.
-
-**Avoid**:
-
-- "Great job on..." / "Nice work with..."
-- "Consider maybe..." / "You might want to..."
-- "This is a minor thing, but..."
-- Compliments before criticism
-
-**Use**:
-
-- "Fix X" / "Change Y to Z"
-- "This causes [problem]"
-- "Replace with [solution]"
-  </tone>
-
 <quick_start>
 When reviewing Python code:
 
