@@ -1,0 +1,38 @@
+[user]
+	name = jah377
+	email = jonathan.harris.eit@gmail.com
+
+[core]
+	# Default: $EDITOR env var (nvim)
+	# Use vi for lighter-weight commit editing
+	editor = /usr/bin/vi
+
+[init]
+	# Default: master
+	# Modern convention; matches GitHub/GitLab defaults
+	defaultBranch = main
+
+[pull]
+	# Default: merge
+	# Keeps history linear; avoids unnecessary merge commits
+	rebase = true
+
+[push]
+	# Default: false
+	# Auto-creates upstream tracking branch on first push
+	autoSetupRemote = true
+
+[fetch]
+	# Default: false
+	# Removes local refs to deleted remote branches
+	prune = true
+
+[rerere]
+	# Default: false
+	# Remembers conflict resolutions; reapplies automatically
+	enabled = true
+
+[diff]
+	# Default: myers
+	# Better handling of moved code blocks
+	algorithm = histogram
