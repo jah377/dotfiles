@@ -1,7 +1,3 @@
-[user]
-	name = jah377
-	email = jonathan.harris.eit@gmail.com
-
 [core]
 	# Default: $EDITOR env var (nvim)
 	# Use vi for lighter-weight commit editing
