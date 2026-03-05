@@ -79,18 +79,18 @@ return {
 
     kbd.set("v", "<leader>9v", function()
       _99.visual()
-    end, { desc = "Send visual selection to 99" })
+    end, { desc = "Send [V]isual selection to 99" })
 
     kbd.set("v", "<leader>9s", function()
       _99.stop_all_requests()
-    end, { desc = "Stop all 99 requests" })
+    end, { desc = "[S]top all 99 requests" })
 
     kbd.set("n", "<leader>9m", function()
       require("99.extensions.telescope").select_model()
-    end)
+    end, { desc = "Select [M]odel" })
 
     kbd.set("n", "<leader>9p", function()
       require("99.extensions.telescope").select_provider()
-    end)
+    end, { desc = "Select [P]rovider" })
   end,
 }
