@@ -84,5 +84,13 @@ return {
     kbd.set("v", "<leader>9s", function()
       _99.stop_all_requests()
     end, { desc = "Stop all 99 requests" })
+
+    kbd.set("n", "<leader>9m", function()
+      require("99.extensions.telescope").select_model()
+    end)
+
+    kbd.set("n", "<leader>9p", function()
+      require("99.extensions.telescope").select_provider()
+    end)
   end,
 }
