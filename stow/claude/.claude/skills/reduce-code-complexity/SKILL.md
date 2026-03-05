@@ -62,6 +62,15 @@ Each suggestion must specify location and explain why it improves the code.
 
 </output_format>
 
+<implementation_guidelines>
+When implementing these suggestions:
+
+- **State assumptions** before changing code; ask if unclear
+- **Surgical changes**: touch only what's needed, don't "improve" adjacent code
+- **Simplicity first**: minimum code that solves the problem, no speculative features
+- **Define success criteria**: know how to verify the change works before implementing
+</implementation_guidelines>
+
 <success_criteria>
 
 - Each suggestion specifies location (file:line or function name)
