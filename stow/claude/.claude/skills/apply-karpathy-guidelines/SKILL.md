@@ -16,7 +16,7 @@ Before writing any code, apply all four guidelines:
 2. **Keep it simple** — Minimum code that solves the problem, nothing speculative
 3. **Be surgical** — Touch only what you must, clean up only your own mess
 4. **Define success** — Transform tasks into verifiable goals, loop until verified
-</quick_start>
+   </quick_start>
 
 <context>
 **When to apply strictly:**
@@ -26,10 +26,11 @@ Before writing any code, apply all four guidelines:
 - Anything involving user data or external systems
 
 **When to use judgment:**
+
 - One-line fixes with obvious solutions
 - Exploratory sketches or prototypes
 - Trivial changes where the cost of over-analysis exceeds the cost of mistakes
-</context>
+  </context>
 
 <think_before_coding>
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
@@ -40,7 +41,7 @@ Before implementing:
 - If multiple interpretations exist, present them — don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
-</think_before_coding>
+  </think_before_coding>
 
 <simplicity_first>
 **Minimum code that solves the problem. Nothing speculative.**
@@ -103,7 +104,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Deleting pre-existing dead code without being asked
 - Starting implementation without defining success criteria
 - Writing 200 lines when 50 would do
-</anti_patterns>
+  </anti_patterns>
 
 <success_criteria>
 Guidelines successfully applied when:
@@ -115,4 +116,4 @@ Guidelines successfully applied when:
 - [ ] Existing style was matched
 - [ ] Success criteria were defined before coding began
 - [ ] Every changed line traces directly to the user's request
-</success_criteria>
+      </success_criteria>
