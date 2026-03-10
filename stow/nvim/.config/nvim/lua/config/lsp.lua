@@ -16,6 +16,26 @@
 --
 -- ================================================================================================
 
+-- Suppress offset encoding warning (race condition during multi-client attach)
+-- Both clients end up with utf-16, but warning fires during brief mismatch
+local original_notify = vim.notify
+vim.notify = function(msg, ...)
+  if msg:match("position_encoding param is required in vim.lsp.util.make_position_params") then
+    return
+  end
+  return original_notify(msg, ...)
+end
+
+-- Force consistent offset encoding at attach time (catches misbehaving servers)
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client then
+      client.offset_encoding = "utf-16"
+    end
+  end,
+})
+
 -- Configure LSP diagnostics
 -- See :help vim.diagnostic.Opts for available settings
 

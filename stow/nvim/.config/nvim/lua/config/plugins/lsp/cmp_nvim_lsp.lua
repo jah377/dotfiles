@@ -35,10 +35,6 @@ return {
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
-    -- Prevent attaching multiple clients with different position encodings
-    -- https://github.com/astral-sh/ruff/issues/14483
-    capabilities.general = { positionEncodings = { "utf-8" } }
-
     -- Enable auto-completion across all LSP servers
     vim.lsp.config("*", {
       capabilities = capabilities,
