@@ -42,8 +42,7 @@ Meta:
     - <leader>lT : Toggle diagnostics
 """
 
-from typing import Protocol
-
+from abc import ABC, abstractmethod
 
 # =============================================================================
 # Test: Go to Definition / Preview Definition
@@ -83,25 +82,27 @@ def use_constant_thrice() -> int:
 
 # =============================================================================
 # Test: Find Implementations
-# >> Place cursor on 'process' method in Protocol and use <leader>li
+# >> Place cursor on 'process' method in ABC and use <leader>li
 # =============================================================================
 
 
-class DataProcessor(Protocol):
-    def process(self, data: str) -> str: ...
+class DataProcessor(ABC):
+    @abstractmethod
+    def process(self, data: str) -> str:
+        pass
 
 
-class UpperProcessor:
+class UpperProcessor(DataProcessor):
     def process(self, data: str) -> str:
         return data.upper()
 
 
-class LowerProcessor:
+class LowerProcessor(DataProcessor):
     def process(self, data: str) -> str:
         return data.lower()
 
 
-class ReverseProcessor:
+class ReverseProcessor(DataProcessor):
     def process(self, data: str) -> str:
         return data[::-1]
 
@@ -172,6 +173,7 @@ def complex_function(
 
     Returns:
         Formatted string with repetitions
+
     """
     actual_count = int(count * multiplier)
     repeated = name * actual_count
