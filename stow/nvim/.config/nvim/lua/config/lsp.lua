@@ -66,8 +66,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
     nmap("grr", "<cmd>Telescope lsp_references<CR>", "References")
     nmap("gri", "<cmd>Telescope lsp_implementations<CR>", "Implementations")
     nmap("grt", "<cmd>Telescope lsp_type_definitions<CR>", "Type Definitions")
-    nmap("g0", "<cmd>Telescope lsp_document_symbols<CR>", "Document Symbols")
-    nmap("K", vim.lsp.buf.hover, "LSP: Display Hover Info")
+    nmap("g0", function()
+      require("telescope.builtin").lsp_document_symbols({
+        sorting_strategy = "ascending",
+        sorter = require("telescope.sorters").get_substr_matcher(),
+      })
+    end, "Document Symbols")
+    nmap("K", vim.lsp.buf.hover, "Display Hover Info")
 
     -- Extras
     nmap("<C-k>", vim.lsp.buf.signature_help, "Display Signature Help")
