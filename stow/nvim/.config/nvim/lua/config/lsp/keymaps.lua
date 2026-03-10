@@ -27,7 +27,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
       })
     end
 
-    -- Default keybindings
+    -- Navigation
+    nmap("gd", vim.lsp.buf.definition, "Go to Definition")
+    nmap("[d", function() vim.diagnostic.jump({ count = -1 }) end, "Previous Diagnostic")
+    nmap("]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next Diagnostic")
+
+    -- Actions (grn/gra are defaults in 0.10+, explicit for discoverability via which-key)
     nmap("grn", vim.lsp.buf.rename, "Rename Variable")
     nmap("gra", vim.lsp.buf.code_action, "Code Actions")
     nmap("grr", "<cmd>Telescope lsp_references<CR>", "References")
