@@ -9,6 +9,11 @@
 --   > CTRL-]  : Jump to definition at point (tag-style)
 --   > CTRL-O  : Return to previous position
 --
+-- WORKFLOW:
+--   > <leader>lpd : Preview definition in float
+--   > <Esc>       : Close preview float
+--   > <C-w>L      : Move preview to right split (then use <C-w>c to close)
+--
 -- ================================================================================================
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -50,7 +55,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         sorter = require("telescope.sorters").get_substr_matcher(),
       })
     end, "Document Symbols")
-    map("n", "<leader>lS", "<cmd>Telescope lsp_workspace_symbols<CR>", "Workspace Symbols")
+    map("n", "<leader>lS", require("telescope.builtin").lsp_workspace_symbols, "Workspace Symbols")
 
     -- Actions
     map("n", "<leader>la", vim.lsp.buf.code_action, "Code Action")
