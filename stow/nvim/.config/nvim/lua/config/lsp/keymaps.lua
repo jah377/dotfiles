@@ -30,12 +30,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.diagnostic.jump({ count = 1 })
     end, "Next Diagnostic")
 
-    -- Navigation
-    map("n", "<leader>ld", vim.lsp.buf.definition, "Definition") -- CTRL-O to return
+    -- Navigation (jump to location, CTRL-O to return)
+    map("n", "<leader>ld", vim.lsp.buf.definition, "Definition")
     map("n", "<leader>lD", vim.lsp.buf.declaration, "Declaration")
     map("n", "<leader>lr", "<cmd>Telescope lsp_references<CR>", "References")
     map("n", "<leader>li", "<cmd>Telescope lsp_implementations<CR>", "Implementations")
     map("n", "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", "Type Definition")
+
+    -- Preview (view in floating window)
+    local gp = require("goto-preview")
+    map("n", "<leader>ld", gp.goto_preview_definition, "Preview Definition")
+    map("n", "<leader>lD", gp.goto_preview_declaration, "Preview Declaration")
+    map("n", "<leader>lR", gp.goto_preview_references, "Preview References")
+    map("n", "<leader>lI", gp.goto_preview_implementation, "Preview Implementation")
+    map("n", "<leader>lT", gp.goto_preview_type_definition, "Preview Type Definition")
 
     -- Symbols
     map("n", "<leader>ls", function()
