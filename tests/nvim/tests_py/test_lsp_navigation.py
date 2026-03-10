@@ -63,7 +63,7 @@ def main_function() -> int:
 
 # =============================================================================
 # Test: Find References
-# >> Place cursor on 'CONSTANT' and use <leader>lR
+# >> Place cursor on 'CONSTANT' and use <leader>lr
 # =============================================================================
 
 CONSTANT = 42
@@ -83,7 +83,7 @@ def use_constant_thrice() -> int:
 
 # =============================================================================
 # Test: Find Implementations
-# >> Place cursor on 'process' method in Protocol and use <leader>lI
+# >> Place cursor on 'process' method in Protocol and use <leader>li
 # =============================================================================
 
 
@@ -154,6 +154,15 @@ def complex_function(
 ) -> str:
     """
     Format a repeated string with optional prefix.
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+    commodo consequat.
+
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+    dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
     Args:
         name: The string to repeat
