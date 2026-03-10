@@ -18,9 +18,9 @@ return {
     references = {
       provider = "telescope",
     },
-    post_open_hook = function(buf, win)
+    post_open_hook = function(buf, _)
       vim.keymap.set("n", "<Esc>", function()
-        vim.api.nvim_win_close(win, true)
+        require("goto-preview").close_all_win()
       end, { buffer = buf, desc = "Close Preview" })
     end,
   },
