@@ -1,38 +1,39 @@
 # Mini Surround Tutorial
 
-Mini-surround provides actions to add, delete, replace, find, and highlight surrounding pairs (quotes, brackets, tags, etc.).
+Mini-surround provides actions to add, delete, replace, find, and highlight
+surrounding pairs (quotes, brackets, tags, etc.).
 
 **Reference**: https://github.com/echasnovski/mini.surround
 
 ## Keybindings
 
-| Key  | Action                        |
-|------|-------------------------------|
-| `sa` | **S**urround **A**dd          |
-| `sd` | **S**urround **D**elete       |
-| `sr` | **S**urround **R**eplace      |
-| `sf` | **S**urround **F**ind (next)  |
-| `sF` | **S**urround **F**ind (prev)  |
-| `sh` | **S**urround **H**ighlight    |
+| Key  | Action                          |
+| ---- | ------------------------------- |
+| `sa` | **S**urround **A**dd            |
+| `sd` | **S**urround **D**elete         |
+| `sr` | **S**urround **R**eplace        |
+| `sf` | **S**urround **F**ind (next)    |
+| `sF` | **S**urround **F**ind (prev)    |
+| `sh` | **S**urround **H**ighlight      |
 | `sn` | Update `n_lines` (search range) |
 
 ## Common Surrounding Characters
 
-| Input | Surrounding Pair |
-|-------|------------------|
-| `)`   | `(` `)` (no padding) |
-| `(`   | `( ` ` )` (with padding) |
-| `]`   | `[` `]` (no padding) |
-| `[`   | `[ ` ` ]` (with padding) |
-| `}`   | `{` `}` (no padding) |
-| `{`   | `{ ` ` }` (with padding) |
-| `>`   | `<` `>` (no padding) |
-| `<`   | `< ` ` >` (with padding) |
-| `'`   | `'` `'` |
-| `"`   | `"` `"` |
-| `` ` `` | `` ` `` `` ` `` |
-| `t`   | HTML/XML tag (prompts for tag name) |
-| `f`   | Function call (prompts for function name) |
+| Input   | Surrounding Pair                          |
+| ------- | ----------------------------------------- |
+| `)`     | `(` `)` (no padding)                      |
+| `(`     | `( ` ` )` (with padding)                  |
+| `]`     | `[` `]` (no padding)                      |
+| `[`     | `[ ` ` ]` (with padding)                  |
+| `}`     | `{` `}` (no padding)                      |
+| `{`     | `{ ` ` }` (with padding)                  |
+| `>`     | `<` `>` (no padding)                      |
+| `<`     | `< ` ` >` (with padding)                  |
+| `'`     | `'` `'`                                   |
+| `"`     | `"` `"`                                   |
+| `` ` `` | `` ` `` `` ` ``                           |
+| `t`     | HTML/XML tag (prompts for tag name)       |
+| `f`     | Function call (prompts for function name) |
 
 ## Adding Surroundings
 
@@ -42,14 +43,15 @@ Mini-surround provides actions to add, delete, replace, find, and highlight surr
 
 Starting text: `word`
 
-| Keystrokes   | Result       | Explanation                      |
-|--------------|--------------|----------------------------------|
-| `saiw"`      | `"word"`     | Surround inner word with `"`    |
-| `saiw(`      | `( word )`   | Surround with padded parens     |
-| `saiw)`      | `(word)`     | Surround with tight parens      |
-| `sa2aw]`     | `[two words]`| Surround 2 words with brackets  |
-| `saiwt`      | `<div>word</div>` | Surround with tag (prompts) |
-| `saiwf`      | `func(word)` | Surround as function arg        |
+| Keystrokes | Result            | Explanation                  |
+| ---------- | ----------------- | ---------------------------- |
+| `saiw"`    | `"word"`          | Surround inner word with `"` |
+| `saiw(`    | `( word )`        | Surround with padded parens  |
+| `saiw)`    | `(word)`          | Surround with tight parens   |
+| `saiwt`    | `<div>word</div>` | Surround with tag (prompts)  |
+| `saiwf`    | `func(word)`      | Surround as function arg     |
+
+**Practice**: word
 
 ### With Visual Mode
 
@@ -58,8 +60,9 @@ Starting text: `word`
 3. Enter surrounding character
 
 Example:
+
 ```
-1. v3w          -- Select 3 words
+1. v3e          -- Select 3 words
 2. sa           -- Initiate surround add
 3. "            -- Result: "three words here"
 ```
@@ -70,15 +73,15 @@ Example:
 
 ### Examples
 
-| Starting Text    | Keystrokes | Result       |
-|------------------|------------|--------------|
-| `"word"`         | `sd"`      | `word`       |
-| `(word)`         | `sd)`      | `word`       |
-| `( word )`       | `sd(`      | `word`       |
-| `<div>text</div>`| `sdt`      | `text`       |
-| `func(arg)`      | `sdf`      | `arg`        |
-| `[[nested]]`     | `sd]`      | `[nested]`   |
-| `[nested]`       | `sd]`      | `nested`     |
+| Starting Text     | Keystrokes | Result     |
+| ----------------- | ---------- | ---------- |
+| `"word"`          | `sd"`      | `word`     |
+| `(word)`          | `sd)`      | `word`     |
+| `( word )`        | `sd(`      | `word`     |
+| `<div>text</div>` | `sdt`      | `text`     |
+| `func(arg)`       | `sdf`      | `arg`      |
+| `[[nested]]`      | `sd]`      | `[nested]` |
+| `[nested]`        | `sd]`      | `nested`   |
 
 ## Replacing Surroundings
 
@@ -86,14 +89,16 @@ Example:
 
 ### Examples
 
-| Starting Text | Keystrokes | Result       |
-|---------------|------------|--------------|
-| `"word"`      | `sr"'`     | `'word'`     |
-| `(word)`      | `sr)}`     | `{word}`     |
-| `(word)`      | `sr){`     | `{ word }`   |
-| `'word'`      | `sr'"`     | `"word"`     |
-| `[item]`      | `sr])`     | `(item)`     |
-| `<p>text</p>` | `srtdiv`   | `<div>text</div>` |
+| Starting Text | Keystrokes    | Result            |
+| ------------- | ------------- | ----------------- |
+| `"word"`      | `sr"'`        | `'word'`          |
+| `(word)`      | `sr)}`        | `{word}`          |
+| `(word)`      | `sr){`        | `{ word }`        |
+| `'word'`      | `sr'"`        | `"word"`          |
+| `[item]`      | `sr])`        | `(item)`          |
+| `<p>text</p>` | `srttdiv<CR>` | `<div>text</div>` |
+
+**Practice**: word
 
 ## Finding Surroundings
 
@@ -104,11 +109,13 @@ Example:
 
 In text: `The "first" and "second" quotes`
 
-| Position        | Keystrokes | Cursor moves to |
-|-----------------|------------|-----------------|
-| Start of line   | `sf"`      | Opening `"` of "first" |
+| Position        | Keystrokes | Cursor moves to         |
+| --------------- | ---------- | ----------------------- |
+| Start of line   | `sf"`      | Opening `"` of "first"  |
 | Inside "first"  | `sf"`      | Opening `"` of "second" |
-| Inside "second" | `sF"`      | Closing `"` of "first" |
+| Inside "second" | `sF"`      | Closing `"` of "first"  |
+
+**Practice**: the "first" and "second" quotes
 
 ## Highlighting Surroundings
 
@@ -124,37 +131,43 @@ Mini-surround finds the **innermost** surrounding pair containing the cursor.
 
 Text: `( outer [ inner ] outer )`
 
-| Cursor Position | `sd]` Result              | `sd)` Result              |
-|-----------------|---------------------------|---------------------------|
-| Inside "inner"  | `( outer  inner  outer )` | N/A (no `)` inside `[]`)  |
-| Inside "outer"  | `( outer  inner  outer )` | `outer [ inner ] outer`   |
+| Cursor Position | `sd]` Result                            | `sd)` Result            |
+| --------------- | --------------------------------------- | ----------------------- |
+| Inside "inner"  | `( outer  inner  outer )`               | `outer [ inner ] outer` |
+| Inside "outer"  | `( outer  [ inner ]  outer )` (nothing) | `outer [ inner ] outer` |
+
+**Practice**: ( outer [ inner ] outer )
 
 ### Example: Nested Quotes
 
 Text: `"She said 'hello' today"`
 
-| Cursor Position | `sd'` Result                | `sd"` Result              |
-|-----------------|-----------------------------|---------------------------|
-| Inside 'hello'  | `"She said hello today"`    | N/A                       |
-| Outside 'hello' | `"She said hello today"`    | `She said 'hello' today`  |
+| Cursor Position | `sd'` Result             | `sd"` Result             |
+| --------------- | ------------------------ | ------------------------ |
+| Inside 'hello'  | `"She said hello today"` | `She said 'hello' today` |
+| Outside 'hello' | Unwanted change          | `She said 'hello' today` |
+
+**Practice**: "She said 'hello' today"
 
 ## Practical Workflows
 
-### Convert String Type
+### Convert Quote Style
 
-Change Python f-string to regular string:
+Change single quotes to double quotes:
+
 ```python
-# Before: f"Hello {name}"
-# After:  "Hello {name}"
-# Keys:   Place cursor inside string, type: sd"saiw"
+# Before: 'Hello world'
+# After:  "Hello world"
+# Keys:   Place cursor inside string, type: sr'"
 ```
 
-### Wrap Function Argument
+### Wrap Expression in Function
 
 ```javascript
 // Before: getValue()
 // After:  String(getValue())
-// Keys:   Place cursor on getValue, type: safawf then type String
+// Keys:   Place cursor on getValue, type: saiWfString<CR>
+// Note:   iW captures "getValue()", f prompts for function name
 ```
 
 ### Change HTML Tag
@@ -162,7 +175,8 @@ Change Python f-string to regular string:
 ```html
 <!-- Before: <span>text</span> -->
 <!-- After:  <strong>text</strong> -->
-<!-- Keys:   Place cursor inside, type: srtstrong<CR> -->
+<!-- Keys:   Place cursor inside, type: srtt then strong<CR> -->
+<!-- Note:   sr=replace, t=old is tag, t=new is tag, then enter name -->
 ```
 
 ### Remove All Surrounding
@@ -178,20 +192,23 @@ Change Python f-string to regular string:
 ```python
 # Before: value
 # After:  ("value")
-# Keys:   saiw"sa2aw)
+# Keys:   saiw" then saiW)
+# Note:   iW (inner WORD) captures "value" including quotes
 ```
 
 ## Operator-Pending Mode
 
 `sa` waits for a motion, so standard Vim motions work:
 
-| Keystrokes | Motion          | Effect                            |
-|------------|-----------------|-----------------------------------|
-| `saip"`    | inner paragraph | Surround paragraph with quotes    |
-| `sa$)`     | to end of line  | Surround to EOL with parens       |
-| `saf)`     | around function | Surround function with parens     |
-| `sat"`     | around tag      | Surround tag with quotes          |
-| `sa/pat<CR>"` | to pattern   | Surround to pattern with quotes   |
+| Keystrokes    | Motion          | Effect                          |
+| ------------- | --------------- | ------------------------------- |
+| `saip"`       | inner paragraph | Surround paragraph with quotes  |
+| `sa$)`        | to end of line  | Surround to EOL with parens     |
+| `saW"`        | around WORD     | Surround WORD with quotes       |
+| `sa3w)`       | 3 words forward | Surround next 3 words with `()` |
+| `sa/pat<CR>"` | to pattern      | Surround to pattern with quotes |
+
+**Practice**: three words forward
 
 ## Dot Repeat
 
@@ -213,17 +230,20 @@ Mini-surround searches within `n_lines` above and below cursor (default: 5).
 ### Wrong Pair Selected
 
 For nested structures, cursor position determines which pair is affected:
+
 - Move cursor inside the pair you want to modify
 - Use `sh{char}` to highlight and verify before modifying
 
 ### Tag Input Not Working
 
 When using `t` for tags:
+
 - Type the tag name without `<>` (e.g., `div` not `<div>`)
 - Press `<CR>` to confirm
 
 ### Function Input Not Working
 
 When using `f` for functions:
+
 - Type the function name without `()`
 - Press `<CR>` to confirm
