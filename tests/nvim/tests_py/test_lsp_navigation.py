@@ -7,16 +7,21 @@ Defaults (Neovim 0.10+):
     - CTRL-]  : Jump to definition (tag-style)
     - CTRL-O  : Return to previous position
 
+Workflow:
+    - <leader>lpd : Preview definition in float
+    - <Esc>       : Close preview float
+    - <C-w>L      : Move preview to right split (then use <C-w>c to close)
+
 Diagnostic Navigation:
     - [d : Previous diagnostic
     - ]d : Next diagnostic
 
-Navigation (preview in floating window, <Esc> to close):
-    - <leader>ld : Preview definition
-    - <leader>lD : Preview declaration
-    - <leader>lR : Preview references
-    - <leader>lI : Preview implementation
-    - <leader>lt : Type definition (Telescope)
+Navigation (preview in floating window):
+    - <leader>lpd : Preview definition
+    - <leader>lpD : Preview declaration
+    - <leader>lr  : Preview references
+    - <leader>lpi : Preview implementation
+    - <leader>lpt : Preview type definition
 
 Symbols:
     - <leader>ls : Document symbols (Telescope)
@@ -46,7 +51,7 @@ from abc import ABC, abstractmethod
 
 # =============================================================================
 # Test: Go to Definition / Preview Definition
-# >> Place cursor on 'helper_function' call and use <leader>ld
+# >> Place cursor on 'helper_function' call and use <leader>lpd
 # =============================================================================
 
 
@@ -82,7 +87,7 @@ def use_constant_thrice() -> int:
 
 # =============================================================================
 # Test: Find Implementations
-# >> Place cursor on 'process' method in ABC and use <leader>li
+# >> Place cursor on 'process' method in ABC and use <leader>lpi
 # =============================================================================
 
 
@@ -109,7 +114,7 @@ class ReverseProcessor(DataProcessor):
 
 # =============================================================================
 # Test: Type Definition
-# >> Place cursor on 'processor' parameter and use <leader>lt
+# >> Place cursor on 'processor' parameter and use <leader>lpt
 # =============================================================================
 
 
