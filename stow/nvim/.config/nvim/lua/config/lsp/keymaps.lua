@@ -30,20 +30,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.diagnostic.jump({ count = 1 })
     end, "Next Diagnostic")
 
-    -- Navigation (jump to location, CTRL-O to return)
-    map("n", "<leader>ld", vim.lsp.buf.definition, "Definition")
-    map("n", "<leader>lD", vim.lsp.buf.declaration, "Declaration")
-    map("n", "<leader>lr", "<cmd>Telescope lsp_references<CR>", "References")
-    map("n", "<leader>li", "<cmd>Telescope lsp_implementations<CR>", "Implementations")
-    map("n", "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", "Type Definition")
-
-    -- Preview (view in floating window)
+    -- Navigation (CTRL-] to jump to location, CTRL-O to return)
+    -- >> vim.lsp.buf.definition -> gp.goto_preview_definition
+    -- >> vim.lsp.buf.declaration -> gp.goto_preview_declaration
+    -- >> telescope.lsp_references -> gp.goto_preview_references (uses telescope)
+    -- >> telescope.lsp_implementation -> gp.goto_preview_implementation
+    -- >> telescope.lsp_type_definition -> gp.goto_preview_type_definition
     local gp = require("goto-preview")
-    map("n", "<leader>ld", gp.goto_preview_definition, "Preview Definition")
-    map("n", "<leader>lD", gp.goto_preview_declaration, "Preview Declaration")
-    map("n", "<leader>lR", gp.goto_preview_references, "Preview References")
-    map("n", "<leader>lI", gp.goto_preview_implementation, "Preview Implementation")
-    map("n", "<leader>lT", gp.goto_preview_type_definition, "Preview Type Definition")
+    map("n", "<leader>lpd", gp.goto_preview_definition, "Preview Definition")
+    map("n", "<leader>lpD", gp.goto_preview_declaration, "Preview Declaration")
+    map("n", "<leader>lr", gp.goto_preview_references, "Preview References")
+    map("n", "<leader>lpi", gp.goto_preview_implementation, "Preview Implementation")
+    map("n", "<leader>lpt", gp.goto_preview_type_definition, "Preview Type Definition")
 
     -- Symbols
     map("n", "<leader>ls", function()
