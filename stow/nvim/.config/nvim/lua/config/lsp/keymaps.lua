@@ -3,53 +3,67 @@
 --
 -- ABOUT : Keybindings applied when LSP attaches to a buffer
 --
--- DEFAULTS :
---   > K      : Display hover information about symbol at point
---   > gra    : Select code action, if available
---   > CTRL-S : Display signature help [insert mode]
---   > CTRL-] : Jump to definition at point
---   > CTRL-O : Return to point
+-- DEFAULTS (Neovim 0.10+):
+--   > K       : Display hover information about symbol at point
+--   > CTRL-S  : Display signature help [insert mode]
+--   > CTRL-]  : Jump to definition at point (tag-style)
+--   > CTRL-O  : Return to previous position
 --
 -- ================================================================================================
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(event)
-    local nmap = function(keys, func, desc)
-      if desc then
-        desc = "LSP: " .. desc
-      end
-
-      vim.keymap.set("n", keys, func, {
+    local function map(mode, keys, func, desc)
+      vim.keymap.set(mode, keys, func, {
         buffer = event.buf,
-        desc = desc,
+        desc = "LSP: " .. desc,
         silent = true,
       })
     end
 
-    -- Navigation
-    nmap("gd", vim.lsp.buf.definition, "Go to Definition")
-    nmap("[d", function() vim.diagnostic.jump({ count = -1 }) end, "Previous Diagnostic")
-    nmap("]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next Diagnostic")
+    -- Diagnostic navigation (standard vim pattern)
+    map("n", "[d", function()
+      vim.diagnostic.jump({ count = -1 })
+    end, "Previous Diagnostic")
+    map("n", "]d", function()
+      vim.diagnostic.jump({ count = 1 })
+    end, "Next Diagnostic")
 
-    -- Actions (grn/gra are defaults in 0.10+, explicit for discoverability via which-key)
-    nmap("grn", vim.lsp.buf.rename, "Rename Variable")
-    nmap("gra", vim.lsp.buf.code_action, "Code Actions")
-    nmap("grr", "<cmd>Telescope lsp_references<CR>", "References")
-    nmap("gri", "<cmd>Telescope lsp_implementations<CR>", "Implementations")
-    nmap("grt", "<cmd>Telescope lsp_type_definitions<CR>", "Type Definitions")
-    nmap("g0", function()
+    -- Navigation
+    map("n", "<leader>ld", vim.lsp.buf.definition, "Definition") -- CTRL-O to return
+    map("n", "<leader>lD", vim.lsp.buf.declaration, "Declaration")
+    map("n", "<leader>lr", "<cmd>Telescope lsp_references<CR>", "References")
+    map("n", "<leader>li", "<cmd>Telescope lsp_implementations<CR>", "Implementations")
+    map("n", "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", "Type Definition")
+
+    -- Symbols
+    map("n", "<leader>ls", function()
       require("telescope.builtin").lsp_document_symbols({
         sorting_strategy = "ascending",
         sorter = require("telescope.sorters").get_substr_matcher(),
       })
     end, "Document Symbols")
-    nmap("K", vim.lsp.buf.hover, "Display Hover Info")
+    map("n", "<leader>lS", "<cmd>Telescope lsp_workspace_symbols<CR>", "Workspace Symbols")
 
-    -- Extras
-    nmap("<C-k>", vim.lsp.buf.signature_help, "Display Signature Help")
-    nmap("grx", ":LspRestart<CR>", "Restart LSP")
-    nmap("gT", function()
+    -- Actions
+    map("n", "<leader>la", vim.lsp.buf.code_action, "Code Action")
+    map("n", "<leader>ln", vim.lsp.buf.rename, "Rename")
+    map("v", "<leader>lf", vim.lsp.buf.format, "Format Range")
+
+    -- Diagnostics
+    map("n", "<leader>lq", vim.diagnostic.setqflist, "Quickfix List")
+
+    -- Info (K=hover info; CTRL-S=signature help [insert mode])
+    map("n", "<leader>lk", vim.lsp.buf.signature_help, "Signature Help")
+
+    -- Call hierarchy
+    map("n", "<leader>lc", vim.lsp.buf.incoming_calls, "Incoming Calls")
+    map("n", "<leader>lC", vim.lsp.buf.outgoing_calls, "Outgoing Calls")
+
+    -- Meta
+    map("n", "<leader>lx", "<cmd>LspRestart<CR>", "Restart")
+    map("n", "<leader>lT", function()
       vim.diagnostic.enable(not vim.diagnostic.is_enabled())
     end, "Toggle Diagnostics")
   end,
