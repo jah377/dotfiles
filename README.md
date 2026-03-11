@@ -69,6 +69,9 @@ bash ~/dotfiles/scripts/brew.sh
 # to download tmux dependencies
 bash ~/dotfiles/scripts/tmux.sh
 
+# to download cursor-cli
+bash ~/dotfiles/scripts/cursor_cli.sh
+
 # to create symlinks to configuration files
 bash ~/dotfiles/scripts/stow.sh
 ```

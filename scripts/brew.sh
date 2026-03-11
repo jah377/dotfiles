@@ -16,7 +16,6 @@ brew install --cask raycast          # smart spotlight replacement
 brew install --cask expressvpn       # virtual private network tool
 brew install --cask whatsapp keybase # messaging-apps
 brew install --cask google-chrome
-brew install claude-code
 
 # ---- User Experience ----
 
@@ -40,6 +39,8 @@ brew install npm # required for :Mason
 
 brew tap d12frosted/emacs-plus
 brew install --cask emacs-app
+
+brew install claude-code
 
 # ---- Latex tools ----
 brew install --cask mactex # TeX distribution to compile .tex
