@@ -33,7 +33,6 @@ return {
     require("luasnip.loaders.from_vscode").lazy_load()
 
     cmp.setup({
-      completion = { autocomplete = false },
       performance = {
         -- throttle = 500,
         -- fetching_timeout = 1000,
