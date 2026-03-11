@@ -17,13 +17,13 @@ resources:
 
 ## Install Homebrew
 
-```
+```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 Run these commands in your terminal to add Homebrew to your PATH:
 
-```
+```shell
 echo >> /Users/<USER>/.zprofile
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/<USER>/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -31,7 +31,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ## Install and Configure Git
 
-```
+### On my personal machine
+
+```shell
 brew install git
 
 # to configure user values logged to each commit
@@ -49,17 +51,43 @@ With the key copied to the clipboard, go to Github >> Account >> Settings >>
 SSH & GPG keys >> New SSH Key, and paste. This will allow you to clone the
 repository.
 
+### On my work computer
+
+```shell
+# Generate a new SSH key for personal GitHub:
+ssh-keygen -t ed25519 -C {{USER_EMAIL}} -f ~/.ssh/id_ed25519_personal
+
+# Add key to Github (Settings → SSH and GPG keys → New SSH key)
+pbcopy < ~/.ssh/id_ed25519_personal.pub
+
+# Configure SSH to use this key for personal repos
+# ~/.ssh/config
+Host github-personal
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_personal
+    IdentitiesOnly yes
+
+# Clone using the custom host alias:
+git clone git@github-personal:yourusername/dotfiles.git ~/dotfiles
+
+# Set **repo-specific** git identity
+cd ~/dotfiles
+git config user.name "Your Personal Name"
+git config user.email "personal@email.com"
+```
+
 # Setup Development Environment
 
 ## Clone Repository
 
-```
+```shell
 git clone git@github.com:jah377/dotfiles.git
 ```
 
 ## Run Configuration Scripts
 
-```
+```shell
 # to configure macOS settings
 bash ~/dotfiles/scripts/osx.sh
 
@@ -85,7 +113,7 @@ I made a custom keyboard bundle `ABC_wo_opt_symbols.bundle` using `ukelele`.
 To use, you must copy the file to `/Library`, select in System Settings >>
 Keyboard >> Text Input, and restart the computer
 
-```
+```shell
 # to copy custom keyboard layout
 cp -R ~/dotfiles/custom_keyboard/ABC_wo_opt_symbols.bundle ~/Library/Keyboard\ Layout
 ```
