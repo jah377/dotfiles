@@ -1,54 +1,84 @@
--- [[ Catppuccin: Soothing pastel theme for Neovim ]]
--- See: https://github.com/catppuccin/nvim
+-- =============================================================================
+-- FILE: lua/config/plugins/theme.lua
+--
+-- PURPOSE:
+--   Configures Catppuccin, a soothing pastel color theme for Neovim. This
+--   file sets up the colorscheme and configures how it integrates with
+--   various plugins (LSP, Treesitter, Telescope, etc.).
+--
+-- CATPPUCCIN FLAVOURS:
+--   - latte   : Light theme (warm beige background)
+--   - frappe  : Dark theme (grey-blue background)
+--   - macchiato: Dark theme (deeper blue background)
+--   - mocha   : Dark theme (darkest, brown-tinted)
+--
+-- HOW TO SWITCH THEMES:
+--   :set background=light  -> Switches to latte (light mode)
+--   :set background=dark   -> Switches to mocha (dark mode)
+--
+-- DOCUMENTATION:
+--   > GitHub        : https://github.com/catppuccin/nvim
+--   > Customization : https://github.com/catppuccin/nvim#customization
+--
+-- =============================================================================
 
 return {
   {
+    -- Plugin identifier from GitHub
     "catppuccin/nvim",
+
+    -- Override the plugin name (used for requiring: require("catppuccin"))
     name = "catppuccin",
-    -- Load before all other plugins
+
+    -- High priority ensures theme loads before other plugins.
+    -- This prevents flickering from default colors on startup.
     priority = 1000,
+
     config = function()
       require("catppuccin").setup({
-        -- Auto-detects based on vim background setting
-        -- See `:set background=light/dark`
-        flavour = "auto", -- latte, frappe, macchiato, mocha
+        -- Use "auto" to automatically choose based on vim background setting.
+        -- When background=light, uses latte; when background=dark, uses mocha.
+        flavour = "auto",
 
-        -- Map vim background modes to catppuccin flavours
+        -- Map vim background modes to specific catppuccin flavours
         background = {
-          light = "latte",
-          dark = "mocha",
+          light = "latte",  -- Use latte for :set background=light
+          dark = "mocha",   -- Use mocha for :set background=dark
         },
 
-        -- Transparency settings
-        transparent_background = false, -- use theme colors for background
+        -- Use solid theme colors for the editor background.
+        -- Set to true if you want your terminal's background to show through.
+        transparent_background = false,
 
-        -- Floating window styling
+        -- Configure floating window appearance
         float = {
-          transparent = false, -- use theme colors for float backgrounds
-          solid = false,       -- use default float window borders
+          transparent = false, -- Floating windows use theme background
+          solid = false,       -- Use default float window borders
         },
 
-        show_end_of_buffer = false, -- don't show `~` at end of buffer
-        term_colors = false,        -- don't set terminal colors
+        -- Don't show ~ characters at end of buffer (after last line)
+        show_end_of_buffer = false,
 
-        -- Dim inactive windows for better focus
+        -- Don't override terminal colors (keep terminal's own color scheme)
+        term_colors = false,
+
+        -- Dim windows that don't have focus (helps identify active window)
         dim_inactive = {
-          enabled = true,
-          shade = "dark",
-          percentage = 0.25,
+          enabled = true,       -- Enable dimming
+          shade = "dark",       -- Dim towards dark (not light)
+          percentage = 0.25,    -- 25% dimmer than active window
         },
 
-        -- Global style overrides (set to true to force disable)
-        no_italic = false,    -- false = allow italics
-        no_bold = false,      -- false = allow bold
-        no_underline = false, -- false = allow underlines
+        -- Style preferences for code elements
+        -- Set to true to globally disable that style
+        no_italic = false,    -- Allow italic text
+        no_bold = false,      -- Allow bold text
+        no_underline = false, -- Allow underlined text
 
-        -- Customize syntax highlighting styles
-        -- Empty {} = use theme defaults
-        -- Available styles: "bold", "italic", "underline"
-        -- See `:h highlight-args` for more options
+        -- Configure styles for specific syntax elements
+        -- Each can have: "bold", "italic", "underline" (or empty {} for default)
         styles = {
-          comments = { "italic" }, -- Italic comments
+          comments = { "italic" }, -- Comments in italic (easier to distinguish)
           conditionals = {},       -- if/else/switch - default styling
           loops = {},              -- for/while - default styling
           functions = {},          -- Function names - default styling
@@ -60,11 +90,11 @@ return {
           properties = {},         -- Object properties - default styling
           types = {},              -- Type names - default styling
           operators = {},          -- +, -, *, etc. - default styling
-          -- miscs = {},            -- Uncomment to turn off hard-coded styles
         },
 
-        -- Handles style of specific LSP hl groups (see `:help lsp-highlight`)
+        -- Styles for LSP-related highlighting
         lsp_styles = {
+          -- Virtual text (diagnostic messages shown inline)
           virtual_text = {
             errors = { "italic" },
             hints = { "italic" },
@@ -72,41 +102,37 @@ return {
             information = { "italic" },
             ok = { "italic" },
           },
+          -- Underlines for diagnostics
           underlines = {
-            -- default: "underline"
-            errors = {},
+            errors = {},       -- Use theme default
             hints = {},
             warnings = {},
             information = {},
             ok = {},
           },
+          -- Inlay hints (inline type information)
           inlay_hints = {
-            background = true,
+            background = true, -- Show background color for inlay hints
           },
         },
 
-        -- Uncomment to override palette colors (e.g., change accent colors)
-        -- See: https://github.com/catppuccin/nvim#customization
-        -- color_overrides = {},
+        -- Enable default integrations with common plugins
+        default_integrations = true,
 
-        -- Uncomment to customize specific highlight groups
-        -- See: https://github.com/catppuccin/nvim#highlight-overrides
-        -- custom_highlights = {},
+        -- Don't auto-detect all plugins (we explicitly list what we use)
+        auto_integrations = false,
 
-        default_integrations = true, -- Enable default plugin integrations
-        auto_integrations = false,   -- Don't auto-detect all plugins
-
-        -- Plugin integrations - enable for plugins you use
-        -- See: https://github.com/catppuccin/nvim#integrations
+        -- Plugin-specific theme integrations
+        -- Enable only for plugins we actually use
         integrations = {
           cmp = true,        -- nvim-cmp completion menu
-          gitsigns = true,   -- Git signs in gutter
+          gitsigns = true,   -- Git change indicators
           treesitter = true, -- Treesitter syntax highlighting
           telescope = true,  -- Telescope fuzzy finder
-          mason = true,      -- Mason LSP/tool installer
+          mason = true,      -- Mason package manager UI
           markdown = true,   -- Markdown highlighting
 
-          -- LSP integration with styled virtual text
+          -- LSP integration with styled diagnostic text
           native_lsp = {
             enabled = true,
             virtual_text = {
@@ -126,24 +152,25 @@ return {
             },
           },
 
-          notify = true,   -- nvim-notify (not using)
+          notify = true,   -- nvim-notify notifications
           whichkey = true, -- which-key popup
 
           -- mini.nvim integrations
           mini = {
             enabled = true,
-            indentscope_color = "", -- "" = use default scope color
+            indentscope_color = "", -- Use default scope color
           },
 
           -- snacks.nvim integrations
           snacks = {
             enabled = true,
-            indent_scope_color = "", -- use default scope color
+            indent_scope_color = "", -- Use default scope color
           },
         },
       })
 
-      -- Apply the colorscheme
+      -- Apply the colorscheme.
+      -- This must be called after setup() to apply all configurations.
       vim.cmd.colorscheme("catppuccin")
     end,
   },

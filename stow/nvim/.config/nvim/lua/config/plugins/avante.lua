@@ -1,67 +1,96 @@
--- [[ Avante : AI-powered code completion and chat in Neovim ]]
--- Provides Cursor-like AI assistance with inline code generation
--- Authentication: Set ANTHROPIC_API_KEY environment variable
--- See https://github.com/yetone/avante.nvim
+-- =============================================================================
+-- FILE: lua/config/plugins/avante.lua
+--
+-- PURPOSE:
+--   Configuration for Avante.nvim, a Cursor-like AI coding assistant plugin.
+--   This plugin provides AI-powered code completion and chat capabilities
+--   directly within Neovim.
+--
+-- STATUS: DISABLED
+--   This plugin is currently commented out and not in use.
+--   Reason: It requires an Anthropic API key (ANTHROPIC_API_KEY environment
+--   variable), not Claude Code. For AI assistance, we use 99.nvim instead,
+--   which integrates with Claude Code.
+--
+-- IF YOU WANT TO ENABLE AVANTE:
+--   1. Get an API key from https://console.anthropic.com/
+--   2. Set ANTHROPIC_API_KEY environment variable
+--   3. Uncomment the configuration below
+--   4. Run :Lazy sync to install the plugin
+--
+-- FEATURES (when enabled):
+--   - Inline code generation
+--   - AI chat interface
+--   - Code explanation
+--   - File context awareness
+--   - Image pasting in prompts
+--
+-- DOCUMENTATION:
+--   > GitHub : https://github.com/yetone/avante.nvim
+--
+-- =============================================================================
 
--- IGNORE: package uses ANTHROPIC API key, not Claude Code
+-- NOTE: All configuration is commented out because this plugin is not in use.
+-- It remains here as a reference for potential future use.
 
 return {
+  -- Uncomment the following to enable Avante:
+  --
   -- "yetone/avante.nvim",
-  -- -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-  -- -- ⚠️ must add this setting! ! !
-  -- build = vim.fn.has("win32") ~= 0 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+  --
+  -- -- Build step compiles native dependencies
+  -- -- On Windows, uses PowerShell; on Unix, uses make
+  -- build = vim.fn.has("win32") ~= 0
+  --   and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
   --   or "make",
+  --
   -- event = "VeryLazy",
-  -- version = false, -- Never set this value to "*"! Never!
+  --
+  -- -- IMPORTANT: Do not set version to "*" - use false for latest commit
+  -- version = false,
+  --
   -- ---@module 'avante'
   -- ---@type avante.Config
   -- opts = {
-  --   -- add any opts here
-  --   -- this file can contain specific instructions for your project
+  --   -- Optional: File for project-specific AI instructions
   --   instructions_file = "avante.md",
-  --   -- for example
+  --
+  --   -- AI provider configuration
   --   provider = "claude",
   --   providers = {
   --     claude = {
   --       endpoint = "https://api.anthropic.com",
   --       model = "claude-sonnet-4-5-20250929",
-  --       timeout = 30000, -- Timeout in milliseconds
+  --       timeout = 30000,  -- 30 seconds
   --       extra_request_body = {
-  --         temperature = 0.3, -- Lower temperature for more deterministic code generation
-  --         max_tokens = 8192, -- Maximum output tokens for Claude models
+  --         temperature = 0.3,   -- Lower = more deterministic
+  --         max_tokens = 8192,   -- Max response length
   --       },
   --     },
   --   },
   -- },
+  --
   -- dependencies = {
-  --   "nvim-lua/plenary.nvim", -- Lua utility functions
-  --   "MunifTanjim/nui.nvim", -- UI component library
-  --   "nvim-telescope/telescope.nvim", -- File picker for file selection
-  --   "stevearc/dressing.nvim", -- Enhanced UI for inputs and selections
-  --   "echasnovski/mini.nvim", -- Icons and additional utilities
+  --   "nvim-lua/plenary.nvim",          -- Lua utilities
+  --   "MunifTanjim/nui.nvim",           -- UI components
+  --   "nvim-telescope/telescope.nvim",  -- File picker
+  --   "stevearc/dressing.nvim",         -- Enhanced UI
+  --   "echasnovski/mini.nvim",          -- Icons
   --   {
-  --     -- Image pasting support for AI chat (paste images directly into prompts)
-  --     "HakonHarnes/img-clip.nvim",
+  --     "HakonHarnes/img-clip.nvim",    -- Image pasting support
   --     event = "VeryLazy",
   --     opts = {
-  --       -- recommended settings
   --       default = {
   --         embed_image_as_base64 = false,
   --         prompt_for_file_name = false,
-  --         drag_and_drop = {
-  --           insert_mode = true,
-  --         },
-  --         -- required for Windows users
+  --         drag_and_drop = { insert_mode = true },
   --         use_absolute_path = true,
   --       },
   --     },
   --   },
   --   {
-  --     -- Markdown rendering in Avante chat windows for better readability
   --     "MeanderingProgrammer/render-markdown.nvim",
-  --     opts = {
-  --       file_types = { "markdown", "Avante" },
-  --     },
+  --     opts = { file_types = { "markdown", "Avante" } },
   --     ft = { "markdown", "Avante" },
   --   },
   -- },
