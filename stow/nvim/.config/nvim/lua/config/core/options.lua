@@ -79,6 +79,7 @@ opt.confirm = true -- Prompt to save on :q with unsaved changes
 
 -- Formatting
 -- :help fo-table for flag meanings
+-- Note: ftplugins reset formatoptions, so autocmds.lua re-applies -r -o
 vim.opt.formatoptions = vim.opt.formatoptions
   + "t" -- Auto-wrap text at textwidth
   + "c" -- Auto-wrap comments

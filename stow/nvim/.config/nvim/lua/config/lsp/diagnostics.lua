@@ -9,7 +9,7 @@
 -- =============================================================================
 
 -- Create `vim.notify` wrapper to suppress encoding warning from multi-client
--- race conditions. This is a reoccuring issue with Pyton caused by using both
+-- race conditions. This is a recurring issue with Python caused by using both
 -- `pyright` and `ruff` language servers. Warning is harmless but annoying.
 local original_notify = vim.notify
 vim.notify = function(msg, ...)

@@ -76,19 +76,17 @@ return {
       },
 
       sources = {
-        { name = "codeium" }, -- AI powered
         { name = "luasnip" }, -- Snippets
         { name = "nvim_lsp" }, -- LSP completion
         { name = "buffer" }, -- Words from current buffer
         { name = "path" }, -- File paths
-        { name = "nvim_lsp_signature_help" }, -- Fuction signatures
+        { name = "nvim_lsp_signature_help" }, -- Function signatures
       },
 
       formatting = {
         format = lspkind.cmp_format({
-          mode = "symbol_text", -- SHow bot hicon and text
+          mode = "symbol_text", -- Show both icon and text
           menu = {
-            codeium = "", -- AI robot icon
             luasnip = "", -- Snippet icon
             buffer = "", -- File icon
             path = "", -- Folder icon

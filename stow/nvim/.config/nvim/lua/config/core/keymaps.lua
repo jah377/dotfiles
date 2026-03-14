@@ -23,11 +23,11 @@ kbd("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
 kbd("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 -- Quickly navigate, save, or delete buffers
-kbd("n", "<leader>bn", ":bnext <cr>", { desc = "Next buffer" })
-kbd("n", "<leader>bp", ":bprevious <cr>", { desc = "Previous buffer" })
-kbd("n", "<leader>bd", ":bdelete <cr>", { desc = "Delete buffer" })
-kbd("n", "<leader>ba", ":wa | %bd<cr>", { desc = "Save & delete all buffers" })
-kbd("n", "<leader>bo", ":wa | %bd | e# <cr>", { desc = "Save & delete other buffers" })
+kbd("n", "<leader>bn", "<cmd>bnext<CR>", { desc = "Next buffer" })
+kbd("n", "<leader>bp", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
+kbd("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
+kbd("n", "<leader>ba", "<cmd>wa | %bd<CR>", { desc = "Save & delete all buffers" })
+kbd("n", "<leader>bo", "<cmd>wa | %bd | e#<CR>", { desc = "Save & delete other buffers" })
 
 -- Keep visual selection after indenting (default: deselect)
 -- Useful for indenting same text multiple times
@@ -36,14 +36,14 @@ kbd("v", ">", ">gv", { desc = "Indent right and reselect" })
 
 -- Streamline working with quickfix list
 -- Quickfix list built-in way to navigate through list of locations
-kbd("n", "<leader>qn", ":cnext<CR>", { desc = "[Q]uickfix [N]ext" })
-kbd("n", "<leader>qp", ":cprev<CR>", { desc = "[Q]uickfix [P]revious" })
-kbd("n", "<leader>qo", ":copen<CR>", { desc = "[Q]uickfix [O]pen" })
-kbd("n", "<leader>qc", ":cclose<CR>", { desc = "[Q]uickfix [C]lose" })
+kbd("n", "<leader>qn", "<cmd>cnext<CR>", { desc = "[Q]uickfix [N]ext" })
+kbd("n", "<leader>qp", "<cmd>cprev<CR>", { desc = "[Q]uickfix [P]revious" })
+kbd("n", "<leader>qo", "<cmd>copen<CR>", { desc = "[Q]uickfix [O]pen" })
+kbd("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "[Q]uickfix [C]lose" })
 
 -- Spelling commands
 -- Toggle spell checking, navigate misspellings, and manage spell dictionary
-kbd("n", "<leader>ss", ":set spell!<CR>", { desc = "[S]pell toggle" })
+kbd("n", "<leader>ss", "<cmd>set spell!<CR>", { desc = "[S]pell toggle" })
 kbd("n", "<leader>sn", "]s", { desc = "[S]pell [N]ext misspelling" })
 kbd("n", "<leader>sp", "[s", { desc = "[S]pell [P]revious misspelling" })
 kbd("n", "<leader>sa", "zg", { desc = "[S]pell [A]dd word to dictionary" })

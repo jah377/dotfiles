@@ -26,7 +26,7 @@ source "$ZDOTDIR/zoxide.zsh"
 source "$ZDOTDIR/claude_monitor.zsh"
 source "$ZDOTDIR/trash.zsh"
 
-# Initalize zsh packages
+# Initialize zsh packages
 source "$ZDOTDIR/zsh_vi.zsh"
 source "$ZDOTDIR/zsh_completion.zsh"
 source "$ZDOTDIR/zsh_highlighting.zsh"

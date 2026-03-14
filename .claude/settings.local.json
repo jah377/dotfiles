@@ -16,7 +16,8 @@
       "Bash(xargs cat:*)",
       "Bash(/tmp/test_ft.sh:*)",
       "WebFetch(domain:github.com)",
-      "Bash(brew install:*)"
+      "Bash(brew install:*)",
+      "Bash(luac:*)"
     ]
   }
 }

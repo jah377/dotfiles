@@ -1,6 +1,6 @@
 -- =============================================================================
 -- FILE: lua/config/plugins/snacks.lua
--- Collectkon of 20+ small quality-of-life plugins (like mini.nvim)
+-- Collection of 20+ small quality-of-life plugins (like mini.nvim)
 --
 -- DOCUMENTATION:
 --   > GitHub : https://github.com/folke/snacks.nvim

@@ -22,8 +22,7 @@ return {
 
   config = function()
     local _99 = require("99")
-    local cwd = vim.uv.cwd() -- Current directory path
-    local basename = vim.fs.basename(cwd) -- Just the directory name
+    local basename = vim.fs.basename(vim.uv.cwd())
     local kbd = vim.keymap
 
     _99.setup({

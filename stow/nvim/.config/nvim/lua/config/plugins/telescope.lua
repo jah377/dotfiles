@@ -42,12 +42,12 @@ return {
     pcall(require("telescope").load_extension, "heading")
 
     local builtin = require("telescope.builtin")
-    local actions = require("telescope.actions")
     local keymap = vim.keymap
 
     -- Helper function creates picker to open file to right
     local function open_vertical(picker_fn)
       return function()
+        local actions = require("telescope.actions")
         picker_fn({
           attach_mappings = function(_, map)
             map("i", "<CR>", actions.select_vertical)
@@ -78,7 +78,7 @@ return {
     end, { desc = "Find Lazy Plugin Files" })
 
     -- Markdown navigation (telescope-heading)
-    keymap.set("n", "<leader>mh", ":Telescope heading<CR>", { desc = "[M]arkdown [H]eadings" })
+    keymap.set("n", "<leader>mh", "<cmd>Telescope heading<CR>", { desc = "[M]arkdown [H]eadings" })
 
     -- NOTE: Grep-related functions requires `ripgrep` (see brew.sh)
     keymap.set("n", "<leader>fgs", builtin.grep_string, { desc = "Grep: Strings" })
