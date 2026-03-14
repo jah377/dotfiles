@@ -1,24 +1,6 @@
 -- =============================================================================
 -- FILE: lua/config/plugins/snacks.lua
---
--- PURPOSE:
---   Configures snacks.nvim, a collection of 20+ small quality-of-life plugins
---   bundled into a single package by Folke (the creator of lazy.nvim). Each
---   feature can be individually enabled or disabled.
---
--- WHY SNACKS.NVIM?
---   Instead of installing many separate small plugins, snacks.nvim provides
---   commonly-needed features in one well-maintained package. This reduces
---   complexity and ensures all features work well together.
---
--- ENABLED FEATURES:
---   - bigfile      : Disables heavy features for large files (performance)
---   - quickfile    : Faster rendering when opening files from command line
---   - statuscolumn : Pretty sign column (gutter) rendering
---
--- DISABLED FEATURES:
---   Each disabled feature shows WHY it's disabled (usually because another
---   plugin handles that functionality, or it's not needed).
+-- Collectkon of 20+ small quality-of-life plugins (like mini.nvim)
 --
 -- DOCUMENTATION:
 --   > GitHub : https://github.com/folke/snacks.nvim
@@ -27,30 +9,20 @@
 
 return {
   {
-    -- Plugin identifier from GitHub
     "folke/snacks.nvim",
+    priority = 1000, -- high priority (load before other plugins)
+    lazy = false, -- load immediately
 
-    -- High priority ensures snacks loads before other plugins.
-    -- Some features need to be active early (like bigfile detection).
-    priority = 1000,
-
-    -- Load immediately, don't lazy load.
-    -- These features need to be available from startup.
-    lazy = false,
-
-    -- Configuration options
     opts = {
       -- =====================================================================
       -- ENABLED FEATURES
       -- =====================================================================
 
-      -- Automatically disable heavy features (LSP, Treesitter, etc.) when
-      -- opening large files. This prevents Neovim from becoming slow or
-      -- unresponsive with very large files.
+      -- Disable heavy features (LSP, Treesitter, etc.) for large files
       bigfile = {
         enabled = true,
-        notify = true,               -- Show notification when bigfile mode activates
-        size = 1.5 * 1024 * 1024,    -- Threshold: 1.5 MB
+        notify = true, -- Show notification when bigfile mode activates
+        size = 1.5 * 1024 * 1024, -- Threshold: 1.5 MB
       },
 
       -- Speed up initial file rendering when you run `nvim <file>` from
@@ -61,7 +33,7 @@ return {
       -- The sign column shows line numbers, git changes, diagnostics, etc.
       statuscolumn = {
         enabled = true,
-        opts = { statuscolumn = {} }
+        opts = { statuscolumn = {} },
       },
 
       -- =====================================================================

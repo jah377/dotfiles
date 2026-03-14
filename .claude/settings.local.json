@@ -14,7 +14,9 @@
       "Bash(git add:*)",
       "Bash(nvim:*)",
       "Bash(xargs cat:*)",
-      "Bash(/tmp/test_ft.sh:*)"
+      "Bash(/tmp/test_ft.sh:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(brew install:*)"
     ]
   }
 }

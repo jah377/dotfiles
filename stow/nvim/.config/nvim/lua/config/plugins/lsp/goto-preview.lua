@@ -1,33 +1,10 @@
 -- =============================================================================
 -- FILE: lua/config/plugins/lsp/goto-preview.lua
---
--- PURPOSE:
---   Configures goto-preview, which displays LSP navigation results (like
---   "go to definition" or "find references") in floating preview windows
---   instead of jumping directly to the location.
---
--- WHY USE PREVIEW WINDOWS?
---   - Peek at code without losing your place
---   - Read definitions/references in context
---   - Decide whether to actually jump to the location
---   - Review multiple references without navigating away
---
--- WORKFLOW:
---   1. Place cursor on a function/variable name
---   2. Press <leader>lpd to preview its definition
---   3. Read the preview in the floating window
---   4. Press <Esc> to close, OR
---   5. Press <C-w>L to move preview to a full split
---
--- KEYMAPS (defined in lsp/keymaps.lua):
---   <leader>lpd : Preview definition
---   <leader>lpD : Preview declaration
---   <leader>lr  : Preview references (uses Telescope)
---   <leader>lpi : Preview implementation
---   <leader>lpt : Preview type definition
+-- Display LSP navigatino results in floating window
 --
 -- DOCUMENTATION:
 --   > GitHub : https://github.com/rmagatti/goto-preview
+--   > Keybindings defined in lsp/keymaps.lua
 --
 -- =============================================================================
 
@@ -44,8 +21,8 @@ return {
   -- Configuration options (passed to setup())
   opts = {
     -- Size of the preview floating window
-    width = 120,   -- Width in columns
-    height = 15,   -- Height in lines
+    width = 120, -- Width in columns
+    height = 15, -- Height in lines
 
     -- Configure how references are displayed.
     -- Using Telescope provides a nice searchable list of all references.
@@ -62,6 +39,16 @@ return {
         -- close_all_win() closes all goto-preview floating windows
         require("goto-preview").close_all_win()
       end, { buffer = buf, desc = "Close Preview" })
+
+      -- Add <C-w>L keymap to break floating window into a right split.
+      -- Saves cursor position, closes float, opens buffer in vsplit.
+      vim.keymap.set("n", "<C-w>L", function()
+        local cursor = vim.api.nvim_win_get_cursor(0)
+        require("goto-preview").close_all_win()
+        vim.cmd("vsplit")
+        vim.api.nvim_set_current_buf(buf)
+        vim.api.nvim_win_set_cursor(0, cursor)
+      end, { buffer = buf, desc = "Break preview into right split" })
     end,
   },
 }

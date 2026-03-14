@@ -1,11 +1,14 @@
 -- Python filetype settings (overrides options.lua)
--- Spell: ]s/[s (next/prev), z= (suggest), zg (add to dict)
+
 local set = vim.opt_local
 
+-- Spell checking for comments and string
 set.spell = true
-set.shiftwidth = 4   -- PEP 8
-set.tabstop = 4
-set.softtabstop = 4
+
+-- PEP 8 compliant
+set.shiftwidth = 4 -- spaces for auto-indent
+set.tabstop = 4 -- display width of <tab> character
+set.softtabstop = 4 -- spaces for <tab>
 
 -- Auto-capitalize booleans (Python uses True/False, not true/false)
 vim.cmd.inoreabbrev("<buffer> true True")

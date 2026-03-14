@@ -12,12 +12,6 @@
 --   - Better control: Precise configuration per file type
 --   - Fallback support: Can try multiple formatters in sequence
 --
--- HOW IT WORKS:
---   1. When you save a file, conform checks the file type
---   2. It runs the configured formatter(s) for that file type
---   3. The buffer is updated with the formatted code
---   4. If formatting fails, it shows an error notification
---
 -- RELATED FILES:
 --   - plugins/mason-tool-installer.lua : Installs the formatter tools
 --   - plugins/lsp/mason.lua : Installs LSP servers (separate from formatters)
@@ -29,14 +23,12 @@
 
 return {
   {
-    -- Plugin identifier from GitHub
     "stevearc/conform.nvim",
 
     -- Load on "VeryLazy" event - after initial UI render.
     -- Formatting isn't needed until you start editing.
     event = "VeryLazy",
 
-    -- Dependencies that must be loaded before conform
     dependencies = {
       -- Ensures formatter tools (stylua, ruff, etc.) are installed
       "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -48,23 +40,20 @@ return {
       local conform = require("conform")
 
       conform.setup({
-        -- Map file types to their formatters.
-        -- Each key is a filetype, value is a list of formatters to run.
         formatters_by_ft = {
-          -- Lua files: Use stylua (the standard Lua formatter)
-          lua = { "stylua" },
+          lua = {
+            "stylua", -- standard Lua formatter
+          },
 
-          -- Python files: Run multiple formatters in sequence
           python = {
-            "isort",       -- First: organize imports alphabetically
-            "ruff_fix",    -- Second: auto-fix linting issues
+            "isort", -- First: organize imports alphabetically
+            "ruff_fix", -- Second: auto-fix linting issues
             "ruff_format", -- Third: format the code (like Black)
           },
 
-          -- Markdown files: Try prettierd first, fall back to prettier
           markdown = {
             "prettierd", -- Daemon version - faster for repeated formatting
-            "prettier",  -- Regular version - fallback if daemon isn't running
+            "prettier", -- Regular version - fallback if daemon isn't running
             stop_after_first = true, -- Only run one (the first that works)
           },
         },
@@ -76,7 +65,6 @@ return {
           lsp_format = "fallback",
         },
 
-        -- Automatically format files when saving (:w)
         format_on_save = {
           -- Maximum time to wait for formatting before giving up (in ms).
           -- Some formatters are slow on large files; this prevents hanging.

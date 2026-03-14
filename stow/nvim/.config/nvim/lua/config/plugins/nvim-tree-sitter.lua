@@ -1,6 +1,13 @@
 -- =============================================================================
 -- FILE: lua/config/plugins/nvim-tree-sitter.lua
--- Syntax highlighting and code parsing. Commands: :TSUpdate, :TSInstall <lang>
+-- Advanced syntax highlighting, code nvigation, and text objects
+--
+-- USEFUL COMMANDS:
+--  > :checkhealth nim-treesitter   : Verify installation and parsers
+--  > :Inspect                     : Show highligth groups at cursor
+--  > :TSUPdate                     : Update all parsers
+--  > :TSInstall <lang>             : Install specific parser
+--
 -- Incremental selection: M-= (expand), BS (shrink)
 -- =============================================================================
 
@@ -11,27 +18,42 @@ return {
     build = ":TSUpdate",
 
     config = function()
+      -- Suppress diagnostic warning about missing fields. Known issue.
       ---@diagnostic disable-next-line: missing-fields
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
-          "lua", "vim", "vimdoc", "query", "markdown", "dockerfile",
-          "bash", "json", "markdown_inline", "python", "yaml", "toml",
-          "comment", "regex",
+          "lua",
+          "vim",
+          "vimdoc",
+          "query",
+          "markdown",
+          "dockerfile",
+          "bash",
+          "json",
+          "markdown_inline",
+          "python",
+          "yaml",
+          "toml",
+          "comment",
+          "regex",
         },
+
+        -- Don't install parsers synchronously (would block startup)
         sync_install = false,
+
+        -- Prevent unexpected downloads for file types not in list
         auto_install = false,
+
         ignore_install = {},
+
+        -- Treesitter-based indention more accurate than default regex-based
         indent = { enable = true },
 
         highlight = {
           enable = true,
+
+          -- Disable to prevent conflicting/conflicting highlights
           additional_vim_regex_highlighting = false,
-          -- Disable for large files (>100KB)
-          disable = function(lang, buf)
-            local max_filesize = 100 * 1024
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then return true end
-          end,
         },
 
         incremental_selection = {

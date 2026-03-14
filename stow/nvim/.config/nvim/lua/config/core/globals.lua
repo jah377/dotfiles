@@ -1,7 +1,14 @@
 -- =============================================================================
 -- FILE: lua/config/core/globals.lua
 -- Global variables (vim.g). Sets leader key and Nerd Font flag.
--- CRITICAL: This file MUST load before plugins - they read mapleader on init.
+--
+-- CRITICAL:
+--  > This file MUST load before plugins - they read mapleader on init.
+--
+-- DOCUMENTATION:
+--  > vim.g (global vars) : https://neovim.io/doc/user/lua/#vim.g
+--  > Leader key  : https://neovim.io/doc/user/map/#mapleader
+--  > Local leader : :help localleader
 -- =============================================================================
 
 local global = vim.g

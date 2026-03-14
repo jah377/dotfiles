@@ -3,27 +3,8 @@
 --
 -- PURPOSE:
 --   Configures Mason and mason-lspconfig, which together provide automatic
---   installation and configuration of LSP (Language Server Protocol) servers.
---
--- WHAT IS LSP?
---   LSP is a protocol that enables IDE-like features in any editor:
---   - Go to definition, find references
---   - Hover documentation
---   - Code completion
---   - Diagnostics (errors, warnings)
---   - Code actions (quick fixes, refactoring)
---
--- WHAT IS MASON?
---   Mason is a package manager for Neovim that installs external tools:
---   - LSP servers (language intelligence)
---   - Formatters (code formatting)
---   - Linters (code analysis)
---   - DAP servers (debugging)
---
--- INSTALLED LSP SERVERS:
---   - lua_ls   : Lua (for Neovim config files)
---   - pyright  : Python
---   - marksman : Markdown
+--   installation and configuration of LSP (Language Server Protocol) servers,
+--   Formatters, Linters (code analysis), and DAP servers for debugging.
 --
 -- HOW TO ADD MORE SERVERS:
 --   1. Add the server name to ensure_installed list below
@@ -44,22 +25,18 @@
 
 return {
   {
-    -- mason-lspconfig bridges Mason and nvim-lspconfig.
-    -- It auto-configures LSP servers after Mason installs them.
+    -- Auto-configures LSP servers after Mason installs them.
     "williamboman/mason-lspconfig.nvim",
-
-    -- Load when opening any file (needed before LSP can attach)
     event = { "BufReadPre", "BufNewFile" },
 
-    -- Configuration options
     opts = {
       -- List of LSP servers to install automatically.
       -- Names must match Mason's server registry.
       -- Run :Mason to see available servers.
       ensure_installed = {
-        "lua_ls",    -- Lua language server (for Neovim config)
-        "pyright",   -- Python language server (Microsoft's implementation)
-        "marksman",  -- Markdown language server
+        "lua_ls", -- Lua language server (for Neovim config)
+        "pyright", -- Python language server (Microsoft's implementation)
+        "marksman", -- Markdown language server
       },
     },
 
@@ -77,7 +54,6 @@ return {
       vim.lsp.config("*", { capabilities = capabilities })
     end,
 
-    -- Dependencies that must be loaded before/with this plugin
     dependencies = {
       -- nvim-lspconfig provides default configurations for LSP servers.
       -- Without this, you'd have to manually configure each server.
@@ -91,22 +67,19 @@ return {
         "williamboman/mason.nvim",
         opts = {
           ui = {
-            -- Custom icons for the Mason UI (:Mason)
             icons = {
-              package_installed = "✓",   -- Successfully installed
-              package_pending = "➜",     -- Installing
-              package_uninstalled = "✗", -- Not installed
+              package_installed = "✓",
+              package_pending = "➜",
+              package_uninstalled = "✗",
             },
           },
         },
       },
 
-      -- fidget.nvim shows LSP progress in the corner of your screen.
-      -- Displays "indexing..." or "formatting..." status messages.
+      -- fidget.nvim shows LSP progress in the bottom corner of your screen.
       { "j-hui/fidget.nvim", opts = {} },
 
       -- cmp-nvim-lsp provides completion capabilities for nvim-cmp.
-      -- Required for LSP completions to work.
       "hrsh7th/cmp-nvim-lsp",
 
       -- lazydev.nvim configures lua_ls specifically for Neovim development.

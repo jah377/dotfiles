@@ -1,7 +1,11 @@
 -- =============================================================================
 -- FILE: lua/config/lazy.lua
 -- Bootstraps lazy.nvim plugin manager. Add plugins in lua/config/plugins/
--- Commands: :Lazy (UI), S=sync, U=update, X=clean
+--
+-- Commands:
+--  > :Lazy (UI), S=sync, U=update, X=clean
+-- Documentation:
+--  > lazy.nvim Github : https://github.com/folke/lazy.nvim
 -- =============================================================================
 
 -- Bootstrap: auto-install lazy.nvim if missing
@@ -23,9 +27,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    { import = "config.plugins" },      -- Load lua/config/plugins/*.lua
-    { import = "config.plugins.lsp" },  -- Load lua/config/plugins/lsp/*.lua
+    { import = "config.plugins" }, -- Load lua/config/plugins/*.lua
+    { import = "config.plugins.lsp" }, -- Load lua/config/plugins/lsp/*.lua
   },
-  checker = { enabled = true },         -- Check for plugin updates
+  checker = { enabled = true }, -- Check for plugin updates
   change_detection = { enabled = true, notify = false },
 })

@@ -1,7 +1,11 @@
 -- =============================================================================
 -- FILE: lua/config/plugins/mini.lua
--- mini.nvim modules: statusline, comment (gcc), pairs, cursorword,
--- trailspace, icons, indentscope, hipatterns, surround (sa/sd/sr)
+-- Library of 40+ small, focused Lua plugins. Not all enabled.
+--
+-- DOCUMENTATION:
+--  > GitHub: https://github.com/echasnovski/mini.nvim
+--  > Each module has its own README in the mini.nvim repo
+--
 -- =============================================================================
 
 return {
@@ -9,21 +13,28 @@ return {
     "echasnovski/mini.nvim",
 
     config = function()
-      -- STATUSLINE --
+      -- Add status line at bottom of each window
       local statusline = require("mini.statusline")
-      statusline.setup({ use_icons = vim.g.have_nerd_font })  -- globals.lua
-      statusline.section_location = function() return "%2l:%-2v" end
+      statusline.setup({ use_icons = vim.g.have_nerd_font }) -- globals.lua
+      statusline.section_location = function()
+        return "%2l:%-2v" -- format line-number:column-number
+      end
 
       -- COMMENT: gcc=line, gc{motion}, gc=visual --
+      -- Toggle comments on lines or sections
+      --  > gcc         : Toggle comment on current line
+      --  > gc{motion}  : Toggle comment on motion (eg. `gcip`)
+      --  > gc          : Toggle comment on visual selection
+      --  > dgc         : Delete whole comment block
       require("mini.comment").setup()
 
-      -- PAIRS: auto-close brackets/quotes --
+      -- Automatically insert closing brackets, quotes, etc.
       require("mini.pairs").setup()
 
-      -- CURSORWORD: highlight word under cursor --
+      -- Highlight word under cursor
       require("mini.cursorword").setup()
 
-      -- TRAILSPACE: highlight trailing whitespace --
+      -- Highlight and delete trailing whitespace
       require("mini.trailspace").setup()
       vim.api.nvim_create_autocmd("BufWritePre", {
         desc = "Trim trailing whitespace on save",
@@ -34,29 +45,34 @@ return {
         end,
       })
 
-      -- ICONS: file type icons (requires Nerd Font) --
+      -- Provide file-type icons for use by other plugins
       require("mini.icons").setup()
 
-      -- INDENTSCOPE: vertical line showing current scope --
+      -- Draw vertical lines showing current indentation
       require("mini.indentscope").setup({
+        -- Disable animation (instant display)
         draw = { animation = require("mini.indentscope").gen_animation.none() },
         options = { border = "both", indent_at_cursor = true, try_as_border = true },
         symbol = "|",
       })
 
-      -- HIPATTERNS: highlight TODO, FIXME, hex colors --
+      -- Highlight specific patterns in text, like TODO, FIXME, etc.
       local hipatterns = require("mini.hipatterns")
+
+      vim.api.nvim_set_hl(0, "MiniHipatternsAssumptions", { fg = "#ffffff", bg = "#9d7cd8", bold = true })
+
       hipatterns.setup({
         highlighters = {
           fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
           hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
           todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
           note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+          assumptions = { pattern = "%f[%w]()ASSUMPTIONS()%f[%W]", group = "MiniHipatternsAssumptions" },
           hex_color = hipatterns.gen_highlighter.hex_color(),
         },
       })
 
-      -- SURROUND: sa{motion}{char}=add, sd{char}=delete, sr{old}{new}=replace --
+      -- Add, delete, and change surrounding pairs (brackets, quotes, etc)
       -- See: docs/how_to_use_mini_surround.md
       require("mini.surround").setup()
     end,

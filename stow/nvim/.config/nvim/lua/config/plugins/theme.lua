@@ -1,11 +1,6 @@
 -- =============================================================================
 -- FILE: lua/config/plugins/theme.lua
 --
--- PURPOSE:
---   Configures Catppuccin, a soothing pastel color theme for Neovim. This
---   file sets up the colorscheme and configures how it integrates with
---   various plugins (LSP, Treesitter, Telescope, etc.).
---
 -- CATPPUCCIN FLAVOURS:
 --   - latte   : Light theme (warm beige background)
 --   - frappe  : Dark theme (grey-blue background)
@@ -24,9 +19,7 @@
 
 return {
   {
-    -- Plugin identifier from GitHub
     "catppuccin/nvim",
-
     -- Override the plugin name (used for requiring: require("catppuccin"))
     name = "catppuccin",
 
@@ -42,8 +35,8 @@ return {
 
         -- Map vim background modes to specific catppuccin flavours
         background = {
-          light = "latte",  -- Use latte for :set background=light
-          dark = "mocha",   -- Use mocha for :set background=dark
+          light = "latte", -- Use latte for :set background=light
+          dark = "mocha", -- Use mocha for :set background=dark
         },
 
         -- Use solid theme colors for the editor background.
@@ -53,7 +46,7 @@ return {
         -- Configure floating window appearance
         float = {
           transparent = false, -- Floating windows use theme background
-          solid = false,       -- Use default float window borders
+          solid = false, -- Use default float window borders
         },
 
         -- Don't show ~ characters at end of buffer (after last line)
@@ -64,32 +57,32 @@ return {
 
         -- Dim windows that don't have focus (helps identify active window)
         dim_inactive = {
-          enabled = true,       -- Enable dimming
-          shade = "dark",       -- Dim towards dark (not light)
-          percentage = 0.25,    -- 25% dimmer than active window
+          enabled = true, -- Enable dimming
+          shade = "dark", -- Dim towards dark (not light)
+          percentage = 0.25, -- 25% dimmer than active window
         },
 
         -- Style preferences for code elements
         -- Set to true to globally disable that style
-        no_italic = false,    -- Allow italic text
-        no_bold = false,      -- Allow bold text
+        no_italic = false, -- Allow italic text
+        no_bold = false, -- Allow bold text
         no_underline = false, -- Allow underlined text
 
         -- Configure styles for specific syntax elements
         -- Each can have: "bold", "italic", "underline" (or empty {} for default)
         styles = {
           comments = { "italic" }, -- Comments in italic (easier to distinguish)
-          conditionals = {},       -- if/else/switch - default styling
-          loops = {},              -- for/while - default styling
-          functions = {},          -- Function names - default styling
-          keywords = {},           -- Language keywords - default styling
-          strings = {},            -- String literals - default styling
-          variables = {},          -- Variable names - default styling
-          numbers = {},            -- Number literals - default styling
-          booleans = {},           -- true/false - default styling
-          properties = {},         -- Object properties - default styling
-          types = {},              -- Type names - default styling
-          operators = {},          -- +, -, *, etc. - default styling
+          conditionals = {}, -- if/else/switch - default styling
+          loops = {}, -- for/while - default styling
+          functions = {}, -- Function names - default styling
+          keywords = {}, -- Language keywords - default styling
+          strings = {}, -- String literals - default styling
+          variables = {}, -- Variable names - default styling
+          numbers = {}, -- Number literals - default styling
+          booleans = {}, -- true/false - default styling
+          properties = {}, -- Object properties - default styling
+          types = {}, -- Type names - default styling
+          operators = {}, -- +, -, *, etc. - default styling
         },
 
         -- Styles for LSP-related highlighting
@@ -104,7 +97,7 @@ return {
           },
           -- Underlines for diagnostics
           underlines = {
-            errors = {},       -- Use theme default
+            errors = {}, -- Use theme default
             hints = {},
             warnings = {},
             information = {},
@@ -125,12 +118,12 @@ return {
         -- Plugin-specific theme integrations
         -- Enable only for plugins we actually use
         integrations = {
-          cmp = true,        -- nvim-cmp completion menu
-          gitsigns = true,   -- Git change indicators
+          cmp = true, -- nvim-cmp completion menu
+          gitsigns = true, -- Git change indicators
           treesitter = true, -- Treesitter syntax highlighting
-          telescope = true,  -- Telescope fuzzy finder
-          mason = true,      -- Mason package manager UI
-          markdown = true,   -- Markdown highlighting
+          telescope = true, -- Telescope fuzzy finder
+          mason = true, -- Mason package manager UI
+          markdown = true, -- Markdown highlighting
 
           -- LSP integration with styled diagnostic text
           native_lsp = {
@@ -152,7 +145,7 @@ return {
             },
           },
 
-          notify = true,   -- nvim-notify notifications
+          notify = true, -- nvim-notify notifications
           whichkey = true, -- which-key popup
 
           -- mini.nvim integrations

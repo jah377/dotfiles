@@ -1,32 +1,51 @@
 -- =============================================================================
 -- FILE: lua/config/plugins/telescope.lua
--- Fuzzy finder. Keys: <leader>f* (find), <leader>fg* (grep)
--- In picker: CR=open, C-j/k=nav, Esc=close
+-- Fuzzy finder.
+--
+-- DOCUMENTATION:
+--  > Github : https://github.com/nvim-telescope/telescope.nvim
+--  > :help telescope
+--  > :help telescope.builtin
 -- =============================================================================
 
 return {
   "nvim-telescope/telescope.nvim",
-  event = "VimEnter",
-  tag = "0.1.8",
+  event = "VimEnter", -- load after starting
+  tag = "0.1.8", -- for stability
   dependencies = {
+    -- Lua utility functions (frequently used by plugins)
     "nvim-lua/plenary.nvim",
+
+    -- Native FZF sorter for faster fuzzy matching (must compile during install)
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+
+    -- Replace ugly default for vim.ui.select()
     { "nvim-telescope/telescope-ui-select.nvim" },
-    { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },  -- globals.lua
+
+    -- Include file-icons in Telescope if Nerd Font used (see globals.lua)
+    { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+
+    -- Jump to markdown headings via Telescope picker
+    -- https://github.com/crispgm/telescope-heading.nvim
+    { "crispgm/telescope-heading.nvim" },
   },
 
   config = function()
+    -- Display ui-select as a dropdown menu theme
     require("telescope").setup({
       extensions = { ["ui-select"] = { require("telescope.themes").get_dropdown() } },
     })
+
+    -- Load extensions (without error) if installed
     pcall(require("telescope").load_extension, "fzf")
     pcall(require("telescope").load_extension, "ui-select")
+    pcall(require("telescope").load_extension, "heading")
 
     local builtin = require("telescope.builtin")
     local actions = require("telescope.actions")
     local keymap = vim.keymap
 
-    -- Open help/man in vertical split
+    -- Helper function creates picker to open file to right
     local function open_vertical(picker_fn)
       return function()
         picker_fn({
@@ -39,7 +58,6 @@ return {
       end
     end
 
-    -- FINDERS --
     keymap.set("n", "<leader>fh", open_vertical(builtin.help_tags), { desc = "Find Help" })
     keymap.set("n", "<leader>fm", open_vertical(builtin.man_pages), { desc = "Find Man-Pages" })
     keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Find Keymaps" })
@@ -49,8 +67,6 @@ return {
     keymap.set("n", "<leader>ft", builtin.treesitter, { desc = "Find Treesitter Objects" })
     keymap.set("n", "<leader>fr", builtin.resume, { desc = "Resume Search" })
     keymap.set("n", "<leader>fz", builtin.current_buffer_fuzzy_find, { desc = "Fuzzy Find in Buffer" })
-
-    -- FILE FINDING --
     keymap.set("n", "<leader>ff", function()
       builtin.find_files({ hidden = true })
     end, { desc = "Find All Files" })
@@ -61,7 +77,10 @@ return {
       builtin.find_files({ cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy") })
     end, { desc = "Find Lazy Plugin Files" })
 
-    -- GREP --
+    -- Markdown navigation (telescope-heading)
+    keymap.set("n", "<leader>mh", ":Telescope heading<CR>", { desc = "[M]arkdown [H]eadings" })
+
+    -- NOTE: Grep-related functions requires `ripgrep` (see brew.sh)
     keymap.set("n", "<leader>fgs", builtin.grep_string, { desc = "Grep: Strings" })
     keymap.set("n", "<leader>fgd", function()
       builtin.live_grep({ grep_open_files = false, prompt_title = "Live Grep in Directory" })

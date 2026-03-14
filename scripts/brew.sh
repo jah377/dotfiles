@@ -36,6 +36,7 @@ brew install --cask visual-studio-code
 
 brew install neovim
 brew install npm # required for :Mason
+brew install trash # required for :Oil
 
 brew tap d12frosted/emacs-plus
 brew install --cask emacs-app

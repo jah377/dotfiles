@@ -1,22 +1,6 @@
 -- =============================================================================
 -- FILE: lua/config/plugins/vimtex.lua
---
--- PURPOSE:
---   Configures VimTeX, the most comprehensive LaTeX plugin for Vim/Neovim.
---   It provides compilation, PDF viewing, syntax highlighting, and text
---   objects for editing LaTeX documents.
---
--- WHAT IS LATEX?
---   LaTeX is a document preparation system used for creating professional
---   documents, academic papers, books, and presentations. It uses markup
---   commands (like \section{}, \begin{equation}) instead of WYSIWYG editing.
---
--- FEATURES:
---   - Compile LaTeX to PDF with :VimtexCompile
---   - View PDF with synchronized scrolling (SyncTeX)
---   - LaTeX-specific text objects (e.g., "ie" for inner environment)
---   - Syntax highlighting and concealment
---   - Table of contents navigation
+-- Comprehensive LaTeX plugin provides compilation, PDF viewing, highlighting
 --
 -- PREREQUISITES:
 --   - MacTeX: brew install --cask mactex
@@ -29,14 +13,8 @@
 -- =============================================================================
 
 return {
-  -- Plugin identifier from GitHub
   "lervag/vimtex",
-
-  -- Don't lazy load this plugin.
-  -- VimTeX is implemented as a filetype plugin (ftplugin), which means it
-  -- automatically loads only when you open a .tex file. Adding lazy loading
-  -- on top of that would be redundant and could cause issues.
-  lazy = false,
+  lazy = false, -- default: VimTeX implemented as filetype plugin
 
   -- 'init' runs BEFORE the plugin loads.
   -- VimTeX reads global variables (vim.g.*) during initialization, so we

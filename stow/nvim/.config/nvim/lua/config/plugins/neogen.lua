@@ -26,14 +26,12 @@
 
 return {
   {
-    -- Plugin identifier from GitHub
     "danymat/neogen",
 
     -- Neogen uses Treesitter to analyze code structure.
     -- Treesitter must be loaded before Neogen can work.
     dependencies = { "nvim-treesitter/nvim-treesitter" },
 
-    -- 'opts' configures the plugin via its setup() function
     opts = {
       -- Use LuaSnip as the snippet engine for navigating docstring placeholders.
       -- This integrates with our existing LuaSnip setup from nvim-cmp.lua.
@@ -41,7 +39,6 @@ return {
       -- {param_description}, {return_description}, etc.
       snippet_engine = "luasnip",
 
-      -- Language-specific settings
       languages = {
         python = {
           template = {
@@ -63,16 +60,13 @@ return {
       },
     },
 
-    -- Define keymaps that also trigger lazy loading of this plugin.
-    -- Neogen only loads when you first press this key.
     keys = {
       {
-        "<leader>d",  -- The key sequence
+        "<leader>d",
         function()
-          -- Call Neogen's generate function to create a docstring
           require("neogen").generate()
         end,
-        desc = "Generate docstring",  -- Description shown in which-key
+        desc = "Generate docstring",
       },
     },
   },

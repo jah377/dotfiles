@@ -119,11 +119,11 @@ return {
           -- Define which visual mode to use for each textobject type.
           -- "v" = characterwise, "V" = linewise, "<c-v>" = blockwise
           selection_modes = {
-            ["@parameter.outer"] = "v",    -- Parameters: characterwise (inline)
-            ["@function.outer"] = "V",     -- Functions: linewise (multiple lines)
-            ["@class.outer"] = "V",        -- Classes: linewise
-            ["@conditional.outer"] = "V",  -- Conditionals: linewise
-            ["@loop.outer"] = "V",         -- Loops: linewise
+            ["@parameter.outer"] = "v", -- Parameters: characterwise (inline)
+            ["@function.outer"] = "V", -- Functions: linewise (multiple lines)
+            ["@class.outer"] = "V", -- Classes: linewise
+            ["@conditional.outer"] = "V", -- Conditionals: linewise
+            ["@loop.outer"] = "V", -- Loops: linewise
           },
         },
 
@@ -177,12 +177,12 @@ return {
           -- Example: foo(a, b, c) with cursor on 'a', press <leader>a
           -- Result:  foo(b, a, c)
           swap_next = {
-            ["<leader>a"] = { query = "@parameter.inner", desc = "Swap parameter with next" },
+            ["<leader>ca"] = { query = "@parameter.inner", desc = "Swap parameter with next" },
           },
 
           -- Swap current parameter with the previous one
           swap_previous = {
-            ["<leader>A"] = { query = "@parameter.inner", desc = "Swap parameter with previous" },
+            ["<leader>cA"] = { query = "@parameter.inner", desc = "Swap parameter with previous" },
           },
         },
       },

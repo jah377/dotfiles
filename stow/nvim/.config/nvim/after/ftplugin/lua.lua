@@ -1,6 +1,9 @@
 -- Lua filetype settings (overrides options.lua)
--- Spell: ]s/[s (next/prev), z= (suggest), zg (add to dict)
+
 local set = vim.opt_local
 
+-- Spell: ]s/[s (next/prev), z= (suggest), zg (add to dict)
 set.spell = true
-set.shiftwidth = 2  -- Lua convention (matches stylua)
+
+-- Use lua-convention (2-spaces); default=4-spaces
+set.shiftwidth = 2
