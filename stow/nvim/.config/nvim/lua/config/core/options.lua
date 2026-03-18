@@ -90,6 +90,9 @@ vim.opt.formatoptions = vim.opt.formatoptions
   + "n" -- Recognize numbered lists
   + "j" -- Remove comment leader when joining
 
+-- Folding
+opt.foldlevelstart = 99 -- Start with all folds open
+
 -- Messages
 opt.shortmess:append("IWc") -- Suppress intro, "written", completion msgs
 
