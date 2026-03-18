@@ -31,50 +31,22 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ## Install and Configure Git
 
-### On my personal machine
+**Note:** Email and file-names must match values in `.config/git/config`
 
 ```shell
 brew install git
 
-# to configure user values logged to each commit
-git config --global user.name <user>
-git config --global user.email <user_email>
-
-# to generate ssh-key and link to github account
-ssh-keygen -t ed25519 -C <user_email>
-eval "$(ssh-agent -s)"         # start ssh-agent process, add env vars to shell
-ssh-add ~/.ssh/id_ed25519      # load key into ssh-agent
-pbcopy < ~/.ssh/id_ed25519.pub # copy key to clipboard; paste into github
-```
-
-With the key copied to the clipboard, go to Github >> Account >> Settings >>
-SSH & GPG keys >> New SSH Key, and paste. This will allow you to clone the
-repository.
-
-### On my work computer
-
-```shell
 # Generate a new SSH key for personal GitHub:
+ssh-keygen -t ed25519 -C {{WORK_EMAIL}} -f ~/.ssh/id_ed25519_work
 ssh-keygen -t ed25519 -C {{USER_EMAIL}} -f ~/.ssh/id_ed25519_personal
 
-# Add key to Github (Settings → SSH and GPG keys → New SSH key)
+# Add key to Github (Settings → SSH and GPG keys → New SSH key):
+pbcopy < ~/.ssh/id_ed25519_work.pub
 pbcopy < ~/.ssh/id_ed25519_personal.pub
 
-# Configure SSH to use this key for personal repos
-# ~/.ssh/config
-Host github-personal
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/id_ed25519_personal
-    IdentitiesOnly yes
-
-# Clone using the custom host alias:
-git clone git@github-personal:yourusername/dotfiles.git ~/dotfiles
-
-# Set **repo-specific** git identity
-cd ~/dotfiles
-git config user.name "Your Personal Name"
-git config user.email "personal@email.com"
+# Configure global git:
+git config --global user.name {{WORK_USER_NAME}}
+git config --global user.email {{WORK_EMAIL}}
 ```
 
 # Setup Development Environment
@@ -82,25 +54,27 @@ git config user.email "personal@email.com"
 ## Clone Repository
 
 ```shell
-git clone git@github.com:jah377/dotfiles.git
+# Must use custom alias
+git clone git@github-personal:jah377/dotfiles.git ~/dotfiles
+
 ```
 
 ## Run Configuration Scripts
 
 ```shell
-# to configure macOS settings
+# Configure macOS settings
 bash ~/dotfiles/scripts/osx.sh
 
-# to download required packages
+# Download required packages
 bash ~/dotfiles/scripts/brew.sh
 
-# to download tmux dependencies
+# Download tmux dependencies
 bash ~/dotfiles/scripts/tmux.sh
 
-# to download cursor-cli
+# Download cursor-cli
 bash ~/dotfiles/scripts/cursor_cli.sh
 
-# to create symlinks to configuration files
+# Create symlinks to configuration files
 bash ~/dotfiles/scripts/stow.sh
 ```
 
