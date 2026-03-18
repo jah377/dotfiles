@@ -1,34 +1,88 @@
+# Ensure dotfiles repo configured correctly, even on work computer
+# See `~/dotfiles/README.md`
+[includeIf "gitdir:~/dotfiles"]
+    [user]
+        user = "jah377"
+        email = "jonathan.harris.eit@gmail.com"
+    [core]
+        # Use personal SSH key for this repo
+        sshCommand = "ssh -i ~/.ssh/id_ed25519_personal"
+
 [core]
-	# Default: $EDITOR env var (nvim)
-	# Use vi for lighter-weight commit editing
-	editor = /usr/bin/vi
+    # Use vi for lighter-weight commit editing
+    editor = /usr/bin/vi
 
 [init]
-	# Default: master
-	# Modern convention; matches GitHub/GitLab defaults
-	defaultBranch = main
+    # Modern convention; matches GitHub/GitLab defaults
+    defaultBranch = main
 
 [pull]
-	# Default: merge
-	# Keeps history linear; avoids unnecessary merge commits
-	rebase = true
+    # Keeps history linear; avoids unnecessary merge commits
+    rebase = true
+
+[column]
+    # Display branch/tag lists in columns when terminal is wide enough
+    ui = auto
+
+[branch]
+    # Show most recently committed branches first in `git branch`
+    sort = -committerdate
+
+[tag]
+    # Sort tags semantically (v1.9 < v1.10 < v2.0)
+    sort = version:refname
 
 [push]
-	# Default: false
-	# Auto-creates upstream tracking branch on first push
-	autoSetupRemote = true
+    # Auto-creates upstream tracking branch on first push
+    autoSetupRemote = true
+
+    # Push current branch to same-named remote branch
+    default = simple
+
+    # Push annotated tags when pushing commits that reference them
+    followTags = true
 
 [fetch]
-	# Default: false
-	# Removes local refs to deleted remote branches
-	prune = true
+    # Removes local refs to deleted remote branches
+    prune = true
+
+    # Also prune local tags that no longer exist on remote
+    pruneTags = true
+
+    # Fetch from all remotes, not just origin
+    all = true
+
+[help]
+    # Prompt before auto-correcting typos (e.g., `git stauts`)
+    autocorrect = prompt
+
+[commit]
+    # Show diff in commit message editor for context
+    verbose = true
 
 [rerere]
-	# Default: false
-	# Remembers conflict resolutions; reapplies automatically
-	enabled = true
+    # Remembers conflict resolutions; reapplies automatically
+    enabled = true
+
+    # Auto-stage files after rerere resolves conflicts
+    autoupdate = true
+
+[rebase]
+    # Auto-reorder fixup!/squash! commits to their targets
+    autoSquash = true
+
+    # Stash uncommitted changes before rebase, restore after
+    autoStash = true
+
+    # Update dependent branches during rebase
+    updateRefs = true
 
 [diff]
-	# Default: myers
-	# Better handling of moved code blocks
-	algorithm = histogram
+    # Better handling of moved code blocks
+    algorithm = histogram
+
+    # Highlight moved lines in a different color
+    colorMoved = plain
+
+    # Detect renames when showing diffs
+    renames = true
