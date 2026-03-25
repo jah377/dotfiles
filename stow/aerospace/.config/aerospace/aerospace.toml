@@ -140,19 +140,19 @@ automatically-unhide-macos-hidden-apps = true
 # See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 # laptop ='built-in'
 # home monitor = 'P24q-10'
-# [AMS] left-office = 'P2422H'
+# [AMS] left-office = 'P2417H'
 # [GRN] left-office = 'U2515H'
 [workspace-to-monitor-force-assignment]
-    '1-Term'  = ['P2422H', 'U2515H', 'P24q', 'HP 27mq', 'built-in']
-    '2-Code' = ['P2422H', 'U2515H', 'P24q', 'HP 27mq','built-in']
-    '3-Web'  = ['P2422H', 'U2515H', 'P24q', 'HP 27mq','built-in']
-    '4-Mail'   = ['P2422H', 'U2515H', 'P24q', 'HP 27mq','built-in']
+    '1-Term'  = ['P2417H', 'U2515H', 'P24q', 'HP 27mq', 'built-in']
+    '2-Code' = ['P2417H', 'U2515H', 'P24q', 'HP 27mq','built-in']
+    '3-Web'  = ['P2417H', 'U2515H', 'P24q', 'HP 27mq','built-in']
+    '4-Mail'   = ['P2417H', 'U2515H', 'P24q', 'HP 27mq','built-in']
     '5-Text'   = ['built-in']
-    '6-MS'  = ['P2422H', 'U2515H', 'P24q', 'HP 27mq','built-in']
-    '7' = ['P2422H', 'U2515H', 'P24q', 'HP 27mq','built-in']
-    '8' = ['P2422H', 'U2515H', 'P24q', 'HP 27mq','built-in']
-    '9' = ['P2422H', 'U2515H', 'P24q', 'HP 27mq','built-in']
-    '0' = ['P2422H', 'U2515H', 'P24q', 'HP 27mq','built-in']
+    '6-MS'  = ['P2417H', 'U2515H', 'P24q', 'HP 27mq','built-in']
+    '7' = ['P2417H', 'U2515H', 'P24q', 'HP 27mq','built-in']
+    '8' = ['P2417H', 'U2515H', 'P24q', 'HP 27mq','built-in']
+    '9' = ['P2417H', 'U2515H', 'P24q', 'HP 27mq','built-in']
+    '0' = ['P2417H', 'U2515H', 'P24q', 'HP 27mq','built-in']
 
 # See: https://nikitabobko.github.io/AeroSpaceguide#on-window-detected-callback
 [[on-window-detected]]
