@@ -1,12 +1,7 @@
 # Ensure dotfiles repo configured correctly, even on work computer
 # See `~/dotfiles/README.md`
 [includeIf "gitdir:~/dotfiles"]
-    [user]
-        user = "jah377"
-        email = "jonathan.harris.eit@gmail.com"
-    [core]
-        # Use personal SSH key for this repo
-        sshCommand = "ssh -i ~/.ssh/id_ed25519_personal"
+    path=~/dotfiles/stow/git/.config/git/.gitconfig-personal
 
 [core]
     # Use vi for lighter-weight commit editing
