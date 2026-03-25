@@ -1,7 +1,7 @@
 # Ensure dotfiles repo configured correctly, even on work computer
+# git -C ~/dotfiles config --local user.name "Your Name"
+# git -C ~/dotfiles config --local user.email "you@example.com"
 # See `~/dotfiles/README.md`
-[includeIf "gitdir:~/dotfiles"]
-    path=~/dotfiles/stow/git/.config/git/.gitconfig-personal
 
 [core]
     # Use vi for lighter-weight commit editing
