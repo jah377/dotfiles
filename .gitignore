@@ -1,6 +1,10 @@
 # Git directory
 .git/
 
+# AI files
+.claude/settings.local.json
+plan/
+
 # macOS system files
 .DS_Store
 .AppleDouble
