@@ -17,3 +17,5 @@ stow zsh
 
 rm -f ~/.claude/skills ~/.claude/agents ~/.claude/commands
 stow claude
+
+stow cursor
