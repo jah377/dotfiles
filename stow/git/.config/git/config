@@ -3,81 +3,53 @@
 # git -C ~/dotfiles config --local user.email "you@example.com"
 # See `~/dotfiles/README.md`
 
-[core]
-    # Use vi for lighter-weight commit editing
-    editor = /usr/bin/vi
-
-[init]
-    # Modern convention; matches GitHub/GitLab defaults
-    defaultBranch = main
-
-[pull]
-    # Keeps history linear; avoids unnecessary merge commits
-    rebase = true
+[branch]
+    sort = -committerdate # recently commited branches listed first
 
 [column]
-    # Display branch/tag lists in columns when terminal is wide enough
-    ui = auto
-
-[branch]
-    # Show most recently committed branches first in `git branch`
-    sort = -committerdate
-
-[tag]
-    # Sort tags semantically (v1.9 < v1.10 < v2.0)
-    sort = version:refname
-
-[push]
-    # Auto-creates upstream tracking branch on first push
-    autoSetupRemote = true
-
-    # Push current branch to same-named remote branch
-    default = simple
-
-    # Push annotated tags when pushing commits that reference them
-    followTags = true
-
-[fetch]
-    # Removes local refs to deleted remote branches
-    prune = true
-
-    # Also prune local tags that no longer exist on remote
-    pruneTags = true
-
-    # Fetch from all remotes, not just origin
-    all = true
-
-[help]
-    # Prompt before auto-correcting typos (e.g., `git stauts`)
-    autocorrect = prompt
+    ui = auto # display branch/tag lists in columns
 
 [commit]
-    # Show diff in commit message editor for context
-    verbose = true
+    verbose = true # show diff in commit message editor
 
-[rerere]
-    # Remembers conflict resolutions; reapplies automatically
-    enabled = true
-
-    # Auto-stage files after rerere resolves conflicts
-    autoupdate = true
-
-[rebase]
-    # Auto-reorder fixup!/squash! commits to their targets
-    autoSquash = true
-
-    # Stash uncommitted changes before rebase, restore after
-    autoStash = true
-
-    # Update dependent branches during rebase
-    updateRefs = true
+[core]
+    editor = /usr/bin/vi # edit commits in vi
+    hooksPath = ~/.config/git/hooks # stowed from dotfile
 
 [diff]
-    # Better handling of moved code blocks
-    algorithm = histogram
+    algorithm = histogram # more readable
+    colorMoved = plain # highlight moved lines in different color
+    renames = true # detect renames in diff
 
-    # Highlight moved lines in a different color
-    colorMoved = plain
+[fetch]
+    prune = true # fetch drops local branch that no longer exists
+    pruneTags = true # fetch drops local tags that no longer exist
+    all = true # fethc from all remotes, not just origin
 
-    # Detect renames when showing diffs
-    renames = true
+[help]
+    autocorrect = prompt # asks before auto-correcting cmd typos
+
+[init]
+    defaultBranch = main # Default of GitHub/GitLab
+
+[merge]
+    conflictStyle = zdiff3 # add base text between conflict markers
+
+[pull]
+    rebase = true # replay local commits on top of fetched commits
+
+[push]
+    autoSetupRemote = true # create upstream on first push
+    followTags = true # push commits and tags at same time
+
+[rebase]
+    autoSquash = true # auto-reorder fixup/squash commits during rebase
+    autoStash = true # stach changes before rebase, restore after
+    updateRefs = true # rebase one branch updates others
+
+[rerere]
+    enabled = true # auto-reply redundant conflic resolutions
+    autoupdate = true # auto-stage file after conflict resolution
+
+[tag]
+    sort = version:refname # sort semantically (v1.9 < v.1.10)
