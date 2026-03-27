@@ -31,33 +31,85 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ## Install and Configure Git
 
-**Note:** Email and file-names must match values in `.config/git/config`
+```shell
+# Install git using HomeBrew
+brew install git
+```
+
+### Configure Git on Personal Machine
 
 ```shell
-brew install git
+# Generate a new SSH key for personal GitHub
+ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
 
-# Generate a new SSH key for personal GitHub:
-ssh-keygen -t ed25519 -C {{WORK_EMAIL}} -f ~/.ssh/id_ed25519_work
+# Add key to GitHub (Settings -> SSH and GPG keys -> New SSH Key)
+pbcopy < ~/.ssh/id_ed25519_work.pub
+
+# Configure global git
+git config --global user.name {{NAME}}
+git config --global user.email {{PERSONAL_EMAIL}}
+
+# Clone repo
+git clone git@github:jah377/dotfiles.git ~/dotfiles
+```
+
+### Configure Git on Work Machine
+
+Additional steps required to use two GitHub accounts from one machine (see
+[blog](https://dineshpandiyan.com/blog/two-github-accounts-one-machine/).
+
+```shell
+# Create a new SSH key for both GitHub accounts
+ssh-keygen -t ed25519 -C {{WORK_EMAIL}} -f ~/.ssh/id_ed25519
 ssh-keygen -t ed25519 -C {{USER_EMAIL}} -f ~/.ssh/id_ed25519_personal
 
 # Add key to Github (Settings → SSH and GPG keys → New SSH key):
 pbcopy < ~/.ssh/id_ed25519_work.pub
 pbcopy < ~/.ssh/id_ed25519_personal.pub
+```
 
-# Configure global git:
-git config --global user.name {{WORK_USER_NAME}}
-git config --global user.email {{WORK_EMAIL}}
+Then create the file `.ssh/config` and paste the following:
+
+```shell
+# Personal GitHub account
+Host github.com-personal
+ HostName github.com
+ User git
+ AddKeysToAgent yes
+ UseKeychain yes
+ IdentitiesOnly yes
+ IdentityFile ~/.ssh/id_ed25519_personal
+
+# Work GitHub account (no alias so we can use as main)
+Host github.com
+ HostName github.com
+ User git
+ AddKeysToAgent yes
+ UseKeychain yes
+ IdentitiesOnly yes
+ IdentityFile ~/.ssh/id_ed25519
+```
+
+Then clone this dotfiles repo:
+
+```shell
+# Must use alias defined in .ssh/config
+git clone git@github-personal:jah377/dotfiles.git ~/dotfiles
+```
+
+Then set name and email for both users:
+
+```shell
+# Set global config
+git config --global user.name "{{WORK_NAME}}"
+git config --global user.email "{{WORK_EMAIL}}"
+
+# Set local config for dotfiles
+git -C ~/dotfiles config --local user.name "{{PERSONAL_NAME}}"
+git -C ~/dotfiles config --local user.email "{{PERSONAL_EMAIL}}"
 ```
 
 # Setup Development Environment
-
-## Clone Repository
-
-```shell
-# Must use custom alias
-git clone git@github-personal:jah377/dotfiles.git ~/dotfiles
-
-```
 
 ## Run Configuration Scripts
 
