@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Prepend Jira ticket to commit message based on branch name.
+# Branch format: <ticket-type>/<jira-ticket>/<branch-name>
+# Result: "[PROJ-123] your commit message"
+
+COMMIT_MSG_FILE="$1"
+COMMIT_SOURCE="$2"
+
+# Skip merges, squashes, and amends — message already meaningful
+[[ "$COMMIT_SOURCE" == "merge" || "$COMMIT_SOURCE" == "squash" || "$COMMIT_SOURCE" == "commit" ]] && exit 0
+
+# Extract Jira ticket from second segment of branch name
+BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null) || exit 0
+JIRA_TICKET=$(echo "$BRANCH" | cut -d'/' -f2)
+
+# Validate ticket format (e.g., PROJ-123)
+[[ "$JIRA_TICKET" =~ ^[A-Z]+-[0-9]+$ ]] || exit 0
+
+# Skip if ticket already present (e.g., re-editing a commit message)
+grep -qF "[$JIRA_TICKET]" "$COMMIT_MSG_FILE" && exit 0
+
+# Prepend ticket to first line of commit message
+TMPFILE=$(mktemp)
+awk -v ticket="[$JIRA_TICKET] " 'NR==1 { print ticket $0; next } { print }' "$COMMIT_MSG_FILE" > "$TMPFILE"
+mv "$TMPFILE" "$COMMIT_MSG_FILE"
