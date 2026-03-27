@@ -1,9 +1,0 @@
-{
-    "editor": { "vimMode": true },
-    "permissions": { "allow": ["Shell(ls)"], "deny": [] },
-    "attribution": {
-        "attribueCommitsToAgent": false,
-        "attributePRsToAgent": false,
-    },
-}
-
