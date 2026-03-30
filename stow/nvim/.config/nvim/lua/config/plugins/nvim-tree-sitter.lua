@@ -47,7 +47,10 @@ return {
         ignore_install = {},
 
         -- Treesitter-based indention more accurate than default regex-based
-        indent = { enable = true },
+        indent = {
+          enable = true,
+          disable = { "markdown" }, -- respect list indentation
+        },
 
         highlight = {
           enable = true,
