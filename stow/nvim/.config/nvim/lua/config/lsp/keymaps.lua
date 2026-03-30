@@ -29,16 +29,28 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "<leader>li", gp.goto_preview_implementation, "Preview Implementation")
     map("n", "<leader>lt", gp.goto_preview_type_definition, "Preview Type Definition")
 
+    -- List all symbols across entire workspace or project (ie. other files)
+    map("n", "<leader>lsw", require("telescope.builtin").lsp_workspace_symbols, "Workspace Symbols")
+
     -- List all symbols used in current file, in order of appearance
-    map("n", "<leader>ls", function()
-      require("telescope.builtin").lsp_document_symbols({
+    builtin = require("telescope.builtin")
+
+    map("n", "<leader>lss", function()
+      builtin.lsp_document_symbols({
         sorting_strategy = "ascending",
         sorter = require("telescope.sorters").get_substr_matcher(),
       })
     end, "Document Symbols")
 
-    -- List all symbols across entire workspace or project (ie. other files)
-    map("n", "<leader>lS", require("telescope.builtin").lsp_workspace_symbols, "Workspace Symbols")
+    -- List all class symbols in document
+    map("n", "<leader>lsc", function()
+      builtin.lsp_document_symbols({ symbols = { "Class" } })
+    end, "Document Classes")
+
+    -- List all function/method symbols in document
+    map("n", "<leader>lsf", function()
+      builtin.lsp_document_symbols({ symbols = { "Function", "Method" } })
+    end, "Document Functions")
 
     -- Show list of available automated fixes/refactoring provided by LSP
     map("n", "<leader>la", vim.lsp.buf.code_action, "Code Action")
