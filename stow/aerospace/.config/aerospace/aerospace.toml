@@ -180,5 +180,6 @@ automatically-unhide-macos-hidden-apps = true
     run = ['move-node-to-workspace 6-MS']
 
 [[on-window-detected]]
+    # Catch-all: all apps not matched above default to floating layout
     if.app-name-regex-substring = ''
     run = ['layout floating']
