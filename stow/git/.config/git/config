@@ -24,7 +24,7 @@
 [fetch]
     prune = true # fetch drops local branch that no longer exists
     pruneTags = true # fetch drops local tags that no longer exist
-    all = true # fethc from all remotes, not just origin
+    all = true # fetch from all remotes, not just origin
 
 [help]
     autocorrect = prompt # asks before auto-correcting cmd typos
@@ -44,7 +44,7 @@
 
 [rebase]
     autoSquash = true # auto-reorder fixup/squash commits during rebase
-    autoStash = true # stach changes before rebase, restore after
+    autoStash = true # stash changes before rebase, restore after
     updateRefs = true # rebase one branch updates others
 
 [rerere]
@@ -52,4 +52,4 @@
     autoupdate = true # auto-stage file after conflict resolution
 
 [tag]
-    sort = version:refname # sort semantically (v1.9 < v.1.10)
+    sort = version:refname # sort semantically (v1.9 < v1.10)
