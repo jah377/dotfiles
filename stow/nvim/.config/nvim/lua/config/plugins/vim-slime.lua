@@ -122,7 +122,3 @@ return {
     },
   },
 }
-
--- NOTE: The commented-out code below is an alternative configuration using
--- vim-slime-cells.nvim instead of vim-slime-cells. It's kept for reference
--- but not currently used.
