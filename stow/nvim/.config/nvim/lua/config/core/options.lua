@@ -23,8 +23,8 @@ opt.smartindent = true -- Auto-indent based on syntax
 opt.autoindent = true -- Copy indent from current line
 
 -- Whitespace Display
-vim.opt.list = true -- Show invisible characters
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+opt.list = true -- Show invisible characters
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Line Wrapping
 opt.textwidth = 79 -- Hard wrap at column (PEP 8)
@@ -45,9 +45,6 @@ opt.winborder = "rounded" -- Floating window borders
 opt.cursorline = true -- Highlight current line
 opt.cursorcolumn = false
 opt.scrolloff = 10 -- Keep 10 lines visible above/below cursor
-
--- Visual Guides
-opt.colorcolumn = "" -- Column guide (e.g., "80" for line limit)
 
 -- Command-line
 opt.showmode = false -- Mode shown in statusline instead
