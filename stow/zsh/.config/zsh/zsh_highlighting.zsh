@@ -1,3 +1,3 @@
 # Syntax-highlighting for commands
 # See https://github.com/zsh-users/zsh-syntax-highlighting
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"

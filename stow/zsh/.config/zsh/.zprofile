@@ -15,6 +15,7 @@
 # See https://docs.brew.sh/Manpage#shellenv-shell
 eval "$(/opt/homebrew/bin/brew shellenv)"
 export HOMEBREW_NO_AUTO_UPDATE=1
+export PATH="$HOMEBREW_PREFIX/opt/trash/bin:$PATH"
 
 # Uncomment to prioritize Homebrew python over system python
 # PATH="$(brew --prefix)/opt/python@3.12/libexec/bin:$PATH"
