@@ -99,14 +99,14 @@ autocmd("BufWritePre", {
   end,
 })
 
--- -- Disable auto-commenting when opening a new line from comment
--- -- Autocmd required because ftplugins reset formatoptions after options.lua loads
--- -- See `:help formatoptions`
--- augroup("AutoCommentGroup", { clear = true })
--- autocmd("FileType", {
---   desc = "Disable auto-commenting on new line",
---   group = "AutoCommentGroup",
---   callback = function()
---     vim.opt_local.formatoptions:remove({ "c", "r", "o" })
---   end,
--- })
+-- Disable auto-commenting when opening a new line from comment
+-- Autocmd required because ftplugins reset formatoptions after options.lua loads
+-- See `:help formatoptions`
+augroup("AutoCommentGroup", { clear = true })
+autocmd("FileType", {
+  desc = "Disable auto-commenting on new line",
+  group = "AutoCommentGroup",
+  callback = function()
+    vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+  end,
+})
