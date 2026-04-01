@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "<leader>lsw", require("telescope.builtin").lsp_workspace_symbols, "Workspace Symbols")
 
     -- List all symbols used in current file, in order of appearance
-    builtin = require("telescope.builtin")
+    local builtin = require("telescope.builtin")
 
     map("n", "<leader>lss", function()
       builtin.lsp_document_symbols({
