@@ -6,6 +6,12 @@
 
 local kbd = vim.keymap.set
 
+-- Copy message buffer to clipboard
+kbd("n", "<leader>M", function()
+  local messages = vim.fn.execute("messages")
+  vim.fn.setreg("+", messages)
+end, { desc = "Copy [M]essages" })
+
 -- Clear search highlighting on <esc>
 kbd("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
