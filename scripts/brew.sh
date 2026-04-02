@@ -35,6 +35,7 @@ brew install stow # dotfile symlink-farm manager
 brew install --cask visual-studio-code
 
 brew install neovim
+brew install tree-sitter-cli
 brew install npm # required for :Mason
 brew install trash # required for :Oil
 

@@ -53,19 +53,13 @@ return {
   },
 
   config = function()
-    -- Get the treesitter configs module to add our textobject settings
-    local config = require("nvim-treesitter.configs")
-
-    config.setup({
-      -- All settings go under the 'textobjects' key
-      textobjects = {
-
-        -- =====================================================================
-        -- TEXT OBJECT SELECTION
-        -- =====================================================================
-        -- Use these with operators like d, y, c, v
-        -- Example: "daf" deletes around function, "yic" yanks inner class
-        select = {
+    require("nvim-treesitter-textobjects").setup({
+      -- =====================================================================
+      -- TEXT OBJECT SELECTION
+      -- =====================================================================
+      -- Use these with operators like d, y, c, v
+      -- Example: "daf" deletes around function, "yic" yanks inner class
+      select = {
           enable = true,
 
           -- Jump forward to find a textobject if cursor isn't on one.
@@ -185,7 +179,6 @@ return {
             ["<leader>cA"] = { query = "@parameter.inner", desc = "Swap parameter with previous" },
           },
         },
-      },
     })
   end,
 }
