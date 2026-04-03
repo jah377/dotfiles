@@ -11,7 +11,7 @@
 return {
   "nvim-telescope/telescope.nvim",
   event = "VimEnter", -- load after starting
-  tag = "0.2.*", -- for stability
+  -- tag = "0.2.*", -- for stability
   dependencies = {
     -- Lua utility functions (frequently used by plugins)
     "nvim-lua/plenary.nvim",
