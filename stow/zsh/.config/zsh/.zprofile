@@ -17,5 +17,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 export HOMEBREW_NO_AUTO_UPDATE=1
 export PATH="$HOMEBREW_PREFIX/opt/trash/bin:$PATH"
 
+# brew shellenv prepends Homebrew, which would shadow ~/.local/bin (e.g. cursor-agent
+# from cursor-cli cask vs the complete install from Cursor). Keep user-local first.
+export PATH="$HOME/.local/bin:$PATH"
+
 # Uncomment to prioritize Homebrew python over system python
 # PATH="$(brew --prefix)/opt/python@3.12/libexec/bin:$PATH"
