@@ -28,8 +28,8 @@ focusing on a different aspect of code quality.
    - **all** - Run all applicable reviews (default)
 
 3. **Identify Changed Files**
-   - Run `git diff --name-only` to see modified files
-   - Run `git log HEAD..main` to see new commits
+   - Run `git diff --name-only main..HEAD` to see modified files
+   - Run `git log main..HEAD` to see new commits
    - Identify file types, what changes, and what reviews apply
 
 4. **Determine Applicable Reviews**
