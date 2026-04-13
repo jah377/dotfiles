@@ -28,15 +28,16 @@ focusing on a different aspect of code quality.
    - **all** - Run all applicable reviews (default)
 
 3. **Identify Changed Files**
-   - Run `git diff --name-only main..HEAD` to see modified files
-   - Run `git log main..HEAD` to see new commits
+   - Run `git diff --name-only main...HEAD` for the PR diff (use your actual base branch if not `main`)
+   - Run `git log main..HEAD` for commits on this branch that are not on the base
    - Identify file types, what changes, and what reviews apply
 
 4. **Determine Applicable Reviews**
 
    Based on changes:
    - **Always applicable**: code-reviewer (general quality)
-   - **If test files changed**: pr-test-analyzer
+   - **If test files changed** (or production code with tests in-repo): pr-test-analyzer
+   - **If the PR only changes config, docs, or agent prompts** (no executable test surface): skip pr-test-analyzer or report N/A briefly
    - **If comments/docs added**: comment-analyzer
    - **If error handling changed**: silent-failure-hunter
    - **If types added/modified**: type-design-analyzer
@@ -98,26 +99,26 @@ focusing on a different aspect of code quality.
 **Full review (default):**
 
 ```
-/pr-review-toolkit:review-pr
+/review-pr
 ```
 
 **Specific aspects:**
 
 ```
-/pr-review-toolkit:review-pr tests errors
+/review-pr tests errors
 # Reviews only test coverage and error handling
 
-/pr-review-toolkit:review-pr comments
+/review-pr comments
 # Reviews only code comments
 
-/pr-review-toolkit:review-pr simplify
+/review-pr simplify
 # Simplifies code after passing review
 ```
 
 **Parallel review:**
 
 ```
-/pr-review-toolkit:review-pr all parallel
+/review-pr all parallel
 # Launches all agents in parallel
 ```
 
@@ -163,7 +164,7 @@ focusing on a different aspect of code quality.
 ## Tips:
 
 - **Run early**: Before creating PR, not after
-- **Focus on changes**: Agents analyze git diff by default
+- **Focus on changes**: Use `git diff main...HEAD` (or your base branch) for PR scope; use plain `git diff` for uncommitted work
 - **Address critical first**: Fix high-priority issues before lower priority
 - **Re-run after fixes**: Verify issues are resolved
 - **Use specific reviews**: Target specific aspects when you know the concern
@@ -174,7 +175,7 @@ focusing on a different aspect of code quality.
 
 ```
 1. Write code
-2. Run: /pr-review-toolkit:review-pr code errors
+2. Run: /review-pr code errors
 3. Fix any critical issues
 4. Commit
 ```
@@ -183,7 +184,7 @@ focusing on a different aspect of code quality.
 
 ```
 1. Stage all changes
-2. Run: /pr-review-toolkit:review-pr all
+2. Run: /review-pr all
 3. Address all critical and important issues
 4. Run specific reviews again to verify
 5. Create PR
