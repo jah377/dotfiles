@@ -7,7 +7,7 @@ typeset -A _TMUX_DEV_WINDOW_CMDS=(
     [nvim]="nvim"
     [git]="lazygit"
     [claude]="claude"
-    [cursor]="agent"
+    [cursor]="agent --mode ask"
     [tests]=""
     [dagster]=""
 )
