@@ -26,3 +26,5 @@ These instructions apply to all Claude Code sessions and skills.
 - "Fix X" / "Change Y to Z"
 - "This causes [problem]"
 - "Replace with [solution]"
+
+@RTK.md
