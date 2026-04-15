@@ -44,141 +44,135 @@
 -- =============================================================================
 
 return {
-  -- Plugin identifier from GitHub
   "nvim-treesitter/nvim-treesitter-textobjects",
+  branch = "main",
 
-  -- This plugin requires nvim-treesitter to work
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
   },
 
   config = function()
+    local select = require("nvim-treesitter-textobjects.select")
+    local move = require("nvim-treesitter-textobjects.move")
+    local swap = require("nvim-treesitter-textobjects.swap")
+
+    -- =========================================================================
+    -- CONFIGURATION
+    -- =========================================================================
+    -- In the new API (main branch), setup() only accepts select/move options.
+    -- Keymaps must be registered separately via vim.keymap.set().
     require("nvim-treesitter-textobjects").setup({
-      -- =====================================================================
-      -- TEXT OBJECT SELECTION
-      -- =====================================================================
-      -- Use these with operators like d, y, c, v
-      -- Example: "daf" deletes around function, "yic" yanks inner class
       select = {
-          enable = true,
-
-          -- Jump forward to find a textobject if cursor isn't on one.
-          -- Similar to how targets.vim works.
-          -- Example: typing "daf" will find the next function even if cursor
-          -- isn't currently inside one.
-          lookahead = true,
-
-          -- Don't include surrounding whitespace when selecting.
-          -- "Inner" selections will be tight to the code.
-          include_surrounding_whitespace = false,
-
-          -- Define the textobject keymaps.
-          -- Format: ["keys"] = { query = "@treesitter.query", desc = "..." }
-          keymaps = {
-            -- Function text objects
-            -- "af" = around function (includes def/function keyword and body)
-            -- "if" = inner function (just the body/implementation)
-            ["af"] = { query = "@function.outer", desc = "Select outer part of function" },
-            ["if"] = { query = "@function.inner", desc = "Select inner part of function" },
-
-            -- Class text objects
-            -- "ac" = around class (includes class keyword and entire body)
-            -- "ic" = inner class (just the class body)
-            ["ac"] = { query = "@class.outer", desc = "Select outer part of class" },
-            ["ic"] = { query = "@class.inner", desc = "Select inner part of class" },
-
-            -- Parameter/argument text objects
-            -- "aa" = around argument (includes comma separator if present)
-            -- "ia" = inner argument (just the argument itself)
-            ["aa"] = { query = "@parameter.outer", desc = "Select outer part of parameter" },
-            ["ia"] = { query = "@parameter.inner", desc = "Select inner part of parameter" },
-
-            -- Conditional text objects (if/else/switch)
-            -- "ai" = around conditional (entire if statement including else)
-            -- "ii" = inner conditional (just the body of the if block)
-            ["ai"] = { query = "@conditional.outer", desc = "Select outer part of conditional" },
-            ["ii"] = { query = "@conditional.inner", desc = "Select inner part of conditional" },
-
-            -- Loop text objects (for/while/do)
-            -- "al" = around loop (entire loop including header)
-            -- "il" = inner loop (just the loop body)
-            ["al"] = { query = "@loop.outer", desc = "Select outer part of loop" },
-            ["il"] = { query = "@loop.inner", desc = "Select inner part of loop" },
-
-            -- Comment text objects
-            -- "a/" = around comment (selects entire comment block)
-            ["a/"] = { query = "@comment.outer", desc = "Select comment" },
-          },
-
-          -- Define which visual mode to use for each textobject type.
-          -- "v" = characterwise, "V" = linewise, "<c-v>" = blockwise
-          selection_modes = {
-            ["@parameter.outer"] = "v", -- Parameters: characterwise (inline)
-            ["@function.outer"] = "V", -- Functions: linewise (multiple lines)
-            ["@class.outer"] = "V", -- Classes: linewise
-            ["@conditional.outer"] = "V", -- Conditionals: linewise
-            ["@loop.outer"] = "V", -- Loops: linewise
-          },
+        lookahead = true,
+        include_surrounding_whitespace = false,
+        selection_modes = {
+          ["@parameter.outer"] = "v", -- Parameters: characterwise (inline)
+          ["@function.outer"] = "V", -- Functions: linewise (multiple lines)
+          ["@class.outer"] = "V", -- Classes: linewise
+          ["@conditional.outer"] = "V", -- Conditionals: linewise
+          ["@loop.outer"] = "V", -- Loops: linewise
         },
-
-        -- =====================================================================
-        -- NAVIGATION (move between text objects)
-        -- =====================================================================
-        -- Jump to the start/end of functions, classes, parameters
-        move = {
-          enable = true,
-
-          -- Add jumps to the jumplist (so Ctrl-O returns to previous position)
-          set_jumps = true,
-
-          -- Jump to the START of the next textobject
-          goto_next_start = {
-            ["]m"] = { query = "@function.outer", desc = "Next function start" },
-            ["]c"] = { query = "@class.outer", desc = "Next class start" },
-            ["]a"] = { query = "@parameter.inner", desc = "Next parameter start" },
-          },
-
-          -- Jump to the END of the next textobject
-          goto_next_end = {
-            ["]M"] = { query = "@function.outer", desc = "Next function end" },
-            ["]C"] = { query = "@class.outer", desc = "Next class end" },
-            ["]A"] = { query = "@parameter.inner", desc = "Next parameter end" },
-          },
-
-          -- Jump to the START of the previous textobject
-          goto_previous_start = {
-            ["[m"] = { query = "@function.outer", desc = "Previous function start" },
-            ["[c"] = { query = "@class.outer", desc = "Previous class start" },
-            ["[a"] = { query = "@parameter.inner", desc = "Previous parameter start" },
-          },
-
-          -- Jump to the END of the previous textobject
-          goto_previous_end = {
-            ["[M"] = { query = "@function.outer", desc = "Previous function end" },
-            ["[C"] = { query = "@class.outer", desc = "Previous class end" },
-            ["[A"] = { query = "@parameter.inner", desc = "Previous parameter end" },
-          },
-        },
-
-        -- =====================================================================
-        -- SWAP (swap adjacent text objects)
-        -- =====================================================================
-        -- Useful for reordering function parameters
-        swap = {
-          enable = true,
-
-          -- Swap current parameter with the next one
-          -- Example: foo(a, b, c) with cursor on 'a', press <leader>a
-          -- Result:  foo(b, a, c)
-          swap_next = {
-            ["<leader>ca"] = { query = "@parameter.inner", desc = "Swap parameter with next" },
-          },
-
-          -- Swap current parameter with the previous one
-          swap_previous = {
-            ["<leader>cA"] = { query = "@parameter.inner", desc = "Swap parameter with previous" },
-          },
-        },
+      },
+      move = {
+        set_jumps = true,
+      },
     })
+
+    -- =========================================================================
+    -- TEXT OBJECT SELECTION
+    -- =========================================================================
+    -- Use these with operators like d, y, c, v
+    -- Example: "daf" deletes around function, "yic" yanks inner class
+    local function sel(keys, query, desc)
+      vim.keymap.set({ "x", "o" }, keys, function()
+        select.select_textobject(query, "textobjects")
+      end, { desc = desc })
+    end
+
+    -- Function text objects
+    sel("af", "@function.outer", "Select outer part of function")
+    sel("if", "@function.inner", "Select inner part of function")
+
+    -- Class text objects
+    sel("ac", "@class.outer", "Select outer part of class")
+    sel("ic", "@class.inner", "Select inner part of class")
+
+    -- Parameter/argument text objects
+    sel("aa", "@parameter.outer", "Select outer part of parameter")
+    sel("ia", "@parameter.inner", "Select inner part of parameter")
+
+    -- Conditional text objects (if/else/switch)
+    sel("ai", "@conditional.outer", "Select outer part of conditional")
+    sel("ii", "@conditional.inner", "Select inner part of conditional")
+
+    -- Loop text objects (for/while/do)
+    sel("al", "@loop.outer", "Select outer part of loop")
+    sel("il", "@loop.inner", "Select inner part of loop")
+
+    -- Comment text objects
+    sel("a/", "@comment.outer", "Select comment")
+
+    -- =========================================================================
+    -- NAVIGATION (move between text objects)
+    -- =========================================================================
+    -- Jump to the start/end of functions, classes, parameters
+    local modes = { "n", "x", "o" }
+
+    -- Jump to the START of the next textobject
+    vim.keymap.set(modes, "]m", function()
+      move.goto_next_start("@function.outer", "textobjects")
+    end, { desc = "Next function start" })
+    vim.keymap.set(modes, "]c", function()
+      move.goto_next_start("@class.outer", "textobjects")
+    end, { desc = "Next class start" })
+    vim.keymap.set(modes, "]a", function()
+      move.goto_next_start("@parameter.inner", "textobjects")
+    end, { desc = "Next parameter start" })
+
+    -- Jump to the END of the next textobject
+    vim.keymap.set(modes, "]M", function()
+      move.goto_next_end("@function.outer", "textobjects")
+    end, { desc = "Next function end" })
+    vim.keymap.set(modes, "]C", function()
+      move.goto_next_end("@class.outer", "textobjects")
+    end, { desc = "Next class end" })
+    vim.keymap.set(modes, "]A", function()
+      move.goto_next_end("@parameter.inner", "textobjects")
+    end, { desc = "Next parameter end" })
+
+    -- Jump to the START of the previous textobject
+    vim.keymap.set(modes, "[m", function()
+      move.goto_previous_start("@function.outer", "textobjects")
+    end, { desc = "Previous function start" })
+    vim.keymap.set(modes, "[c", function()
+      move.goto_previous_start("@class.outer", "textobjects")
+    end, { desc = "Previous class start" })
+    vim.keymap.set(modes, "[a", function()
+      move.goto_previous_start("@parameter.inner", "textobjects")
+    end, { desc = "Previous parameter start" })
+
+    -- Jump to the END of the previous textobject
+    vim.keymap.set(modes, "[M", function()
+      move.goto_previous_end("@function.outer", "textobjects")
+    end, { desc = "Previous function end" })
+    vim.keymap.set(modes, "[C", function()
+      move.goto_previous_end("@class.outer", "textobjects")
+    end, { desc = "Previous class end" })
+    vim.keymap.set(modes, "[A", function()
+      move.goto_previous_end("@parameter.inner", "textobjects")
+    end, { desc = "Previous parameter end" })
+
+    -- =========================================================================
+    -- SWAP (swap adjacent text objects)
+    -- =========================================================================
+    -- Useful for reordering function parameters
+    -- Example: foo(a, b, c) with cursor on 'a', press <leader>ca
+    -- Result:  foo(b, a, c)
+    vim.keymap.set("n", "<leader>ca", function()
+      swap.swap_next("@parameter.inner")
+    end, { desc = "Swap parameter with next" })
+    vim.keymap.set("n", "<leader>cA", function()
+      swap.swap_previous("@parameter.inner")
+    end, { desc = "Swap parameter with previous" })
   end,
 }
