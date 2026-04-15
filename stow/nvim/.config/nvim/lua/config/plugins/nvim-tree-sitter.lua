@@ -8,7 +8,9 @@
 --  > :TSUpdate                      : Update all parsers
 --  > :TSInstall <lang>              : Install specific parser
 --
--- Incremental selection: M-= (expand), BS (shrink)
+-- Incremental node selection (built-in, visual mode):
+--   an  : Select parent (outer) node — expand selection
+--   in  : Select child (inner) node — shrink selection
 -- =============================================================================
 
 return {
@@ -47,16 +49,16 @@ return {
       -- Use bash parser for zsh files
       vim.treesitter.language.register("bash", "zsh")
 
-      -- Incremental selection keymaps (replaces removed incremental_selection module)
-      vim.keymap.set("n", "<M-=>", function()
-        vim.treesitter.incremental_selection.init()
-      end, { desc = "Start treesitter incremental selection" })
-      vim.keymap.set("x", "<M-=>", function()
-        vim.treesitter.incremental_selection.node_incremental()
-      end, { desc = "Expand treesitter selection" })
-      vim.keymap.set("x", "<BS>", function()
-        vim.treesitter.incremental_selection.node_decremental()
-      end, { desc = "Shrink treesitter selection" })
+      -- Enable treesitter highlighting for all buffers with an installed parser.
+      -- Neovim 0.12 only auto-enables this for bundled languages (lua, markdown,
+      -- help, query). For other languages (python, bash, yaml, etc.) we need to
+      -- call vim.treesitter.start() ourselves.
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("treesitter-start", { clear = true }),
+        callback = function(ev)
+          pcall(vim.treesitter.start, ev.buf)
+        end,
+      })
     end,
   },
 }
