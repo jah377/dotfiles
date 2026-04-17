@@ -1,14 +1,12 @@
 # Tmux development environment setup
-# Preset and interactive session creation with dev windows. Session creation works
-# from inside or outside tmux; when already attached, the current client switches
-# to the new session (same net effect as attach from a non-tmux shell).
+# Provides preset and interactive session creation with dev windows
 
 # Window name to command mappings
 # Windows without commands start with empty shell
 typeset -A _TMUX_DEV_WINDOW_CMDS=(
     [nvim]="nvim"
     [git]="lazygit"
-    [claude]="claude"
+    [claude]="agent --mode ask"
     [cursor]="agent --mode ask"
     [tests]=""
     [dagster]=""
@@ -21,6 +19,11 @@ _tmux_dev_create_session() {
     local session_name="$2"
     shift 2
     local windows=("$@")
+
+    if [[ -n "$TMUX" ]]; then
+        echo "Already in tmux session"
+        return 1
+    fi
 
     if ! command -v tmux &>/dev/null; then
         echo "Required command not found: tmux"
@@ -56,13 +59,9 @@ _tmux_dev_create_session() {
         [[ -n "$cmd" ]] && tmux send-keys -t "${session_name}:${window}" "$cmd" Enter
     done
 
-    # Select first window, then attach (outside tmux) or switch current client (inside)
+    # Select first window and attach
     tmux select-window -t "${session_name}:${first_window}"
-    if [[ -n "$TMUX" ]]; then
-        tmux switch-client -t "$session_name"
-    else
-        tmux attach-session -t "$session_name"
-    fi
+    tmux attach-session -t "$session_name"
 }
 
 # Preset: dotfiles development session
@@ -74,6 +73,11 @@ dev-dots() {
 # Preset: work project session
 # Prompts for directory selection from ~/code, creates full dev environment
 dev-work() {
+    if [[ -n "$TMUX" ]]; then
+        echo "Already in tmux session"
+        return 1
+    fi
+
     for cmd in tmux fd fzf; do
         if ! command -v "$cmd" &>/dev/null; then
             echo "Required command not found: $cmd"
@@ -99,6 +103,11 @@ dev-work() {
 # Interactive: fully customizable session
 # Prompts for directory and window selection
 tmux_dev() {
+    if [[ -n "$TMUX" ]]; then
+        echo "Already in tmux session"
+        return 1
+    fi
+
     for cmd in tmux fd fzf; do
         if ! command -v "$cmd" &>/dev/null; then
             echo "Required command not found: $cmd"
