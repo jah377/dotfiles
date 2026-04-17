@@ -13,8 +13,8 @@
 
 brew install --cask bitwarden        # OS-agnostic password manager
 brew install --cask raycast          # smart spotlight replacement
-brew install --cask expressvpn       # virtual private network tool
-brew install --cask whatsapp keybase # messaging-apps
+# brew install --cask expressvpn       # virtual private network tool
+# brew install --cask whatsapp keybase # messaging-apps
 brew install --cask google-chrome
 
 # ---- User Experience ----
@@ -39,15 +39,15 @@ brew install tree-sitter-cli
 brew install npm # required for :Mason
 brew install trash # required for :Oil
 
-brew tap d12frosted/emacs-plus
-brew install --cask emacs-app
+# brew tap d12frosted/emacs-plus
+# brew install --cask emacs-app
 
-brew install claude-code
-brew install rtk # Improve token efficiency
+# brew install claude-code
+# brew install rtk # Improve token efficiency
 
 # ---- Latex tools ----
-brew install --cask mactex # TeX distribution to compile .tex
-brew install --cask skim # display compiled PDF output
+# brew install --cask mactex # TeX distribution to compile .tex
+# brew install --cask skim # display compiled PDF output
 
 # ---- Python Tools ----
 
