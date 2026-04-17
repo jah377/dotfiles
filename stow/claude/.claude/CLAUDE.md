@@ -27,4 +27,4 @@ These instructions apply to all Claude Code sessions and skills.
 - "This causes [problem]"
 - "Replace with [solution]"
 
-@RTK.md
+<!-- @RTK.md -->
