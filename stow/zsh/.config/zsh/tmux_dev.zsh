@@ -1,5 +1,7 @@
 # Tmux development environment setup
-# Provides preset and interactive session creation with dev windows
+# Preset and interactive session creation with dev windows. Session creation works
+# from inside or outside tmux; when already attached, the current client switches
+# to the new session (same net effect as attach from a non-tmux shell).
 
 # Window name to command mappings
 # Windows without commands start with empty shell
@@ -19,11 +21,6 @@ _tmux_dev_create_session() {
     local session_name="$2"
     shift 2
     local windows=("$@")
-
-    if [[ -n "$TMUX" ]]; then
-        echo "Already in tmux session"
-        return 1
-    fi
 
     if ! command -v tmux &>/dev/null; then
         echo "Required command not found: tmux"
@@ -59,9 +56,13 @@ _tmux_dev_create_session() {
         [[ -n "$cmd" ]] && tmux send-keys -t "${session_name}:${window}" "$cmd" Enter
     done
 
-    # Select first window and attach
+    # Select first window, then attach (outside tmux) or switch current client (inside)
     tmux select-window -t "${session_name}:${first_window}"
-    tmux attach-session -t "$session_name"
+    if [[ -n "$TMUX" ]]; then
+        tmux switch-client -t "$session_name"
+    else
+        tmux attach-session -t "$session_name"
+    fi
 }
 
 # Preset: dotfiles development session
@@ -73,11 +74,6 @@ dev-dots() {
 # Preset: work project session
 # Prompts for directory selection from ~/code, creates full dev environment
 dev-work() {
-    if [[ -n "$TMUX" ]]; then
-        echo "Already in tmux session"
-        return 1
-    fi
-
     for cmd in tmux fd fzf; do
         if ! command -v "$cmd" &>/dev/null; then
             echo "Required command not found: $cmd"
@@ -103,11 +99,6 @@ dev-work() {
 # Interactive: fully customizable session
 # Prompts for directory and window selection
 tmux_dev() {
-    if [[ -n "$TMUX" ]]; then
-        echo "Already in tmux session"
-        return 1
-    fi
-
     for cmd in tmux fd fzf; do
         if ! command -v "$cmd" &>/dev/null; then
             echo "Required command not found: $cmd"
