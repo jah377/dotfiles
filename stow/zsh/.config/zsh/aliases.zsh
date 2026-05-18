@@ -11,6 +11,10 @@ alias src="source .venv/bin/activate" # activate python .venv
 alias py="source .venv/bin/activate && ipython"
 alias ff="fzf --walker=file,hidden" # return file name
 
+test_file() {
+   uv run --env-file .env coverage run -m pytest $(find . -name "test_*.py" -o -name "*_test.py" | fzf)
+ }
+
 # Quickly spin up tmux sessions
 alias dev="tmux_dev"
 alias dd="dev-dots"
