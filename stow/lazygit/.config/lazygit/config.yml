@@ -5,4 +5,15 @@ git:
 
 gui:
   commitLength:
-    show: true
+
+customCommands:
+    - key: "C"
+      context: "files"
+      description: "Generate commit message with AI"
+      command: "git diff --staged |  agent -p 'Generate consice git commit
+      title and message for staged changes. Use conventional commit format.
+      Output only raw commit message (no markdown or code blocks). Title must
+      be in title-case. Message must explain why change was made.' --model
+      gpt-5-mini --output-format text > /tmp/commit_msg && GIT_EDITOR=vim git
+      commit -e -F /tmp/commit_msg"
+      output: terminal
