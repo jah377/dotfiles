@@ -26,7 +26,7 @@ return {
     local kbd = vim.keymap
 
     _99.setup({
-      provider = _99.Providers.ClaudeCodeProvider,
+      provider = _99.Providers.CursorAgentProvider,
 
       -- claude-haiku-4-5 is fast and cost-effective for coding tasks.
       model = "claude-haiku-4-5",
