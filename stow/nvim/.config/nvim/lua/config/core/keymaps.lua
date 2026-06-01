@@ -6,6 +6,9 @@
 
 local kbd = vim.keymap.set
 
+-- Save using `C-s` as is done in other MacOs programs
+kbd("n", "<C-s>", "<cmd>w<CR>", { silent = true })
+
 -- Copy message buffer to clipboard
 kbd("n", "<leader>M", function()
   local messages = vim.fn.execute("messages")
