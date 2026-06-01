@@ -1,4 +1,4 @@
--- =============================================================================
+-- ============================================================================
 -- FILE: lua/config/core/autocmds.lua
 -- Autocommands: automatic actions triggered by events.
 -- Groups with clear=true prevent duplicates on config reload.
@@ -7,7 +7,7 @@
 --  > :help autocmd : https://neovim.io/doc/user/autocmd/
 --  > :help autocmd-events : https://neovim.io/doc/user/autocmd/#_5.-events
 --  > vim.api.nvim_create_autocmd : Neovim Lua API for auto-commands
--- =============================================================================
+-- ============================================================================
 
 -- Create local alias to make code more readable
 local autocmd = vim.api.nvim_create_autocmd
@@ -100,7 +100,7 @@ autocmd("BufWritePre", {
 })
 
 -- Disable auto-commenting when opening a new line from comment
--- Autocmd required because ftplugins reset formatoptions after options.lua loads
+-- Autocmd required, ftplugins reset formatoptions after options.lua loads
 -- See `:help formatoptions`
 augroup("AutoCommentGroup", { clear = true })
 autocmd("FileType", {
@@ -108,5 +108,16 @@ autocmd("FileType", {
   group = "AutoCommentGroup",
   callback = function()
     vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+  end,
+})
+
+-- Highlight text beyond `vim.bo.textwidth`
+vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+  callback = function()
+    local tw = vim.bo.textwidth
+    if tw > 0 then
+      vim.api.nvim_set_hl(0, "OverLength", { fg = "#ff5555" })
+      vim.fn.matchadd("OverLength", string.format("\\%%>%dv.\\+", tw))
+    end
   end,
 })
