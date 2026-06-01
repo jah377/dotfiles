@@ -40,6 +40,7 @@ kbd("n", "<leader>bn", "<cmd>bnext<CR>", { desc = "Next buffer" })
 kbd("n", "<leader>bp", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
 kbd("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
 kbd("n", "<leader>ba", "<cmd>wa | %bd<CR>", { desc = "Save & delete all buffers" })
+kbd("n", "<leader>bD", "<cmd>%bd<CR>", { desc = "Delete all buffers" })
 kbd("n", "<leader>bo", "<cmd>wa | %bd | e#<CR>", { desc = "Save & delete other buffers" })
 
 -- Keep visual selection after indenting (default: deselect)
