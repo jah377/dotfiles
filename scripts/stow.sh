@@ -1,21 +1,20 @@
 #!/usr/bin/env bash
 
-# Create symlinks individually
 cd ~/dotfiles
 stow aerospace
-stow wezterm
-stow starship
-stow backgrounds
-stow karabiner
-stow nvim
 stow editorconfig
+stow eza
+stow git
+stow karabiner
+stow lazygit
+stow nvim
+stow starship
 stow tmux
+stow wezterm
 
 # Cannot create symlinks if files already exist
-rm -f ~/.zprofile ~/.zshrc
+rm -rf ~/.zprofile ~/.zshrc \
+       ~/.claude/skills ~/.claude/agents ~/.claude/commands
+
 stow zsh
-
-rm -f ~/.claude/skills ~/.claude/agents ~/.claude/commands
 stow claude
-
-stow cursor
