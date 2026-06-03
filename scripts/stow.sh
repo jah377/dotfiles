@@ -3,6 +3,7 @@
 cd ~/dotfiles
 stow aerospace
 stow claude
+stow cursor
 stow editorconfig
 stow eza
 stow git
