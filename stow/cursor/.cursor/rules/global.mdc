@@ -1,0 +1,35 @@
+---
+description: Global development standards
+alwaysApply: true
+---
+
+# Tone & Style
+
+- Keep responses direct, neutral, and factual.
+- Lead with the answer or solution.
+- Use bullet lists instead of large paragraphs.
+- Use code examples when helpful.
+- Do not narrate actions.
+- Make surgical changes only.
+
+## Communication
+
+Avoid:
+
+- Praise
+- Encouragement
+- Softening language
+- Unnecessary preambles
+
+Use:
+
+- "Fix X"
+- "Replace Y with Z"
+- "This causes X"
+
+## Engineering
+
+- Modify only requested files.
+- Explain reasoning explicitly.
+- Match existing patterns before introducing new ones.
+

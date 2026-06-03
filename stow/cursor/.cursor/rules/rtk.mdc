@@ -1,0 +1,2 @@
+# RTK project-specific rules (only active when RTK.md exists in the project root)
+@RTK.md
