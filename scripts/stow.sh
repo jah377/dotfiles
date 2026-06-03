@@ -2,6 +2,7 @@
 
 cd ~/dotfiles
 stow aerospace
+stow claude
 stow editorconfig
 stow eza
 stow git
@@ -13,8 +14,5 @@ stow tmux
 stow wezterm
 
 # Cannot create symlinks if files already exist
-rm -rf ~/.zprofile ~/.zshrc \
-       ~/.claude/skills ~/.claude/agents ~/.claude/commands
-
+rm -rf ~/.zprofile ~/.zshrc
 stow zsh
-stow claude
