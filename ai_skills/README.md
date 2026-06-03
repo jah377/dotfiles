@@ -3,9 +3,10 @@
 This directory contains agents, commands, and skills manually copied from
 upstream plugin/skill repositories cloned into `repos/`.
 
-The `repos/` directory holds the upstream sources. Files in `agents/`,
-`commands/`, and `skills/` are flat or shallow copies of specific files from
-those repos.
+The `repos/` directory holds the upstream sources and is **not tracked in git**
+(gitignored). Clone the upstream repos listed below into `repos/` before
+updating files here. Files in `agents/`, `commands/`, and `skills/` are flat
+or shallow copies of specific files from those repos.
 
 ---
 
