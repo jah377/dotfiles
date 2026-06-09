@@ -43,6 +43,7 @@ brew tap d12frosted/emacs-plus
 brew install --cask emacs-app
 
 brew install claude-code
+brew install openspec # SDD wrapper
 brew install rtk # Improve token efficiency
 
 # ---- Latex tools ----
