@@ -6,7 +6,7 @@
 # Example: on "the wonderful thing about tiggers"
 #
 # Creates a file named YYYY-MM-DD_The_Wonderful_Thing_About_Tiggers.md
-# in ~/obsidian_vault/tmp/ and opens it in Neovim.
+# in ~/zettelkasten/tmp_notes/ and opens it in Neovim.
 
 if [ -z "$1" ]; then
   echo "Error: A file name must be set."
