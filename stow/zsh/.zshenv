@@ -12,3 +12,7 @@
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
+export NOTES_DIR="$HOME/zettelkasten"
+export NOTES_TO_REVIEW_DIR="$NOTES_DIR/to_review"
+export NOTES_TO_FILE_DIR="$NOTES_DIR/to_file"
