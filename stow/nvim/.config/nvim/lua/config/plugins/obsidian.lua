@@ -85,7 +85,12 @@ return {
 
     -- Strip date from note title and replace dashes with spaces.
     -- Must have cursor on title for keybinding to work.
-    kbd("n", "<leader>ot", ":s/\\(# \\)[^_]*_/\\1/ | s/-/ /g<cr>", { desc = "[O]bsidian format note [T]itle" })
+    kbd(
+      "n",
+      "<leader>ot",
+      ":s/\\(# \\)[0-9]\\{8}__*/\\1/ | s/[-_]/ /g<cr>",
+      { desc = "[O]bsidian format note [T]itle" }
+    )
 
     -- Search note files in workspace
     kbd("n", "<leader>of", function()
@@ -123,5 +128,6 @@ return {
     -- Use Obsidian's note-aware commands for links and tasks.
     kbd("n", "<leader>oo", "<cmd>Obsidian follow_link<cr>", { desc = "[O]bsidian [O]pen link" })
     kbd("n", "<leader>oc", "<cmd>Obsidian toggle_checkbox<cr>", { desc = "[O]bsidian toggle [C]heckbox" })
+    kbd("n", "<leader>oh", "<cmd>Obsidian toc<cr>", { desc = "[O]bsidian find [H]eaders" })
   end,
 }
