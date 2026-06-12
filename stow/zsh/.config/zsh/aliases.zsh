@@ -19,3 +19,7 @@ alias dw="dev-work"
 # Directories
 alias ..="cd .."
 alias ...="cd ../.."
+
+# Obsidian-related shortcuts
+alias oo="cd $NOTES_DIR"
+alias or="nvim $NOTES_TO_REVIEW_DIR/*md"
