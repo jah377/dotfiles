@@ -13,18 +13,25 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
+# # Replace spaces with '-' for fs-friendly name
+# file_name=$(echo "$1" | tr ' ' '-')
+
 # Convert to title-case & replace " " with "_" for fs-friendly name
-file_name=$(echo "$1" | sed 's/.*/\L&/; s/[a-z]*/\u&/g' | tr ' ' '_')
+file_name=$( echo "$1" | awk '{
+                    for (i = 1; i <= NF; i++)
+                        $i = toupper(substr($i,1,1)) substr($i,2)
+                    print
+                }' | tr ' ' '-')
 
 # Prefix with ISO 8601 date so notes sort chronologically by default
-formatted_file_name=$(date "+%Y-%m-%d")-${file_name}.md
+formatted_file_name=$(date "+%Y%m%d")__${file_name}.md
 
 
-# $NOTES_TO_SAVE_DIR/ location of temporary notes
-if [[ -f "$NOTES_TO_SAVE_DIR/${formatted_file_name}" ]]; then
+# $NOTES_TO_REVIEW_DIR/ location of temporary notes
+if [[ -f "$NOTES_TO_REVIEW_DIR/${formatted_file_name}" ]]; then
   echo "Error: '${formatted_file_name}' already exists." >&2
   exit 1
 fi
 
-touch "$NOTES_TO_SAVE_DIR/${formatted_file_name}"
-nvim "$NOTES_TO_SAVE_DIR/${formatted_file_name}"
+touch "$NOTES_TO_REVIEW_DIR/${formatted_file_name}"
+nvim "$NOTES_TO_REVIEW_DIR/${formatted_file_name}"
