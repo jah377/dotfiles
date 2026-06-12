@@ -19,8 +19,6 @@ export LANG=en_US.UTF-8
 # Default browser CLI tools use to open links
 export BROWSER=open
 
-# User-local binaries (e.g. claude monitor)
-export PATH="$HOME/.local/bin:$PATH"
 # History configuration
 export HISTFILE=~/.zsh_history
 export HISTSIZE=5000        # lines kept in memory
