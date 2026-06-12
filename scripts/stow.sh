@@ -13,6 +13,7 @@ stow nvim
 stow starship
 stow tmux
 stow wezterm
+stow local
 
 # Cannot create symlinks if files already exist
 rm -rf ~/.zprofile ~/.zshrc
