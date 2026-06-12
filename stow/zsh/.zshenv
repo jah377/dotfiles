@@ -15,5 +15,5 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 # See structure of https://github.com/jah377/zettelkasten
 export NOTES_DIR="$HOME/zettelkasten"
-export NOTES_TO_REVIEW_DIR="$NOTES_DIR/tmp"
+export NOTES_TO_REVIEW_DIR="$NOTES_DIR/tmp_notes"
 export NOTES_TO_FILE_DIR="$NOTES_DIR/keep"
