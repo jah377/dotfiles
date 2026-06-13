@@ -27,11 +27,10 @@ file_name=$( echo "$1" | awk '{
 formatted_file_name=$(date "+%Y%m%d")__${file_name}.md
 
 
-# $NOTES_TO_REVIEW_DIR/ location of temporary notes
-if [[ -f "$NOTES_TO_REVIEW_DIR/${formatted_file_name}" ]]; then
+if [[ -f "$ZK_INBOX_DIR/${formatted_file_name}" ]]; then
   echo "Error: '${formatted_file_name}' already exists." >&2
   exit 1
 fi
 
-touch "$NOTES_TO_REVIEW_DIR/${formatted_file_name}"
-nvim "$NOTES_TO_REVIEW_DIR/${formatted_file_name}"
+touch "$ZK_INBOX_DIR/${formatted_file_name}"
+nvim "$ZK_INBOX_DIR/${formatted_file_name}"

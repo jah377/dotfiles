@@ -40,7 +40,7 @@ return {
     { "dmtrKovalenko/fff.nvim", opts = {} },
   },
   config = function()
-    require("obsidian").setup({
+    require("obsidian").setup {
       legacy_commands = false, -- to be removed in 4.0.0
       workspaces = { { name = "zettelkasten", path = "~/zettelkasten" } },
       notes_subdir = "tmp_notes", -- workspace subdir name
@@ -50,19 +50,19 @@ return {
       ui = { enable = false }, -- render-markdown.nvim handles all markdown UI
       link = { auto_update = true }, -- automatically update links
       disable_frontmatter = true, -- use templates instead
-    })
+    }
 
-    local fff = require("fff")
+    local fff = require "fff"
     local kbd = vim.keymap.set
+    local zk_dir = vim.env.ZK_DIR
+    local zk_reviewed_dir = vim.env.ZK_REVIEWED_DIR
 
     -- Insert the note template and remove leading blank lines it may leave behind.
     kbd("n", "<leader>on", function()
-      vim.cmd("Obsidian template note")
+      vim.cmd "Obsidian template note"
 
       local first_content_line = vim.fn.nextnonblank(1)
-      if first_content_line > 1 then
-        vim.api.nvim_buf_set_lines(0, 0, first_content_line - 1, false, {})
-      end
+      if first_content_line > 1 then vim.api.nvim_buf_set_lines(0, 0, first_content_line - 1, false, {}) end
     end, { desc = "[O]bsidian [N]ote from template" })
 
     -- Strip date from note title and replace dashes with spaces.
@@ -76,21 +76,21 @@ return {
 
     -- Search note files in workspace
     kbd("n", "<leader>of", function()
-      fff.find_files_in_dir("~/zettelkasten")
+      fff.find_files_in_dir(zk_dir)
     end, { desc = "[O]bsidian [F]ind file" })
 
     kbd("n", "<leader>og", function()
-      fff.live_grep({ cwd = "~/zettelkasten" })
+      fff.live_grep { cwd = zk_dir }
     end, { desc = "[O]bsidian live [G]rep" })
 
     -- Keep note file; move from the capture directory to the review queue.
     kbd("n", "<leader>ok", function()
-      local current_file = vim.fn.expand("%:p")
-      local target_dir = vim.fn.expand("~/zettelkasten/keep")
+      local current_file = vim.fn.expand "%:p"
+      local target_dir = zk_reviewed_dir
       local target_file = vim.fs.joinpath(target_dir, vim.fn.fnamemodify(current_file, ":t"))
 
       if vim.fn.rename(current_file, target_file) == 0 then
-        vim.cmd("bd")
+        vim.cmd "bd"
       else
         vim.notify("Could not move note to " .. target_dir, vim.log.levels.WARN)
       end
@@ -98,10 +98,10 @@ return {
 
     -- Delete current note file
     kbd("n", "<leader>odd", function()
-      local current_file = vim.fn.expand("%:p")
+      local current_file = vim.fn.expand "%:p"
 
       if vim.fn.delete(current_file) == 0 then
-        vim.cmd("bd")
+        vim.cmd "bd"
       else
         vim.notify("Could not delete note " .. current_file, vim.log.levels.WARN)
       end
