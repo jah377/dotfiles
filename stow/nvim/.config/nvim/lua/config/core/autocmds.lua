@@ -34,9 +34,7 @@ autocmd("BufReadPost", {
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, mark)
-    end
+    if mark[1] > 0 and mark[1] <= lcount then pcall(vim.api.nvim_win_set_cursor, 0, mark) end
   end,
 })
 
@@ -90,9 +88,7 @@ autocmd("BufWritePre", {
   desc = "Create parent directories on save",
   group = "CreateParentDirGroup",
   callback = function(event)
-    if event.match:match("^%w%w+:[\\/][\\/]") then
-      return
-    end -- Skip URLs
+    if event.match:match "^%w%w+:[\\/][\\/]" then return end -- Skip URLs
     local file = vim.uv.fs_realpath(event.match) or event.match
     local dir = vim.fn.fnamemodify(file, ":p:h")
     vim.fn.mkdir(dir, "p")
@@ -107,17 +103,40 @@ autocmd("FileType", {
   desc = "Disable auto-commenting on new line",
   group = "AutoCommentGroup",
   callback = function()
-    vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+    vim.opt_local.formatoptions:remove { "c", "r", "o" }
   end,
 })
 
--- Highlight text beyond `vim.bo.textwidth`
-vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+-- Highlight text beyond `vim.bo.textwidth`.
+-- `matchadd()` creates window-local matches, so replacing the current window's
+-- match avoids stale highlights when a buffer-local ftplugin changes textwidth.
+local function update_overlength_match()
+  if vim.w.overlength_match_id then
+    pcall(vim.fn.matchdelete, vim.w.overlength_match_id)
+    vim.w.overlength_match_id = nil
+  end
+
+  local tw = vim.bo.textwidth
+  if tw <= 0 then return end
+
+  vim.api.nvim_set_hl(0, "OverLength", { fg = "#ff5555" })
+  vim.w.overlength_match_id = vim.fn.matchadd("OverLength", string.format("\\%%>%dv.\\+", tw))
+end
+
+augroup("OverLengthGroup", { clear = true })
+autocmd({ "BufWinEnter", "WinEnter", "FileType" }, {
+  desc = "Highlight text beyond textwidth",
+  group = "OverLengthGroup",
   callback = function()
-    local tw = vim.bo.textwidth
-    if tw > 0 then
-      vim.api.nvim_set_hl(0, "OverLength", { fg = "#ff5555" })
-      vim.fn.matchadd("OverLength", string.format("\\%%>%dv.\\+", tw))
-    end
+    -- FileType can fire before after/ftplugin files finish; scheduling lets
+    -- filetype-specific textwidth overrides settle before the match is rebuilt.
+    vim.schedule(update_overlength_match)
   end,
+})
+
+autocmd("OptionSet", {
+  desc = "Update overlength highlight when textwidth changes",
+  group = "OverLengthGroup",
+  pattern = "textwidth",
+  callback = update_overlength_match,
 })

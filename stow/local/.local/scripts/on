@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+#
+# on - Create and open a new dated note in the Obsidian vault
+#
+# Usage: on "<note title>"
+# Example: on "the wonderful thing about tiggers"
+#
+# Creates a file named YYYY-MM-DD_The_Wonderful_Thing_About_Tiggers.md
+# in ~/zettelkasten/tmp_notes/ and opens it in Neovim.
+
+if [ -z "$1" ]; then
+  echo "Error: A file name must be set."
+  exit 1
+fi
+
+# # Replace spaces with '-' for fs-friendly name
+# file_name=$(echo "$1" | tr ' ' '-')
+
+# Convert to title-case & replace " " with "_" for fs-friendly name
+file_name=$( echo "$1" | awk '{
+                    for (i = 1; i <= NF; i++)
+                        $i = toupper(substr($i,1,1)) substr($i,2)
+                    print
+                }' | tr ' ' '-')
+
+# Prefix with ISO 8601 date so notes sort chronologically by default
+formatted_file_name=$(date "+%Y%m%d")__${file_name}.md
+
+
+if [[ -f "$ZK_INBOX_DIR/${formatted_file_name}" ]]; then
+  echo "Error: '${formatted_file_name}' already exists." >&2
+  exit 1
+fi
+
+touch "$ZK_INBOX_DIR/${formatted_file_name}"
+nvim "$ZK_INBOX_DIR/${formatted_file_name}"

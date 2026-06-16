@@ -32,6 +32,7 @@ return {
         { "<leader>f", group = "find" }, -- plugins/telescope.lua
         { "<leader>9", group = "99" }, -- plugins/99.nvim
         { "<leader>c", group = "code" }, -- plugins/nvim-treesitter-textobject.lua
+        { "<leader>o", group = "obsidian" }, -- plugins/obsidian.lua
 
         -- plugins/telescope.lua
         -- core/keymaps.lua

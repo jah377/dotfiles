@@ -65,11 +65,17 @@ return {
           lsp_format = "fallback",
         },
 
-        format_on_save = {
+        format_on_save = function(bufnr)
+          if vim.b[bufnr].disable_autoformat then
+            return
+          end
+
           -- Maximum time to wait for formatting before giving up (in ms).
           -- Some formatters are slow on large files; this prevents hanging.
-          timeout_ms = 3000,
-        },
+          return {
+            timeout_ms = 3000,
+          }
+        end,
 
         -- Show a notification when formatting fails
         notify_on_error = true,

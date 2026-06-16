@@ -94,7 +94,7 @@ Then clone this dotfiles repo:
 
 ```shell
 # Must use alias defined in .ssh/config
-git clone git@github-personal:jah377/dotfiles.git ~/dotfiles
+git clone git@github.com-personal:jah377/dotfiles.git ~/dotfiles
 ```
 
 Then set name and email for both users:
@@ -128,6 +128,9 @@ bash ~/dotfiles/scripts/cursor_cli.sh
 
 # Create symlinks to configuration files
 bash ~/dotfiles/scripts/stow.sh
+
+# Clone notes repo
+bash ~/dotfiles/scripts/zettelkasten.sh
 ```
 
 ## Add Custom Keyboard Input

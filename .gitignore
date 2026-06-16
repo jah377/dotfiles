@@ -56,6 +56,10 @@ venv/
 .env
 .env.*
 
+# stow/local package symlinks into ~/.local/ and must be version-controlled
+!stow/local/.local/
+!stow/local/.local/**
+
 # Secrets and credentials
 *secret*
 *credential*
