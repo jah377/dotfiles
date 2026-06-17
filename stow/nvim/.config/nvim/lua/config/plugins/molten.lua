@@ -178,14 +178,10 @@ return {
 
     config = function()
       -- Returns the output save path for the current buffer.
-      -- Override per-file by setting vim.b.molten_save_path in a .nvim.lua:
-      --   vim.api.nvim_create_autocmd("BufEnter", {
-      --     pattern = "*/path/to/notebook.qmd",
-      --     callback = function() vim.b.molten_save_path = "/custom/path.json" end,
-      --   })
-      -- Falls back to <notebook>.qmd.json alongside the .qmd file.
+      -- Saves as <notebook>.qmd.json alongside the .qmd file so outputs
+      -- are co-located with the notebook and can be version-controlled.
       local function save_path()
-        return vim.b.molten_save_path or (vim.api.nvim_buf_get_name(0) .. ".json")
+        return vim.api.nvim_buf_get_name(0) .. ".json"
       end
 
       -- Register <leader>j keymaps as buffer-local for .qmd files only.
@@ -225,8 +221,7 @@ return {
         group = vim.api.nvim_create_augroup("molten-persist", { clear = true }),
         callback = function()
           -- pcall: silently skip if no kernel is attached to this buffer
-          local path = vim.b.molten_save_path or (vim.api.nvim_buf_get_name(0) .. ".json")
-          pcall(vim.cmd, "MoltenSave " .. path)
+          pcall(vim.cmd, "MoltenSave " .. vim.api.nvim_buf_get_name(0) .. ".json")
         end,
       })
 
@@ -239,8 +234,7 @@ return {
         group = vim.api.nvim_create_augroup("molten-autoload", { clear = true }),
         callback = function()
           vim.defer_fn(function()
-            local path = vim.b.molten_save_path or (vim.api.nvim_buf_get_name(0) .. ".json")
-            pcall(vim.cmd, "MoltenLoad " .. path)
+            pcall(vim.cmd, "MoltenLoad " .. vim.api.nvim_buf_get_name(0) .. ".json")
           end, 500)
         end,
       })
