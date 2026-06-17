@@ -56,6 +56,18 @@ return {
             "prettier", -- Regular version - fallback if daemon isn't running
             stop_after_first = true, -- Only run one (the first that works)
           },
+
+          quarto = {
+            -- injected: formats embedded code blocks by language via treesitter.
+            -- Extracts {python} blocks, runs ruff_fix/ruff_format/isort on them,
+            -- then writes the result back. Reuses the python formatter chain.
+            "injected",
+            -- prettierd/prettier: formats the surrounding markdown structure.
+            -- Both listed so prettierd runs when the daemon is up; prettier
+            -- runs as fallback. Output is idempotent so running both is harmless.
+            "prettierd",
+            "prettier",
+          },
         },
 
         -- Default options that apply to all formatters
