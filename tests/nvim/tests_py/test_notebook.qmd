@@ -1,0 +1,92 @@
+---
+title: "Molten + Quarto Setup Verification"
+---
+
+# Setup Verification
+
+This notebook verifies that molten-nvim, quarto-nvim, otter.nvim, and image.nvim
+are configured correctly. Run each cell with `<leader>jr` and check the expected
+output described in each section.
+
+## 1. Text Output
+
+Basic execution check. Output should appear as virtual text below the cell.
+
+```{python}
+print("molten-nvim is working")
+1 + 1
+```
+
+## 2. Rich Object Repr
+
+Verifies that the kernel returns rich output (not just stdout).
+
+```{python}
+import sys
+
+print(f"Python {sys.version}")
+{"key": "value", "nested": [1, 2, 3]}
+```
+
+## 3. Inline Image — matplotlib
+
+Verifies image.nvim renders a PNG inline via the Kitty Graphics Protocol.
+A sine wave plot should appear below the cell in WezTerm.
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 2 * np.pi, 200)
+fig, ax = plt.subplots(figsize=(6, 3))
+ax.plot(x, np.sin(x), label="sin(x)")
+ax.plot(x, np.cos(x), label="cos(x)", linestyle="--")
+ax.set_title("Sine and Cosine")
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+## 4. DataFrame Output
+
+Verifies pandas tabular output renders correctly.
+
+```{python}
+import pandas as pd
+
+df = pd.DataFrame(
+    {
+        "name": ["Alice", "Bob", "Carol"],
+        "score": [92, 87, 95],
+        "grade": ["A", "B", "A"],
+    }
+)
+df
+```
+
+## 5. LSP Check
+
+Place the cursor inside this cell and trigger completion (via nvim-cmp).
+pyright should offer completions for `pd.DataFrame` attributes, confirming
+otter.nvim has injected the LSP into this code block.
+
+```{python}
+import pandas as pd
+
+# Trigger completion after the dot: pd.DataFrame.
+# pyright completions should appear via otter.nvim
+df = pd.DataFrame({"x": [1, 2, 3]})
+df.describe()
+```
+
+## 6. Format-on-Save Check
+
+Save this file (`<C-s>`) — the injected formatter should reformat the Python
+below to PEP 8 style (ruff_format + isort). Verify that `import os` moves
+to the top and spacing normalises.
+
+```{python}
+x = 1 + 2
+y = x * 3
+print(y)
+```
