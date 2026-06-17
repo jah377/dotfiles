@@ -110,5 +110,6 @@ return {
     kbd("n", "<leader>oo", "<cmd>Obsidian follow_link<cr>", { desc = "[O]bsidian [O]pen link" })
     kbd("n", "<leader>oc", "<cmd>Obsidian toggle_checkbox<cr>", { desc = "[O]bsidian toggle [C]heckbox" })
     kbd("n", "<leader>oh", "<cmd>Obsidian toc<cr>", { desc = "[O]bsidian find [H]eaders" })
+    kbd("n", "<leader>ob", "<cmd>Obsidian backlinks<cr>", { desc = "[O]bsidian [B]acklinks" })
   end,
 }
