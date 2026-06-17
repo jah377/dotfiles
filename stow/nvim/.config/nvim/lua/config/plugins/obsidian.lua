@@ -46,10 +46,9 @@ return {
       notes_subdir = "tmp_notes", -- workspace subdir name
       new_notes_location = "notes_subdir", -- use `new_notes_location`
       templates = { folder = "templates" }, -- workspace subdir name
-      completion = { nvim_cmp = true, min_chars = 2 },
       ui = { enable = false }, -- render-markdown.nvim handles all markdown UI
       link = { auto_update = true }, -- automatically update links
-      disable_frontmatter = true, -- use templates instead
+      frontmatter = { enabled = false }, -- use templates instead
     }
 
     local fff = require "fff"
