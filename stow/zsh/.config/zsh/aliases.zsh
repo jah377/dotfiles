@@ -21,5 +21,5 @@ alias ..="cd .."
 alias ...="cd ../.."
 
 # Obsidian-related shortcuts
-alias oo="cd $NOTES_DIR"
-alias or="nvim $NOTES_TO_REVIEW_DIR/*md"
+alias oo="cd $ZK_DIR"
+alias or="nvim $ZK_INBOX_DIR/*md"
