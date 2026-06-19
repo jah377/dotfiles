@@ -23,3 +23,5 @@ export BROWSER=open
 export HISTFILE=~/.zsh_history
 export HISTSIZE=5000        # lines kept in memory
 export SAVEHIST=5000        # lines saved to file
+
+export UV_SYSTEM_CERTS=true
