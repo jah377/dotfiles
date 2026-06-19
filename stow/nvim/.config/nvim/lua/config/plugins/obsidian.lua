@@ -40,10 +40,12 @@ return {
     { "dmtrKovalenko/fff.nvim", opts = {} },
   },
   config = function()
+    local zk_inbox = vim.env.ZK_INBOX_DIR
+
     require("obsidian").setup {
       legacy_commands = false, -- to be removed in 4.0.0
       workspaces = { { name = "zettelkasten", path = "~/zettelkasten" } },
-      notes_subdir = "tmp_notes", -- workspace subdir name
+      notes_subdir = zk_inbox, -- workspace subdir name
       new_notes_location = "notes_subdir", -- use `new_notes_location`
       templates = { folder = "templates" }, -- workspace subdir name
       ui = { enable = false }, -- render-markdown.nvim handles all markdown UI

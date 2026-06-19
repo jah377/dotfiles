@@ -8,7 +8,7 @@ DEST_DIR="$ZK_STORE_DIR" # see `stow/zsh/.zshenv`
 
 
 # Iterate through all markdown files in the source directory
-find "$SOURCE_DIR" -type f -name "*.md" | while read -r file; do
+find "$SOURCE_DIR" -type f -name "*.qmd" | while read -r file; do
   echo "Processing $file"
 
   # Extract the tag from the file. This assumes the tag is on the line

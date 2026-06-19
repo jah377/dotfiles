@@ -24,7 +24,7 @@ file_name=$( echo "$1" | awk '{
                 }' | tr ' ' '-')
 
 # Prefix with ISO 8601 date so notes sort chronologically by default
-formatted_file_name=$(date "+%Y%m%d")__${file_name}.md
+formatted_file_name=$(date "+%Y%m%d")__${file_name}.qmd
 
 
 if [[ -f "$ZK_INBOX_DIR/${formatted_file_name}" ]]; then
