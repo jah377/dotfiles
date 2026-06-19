@@ -177,13 +177,6 @@ return {
     end,
 
     config = function()
-      -- Returns the output save path for the current buffer.
-      -- Saves as <notebook>.qmd.json alongside the .qmd file so outputs
-      -- are co-located with the notebook and can be version-controlled.
-      local function save_path()
-        return vim.api.nvim_buf_get_name(0) .. ".json"
-      end
-
       -- Register <leader>j keymaps as buffer-local for .qmd files only.
       -- FileType autocmd (not BufEnter) sets keymaps once per buffer and
       -- fires after quarto-nvim assigns filetype=quarto to .qmd files.
@@ -200,8 +193,12 @@ return {
           map("n", "<leader>ji", ":MoltenInit<CR>", "Jupyter [I]nit kernel")
 
           -- Cell execution via quarto.runner (understands quarto cell format)
-          map("n", "<leader>jr", function() require("quarto.runner").run_cell() end, "Jupyter [R]un cell")
-          map("n", "<leader>jR", function() require("quarto.runner").run_all() end, "Jupyter [R]un all cells")
+          map("n", "<leader>jr", function()
+            require("quarto.runner").run_cell()
+          end, "Jupyter [R]un cell")
+          map("n", "<leader>jR", function()
+            require("quarto.runner").run_all()
+          end, "Jupyter [R]un all cells")
           map("v", "<leader>jr", ":<C-u>MoltenEvaluateVisual<CR>", "Jupyter [R]un selection")
 
           -- Output management
@@ -209,33 +206,12 @@ return {
           map("n", "<leader>jd", ":MoltenDelete<CR>", "Jupyter [D]elete output")
 
           -- Output persistence (saves to <notebook>.qmd.json alongside the .qmd file)
-          map("n", "<leader>js", function() vim.cmd("MoltenSave " .. save_path()) end, "Jupyter [S]ave outputs")
-          map("n", "<leader>jl", function() vim.cmd("MoltenLoad " .. save_path()) end, "Jupyter [L]oad outputs")
-        end,
-      })
-
-      -- Auto-save outputs when leaving a .qmd buffer.
-      -- Saves to ~/.local/share/nvim/molten/<hashed-path>.json
-      vim.api.nvim_create_autocmd("BufWinLeave", {
-        pattern = "*.qmd",
-        group = vim.api.nvim_create_augroup("molten-persist", { clear = true }),
-        callback = function()
-          -- pcall: silently skip if no kernel is attached to this buffer
-          pcall(vim.cmd, "MoltenSave " .. vim.api.nvim_buf_get_name(0) .. ".json")
-        end,
-      })
-
-      -- Auto-load saved outputs after kernel initialization.
-      -- MoltenInitPost fires when the kernel is registered, but the kernel
-      -- connection may not be fully established yet. defer_fn waits 500ms
-      -- before calling MoltenLoad to avoid a silent no-op.
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "MoltenInitPost",
-        group = vim.api.nvim_create_augroup("molten-autoload", { clear = true }),
-        callback = function()
-          vim.defer_fn(function()
-            pcall(vim.cmd, "MoltenLoad " .. vim.api.nvim_buf_get_name(0) .. ".json")
-          end, 500)
+          map("n", "<leader>js", function()
+            vim.cmd("MoltenSave " .. save_path())
+          end, "Jupyter [S]ave outputs")
+          map("n", "<leader>jl", function()
+            vim.cmd("MoltenLoad " .. save_path())
+          end, "Jupyter [L]oad outputs")
         end,
       })
     end,
