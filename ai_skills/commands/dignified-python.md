@@ -1,7 +1,7 @@
 ---
 description: Enforce opinionated python standards for file
 argument-hint: [review python code]
-allowed-tools: Skill(dignified-python)
+allowed-tools: Skill(python-dignified-python)
 ---
 
-Invoke the dignified-python skill for: $ARGUMENTS
+Invoke the python-dignified-python skill for: $ARGUMENTS

@@ -7,36 +7,6 @@ description:
   optimization, async patterns, and design principles.
 references:
   - dignified-python-core
-  - cli-patterns
-  - subprocess
-  - versions/python-3.10
-  - versions/python-3.11
-  - versions/python-3.12
-  - versions/python-3.13
-  - references/advanced/api-design
-  - references/advanced/exception-handling
-  - references/advanced/interfaces
-  - references/advanced/typing-advanced
-  - references/module-design
-  - references/checklists
-  - references/coding-standards/design-philosophy
-  - references/coding-standards/design-single-responsibility
-  - references/coding-standards/design-dependency-injection
-  - references/coding-standards/design-pure-functions
-  - references/coding-standards/design-early-return
-  - references/coding-standards/oop-composition-over-inheritance
-  - references/coding-standards/oop-dataclass
-  - references/coding-standards/oop-protocol
-  - references/coding-standards/oop-property
-  - references/coding-standards/async-gather
-  - references/coding-standards/async-create-task
-  - references/coding-standards/async-context-manager
-  - references/coding-standards/async-semaphore
-  - references/coding-standards/perf-list-comprehension
-  - references/coding-standards/perf-generator-expression
-  - references/coding-standards/perf-dict-get
-  - references/coding-standards/perf-set-lookup
-  - references/coding-standards/perf-str-join
 ---
 
 # Dignified Python

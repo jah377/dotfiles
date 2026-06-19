@@ -16,7 +16,7 @@ A comprehensive guide to Python development tools. Configuration best practices 
 
 Use this skill for **tool configuration and project setup** — configuring ruff, mypy, pytest, uv, and pyscn in a Python project. It covers how to install, configure, and run these tools.
 
-For **coding patterns and style conventions** (list comprehensions, async patterns, OOP design), use `python-coding-standards` instead.
+For **coding patterns and style conventions** (list comprehensions, async patterns, OOP design), use `python-dignified-python` instead.
 
 ## Why These Tools Matter
 

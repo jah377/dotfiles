@@ -259,25 +259,25 @@ Based on detected version, appropriate version-specific features are recommended
 - **`/dg`** - Dagster CLI operations
 - **`/dagster-expert`** - Dagster expertise including integrations
 
-**Important**: `/dignified-python` is for **general-purpose Python style guidance**, not
+**Important**: `/python-dignified-python` is for **general-purpose Python style guidance**, not
 Dagster-specific patterns. It is intentionally opinionated rather than universal. For Dagster
 patterns, use `/dagster-best-practices`.
 
 ## Cross-Skill Usage
 
-Users invoke `/dignified-python` when they need Python code quality guidance, regardless of whether
+Users invoke `/python-dignified-python` when they need Python code quality guidance, regardless of whether
 it's for a Dagster project or any other Python project.
 
 **Workflow:**
 
 ```
 User: "Is this good Python code?"
-→ /dignified-python (check dignified-python-core.md)
+→ /python-dignified-python (check dignified-python-core.md)
 → Apply modern type syntax, LBYL, pathlib patterns
 → Check version-specific features based on project
 
 User: "How should I structure my Dagster assets?"
-→ /dagster-best-practices (NOT dignified-python)
+→ /dagster-best-practices (NOT python-dignified-python)
 → Learn asset patterns, dependencies, partitions
 ```
 
@@ -304,7 +304,7 @@ Each reference document follows a consistent structure:
 
 ## Self-Selecting Usage
 
-Users only invoke `/dignified-python` when they want Python standards guidance. The skill
+Users only invoke `/python-dignified-python` when they want Python standards guidance. The skill
 description makes it clear it's for general Python quality, not Dagster-specific patterns, so users
 naturally select it when appropriate.
 
