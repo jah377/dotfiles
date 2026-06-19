@@ -1,5 +1,5 @@
 ---
-name: tooling
+name: python-setting-up
 description: Python development tooling configuration and best practices
 globs:
   - "**/*.py"
@@ -11,6 +11,12 @@ globs:
 # Python Tooling
 
 A comprehensive guide to Python development tools. Configuration best practices for analysis, linters, type checkers, formatters, test frameworks, and package managers.
+
+## When to Use This Skill
+
+Use this skill for **tool configuration and project setup** — configuring ruff, mypy, pytest, uv, and pyscn in a Python project. It covers how to install, configure, and run these tools.
+
+For **coding patterns and style conventions** (list comprehensions, async patterns, OOP design), use `python-coding-standards` instead.
 
 ## Why These Tools Matter
 

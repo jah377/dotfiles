@@ -1,5 +1,5 @@
 ---
-name: plan-python-design
+name: python-system-design
 description: Guides task planning by gathering requirements through iterative
 questioning, then recommends software design patterns with rationale,
 trade-offs, and pseudo code. Use at the start of a new Python coding task to
@@ -34,6 +34,12 @@ none is needed.
 </essential_principles>
 
 <quick_start>
+This skill runs four phases: (1) gather the broad goal, (2) drill into
+requirements one question at a time, (3) recommend up to three design patterns
+from the catalog in `references/design-patterns.md` with pros, cons, and
+pseudo code, (4) confirm alignment. No implementation code is written — only
+pseudo code illustrating the recommended pattern(s).
+
 Begin by asking the user for the broad goal of their coding task. Then follow
 the process below.
 </quick_start>

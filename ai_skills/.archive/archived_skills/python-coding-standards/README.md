@@ -16,7 +16,7 @@ This skill provides 18 rules across 4 categories:
 ## Structure
 
 ```
-skills/coding-standards/
+skills/python-coding-standards/
 ├── SKILL.md              # Skill overview with all rule summaries
 ├── metadata.json         # Metadata (version, description)
 ├── README.md             # This file

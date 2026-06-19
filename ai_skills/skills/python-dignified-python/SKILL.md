@@ -1,13 +1,14 @@
 ---
-name: dignified-python
+name: python-dignified-python
 description:
-  Opinionated production Python standards with automatic version detection
-  (3.10-3.13). Use when writing, reviewing, or refactoring Python in repos
-  that want modern type syntax, explicit condition checks where practical,
-  pathlib operations, interface guidance, and pragmatic production patterns.
+  Opinionated production Python standards with version-aware guidance
+  (3.10-3.13). Covers modern type syntax, explicit condition checks, pathlib
+  operations, interface guidance, pragmatic production patterns, performance
+  optimization, async patterns, and design principles.
 references:
   - dignified-python-core
   - cli-patterns
+  - subprocess
   - versions/python-3.10
   - versions/python-3.11
   - versions/python-3.12
@@ -16,29 +17,41 @@ references:
   - references/advanced/exception-handling
   - references/advanced/interfaces
   - references/advanced/typing-advanced
+  - references/module-design
+  - references/checklists
+  - references/coding-standards/design-philosophy
+  - references/coding-standards/design-single-responsibility
+  - references/coding-standards/design-dependency-injection
+  - references/coding-standards/design-pure-functions
+  - references/coding-standards/design-early-return
+  - references/coding-standards/oop-composition-over-inheritance
+  - references/coding-standards/oop-dataclass
+  - references/coding-standards/oop-protocol
+  - references/coding-standards/oop-property
+  - references/coding-standards/async-gather
+  - references/coding-standards/async-create-task
+  - references/coding-standards/async-context-manager
+  - references/coding-standards/async-semaphore
+  - references/coding-standards/perf-list-comprehension
+  - references/coding-standards/perf-generator-expression
+  - references/coding-standards/perf-dict-get
+  - references/coding-standards/perf-set-lookup
+  - references/coding-standards/perf-str-join
 ---
 
 # Dignified Python
 
 Opinionated Python guidance for writing clean, maintainable, modern Python code
-(versions
-3.10-3.13).
+(versions 3.10-3.13). Includes performance optimization, async patterns, design
+principles, and OOP best practices.
 
 ## When to Use This Skill
 
-Auto-invoke when users ask about:
+Use when asked to write, review, or refactor Python code.
 
-- "make this pythonic" / "is this good python"
-- "type hints" / "type annotations" / "typing"
-- "LBYL vs EAFP" / "exception handling"
-- "pathlib vs os.path" / "path operations"
-- "CLI patterns" / "click usage"
-- "code review" / "improve this code"
-- Any Python code quality or standards question
-
-**Note**: This skill is **general-purpose Python style guidance**, not
-Dagster-specific. It captures one explicit, LBYL-leaning set of conventions;
-project conventions can override it when needed.
+**Note**: General-purpose Python style guidance, not Dagster-specific. Captures
+one explicit, LBYL-leaning set of conventions; project conventions can override
+when needed.
 
 ## When to Use This Skill vs. Others
 
@@ -49,8 +62,8 @@ project conventions can override it when needed.
 | "type hints"                 | ✅ Yes - typing guidance    |                           |
 | "LBYL vs EAFP"               | ✅ Yes - exception patterns |                           |
 | "pathlib vs os.path"         | ✅ Yes - path handling      |                           |
-| "best practices for dagster" | ❌ No                       | `/dagster-best-practices` |
-| "implement X pipeline"       | ❌ No                       | `/dg` for implementation  |
+| "best practices for dagster" | ❌ No                       | `/dagster-expert`         |
+| "implement X pipeline"       | ❌ No                       | `/dagster-expert`         |
 | "which integration to use"   | ❌ No                       | `/dagster-expert`         |
 | "CLI argument parsing"       | ✅ Yes - CLI patterns       |                           |
 
@@ -80,10 +93,12 @@ project conventions can override it when needed.
 Core files above cover 80%+ of Python code patterns. Only load these additional
 files when you detect specific patterns:
 
-Pattern detection examples:
-
-- If task mentions "click" or "CLI" -> Load `cli-patterns.md`
-- If task mentions "subprocess" -> Load `subprocess.md`
+- If task mentions "click" or "CLI" → Load `cli-patterns.md`
+- If task mentions "subprocess" → Load `subprocess.md`
+- If task involves async/concurrency → Load `references/coding-standards/async-*.md`
+- If task involves performance/large data → Load `references/coding-standards/perf-*.md`
+- If task involves class design/OOP → Load `references/coding-standards/oop-*.md`
+- If task involves architecture/design principles → Load `references/coding-standards/design-*.md`
 
 ## Reference Documentation Structure
 

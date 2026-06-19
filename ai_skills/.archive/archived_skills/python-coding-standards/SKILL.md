@@ -1,5 +1,5 @@
 ---
-name: coding-standards
+name: python-coding-standards
 description: Python coding standards and best practices for AI coding agents
 globs:
   - "**/*.py"

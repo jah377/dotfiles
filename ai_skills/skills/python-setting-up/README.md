@@ -18,7 +18,7 @@ This skill provides 7 rules across 6 categories:
 ## Structure
 
 ```
-skills/tooling/
+skills/python-setting-up/
 ├── SKILL.md              # Skill overview with quick reference
 ├── metadata.json         # Metadata (version, description)
 ├── README.md             # This file
