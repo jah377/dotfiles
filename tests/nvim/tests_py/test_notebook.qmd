@@ -4,9 +4,9 @@ title: "Molten + Quarto Setup Verification"
 
 # Setup Verification
 
-This notebook verifies that molten-nvim, quarto-nvim, otter.nvim, and image.nvim
-are configured correctly. Run each cell with `<leader>jr` and check the expected
-output described in each section.
+This notebook verifies that molten-nvim, quarto-nvim, otter.nvim, and
+image.nvim are configured correctly. Run each cell with `<leader>jr` and check
+the expected output described in each section.
 
 ## 1. Text Output
 
