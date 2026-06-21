@@ -125,7 +125,7 @@ Side effects happen inline as decisions crystallize:
 
 - **Naming a deepened module after a concept not in `CONTEXT.md`?** Add the
   term to `CONTEXT.md` — same discipline as `/grill-with-docs` (see
-  [CONTEXT-FORMAT.md](../grill-with-docs/CONTEXT-FORMAT.md)). Create the file
+  [CONTEXT-FORMAT.md](CONTEXT-FORMAT.md)). Create the file
   lazily if it doesn't exist.
 - **Sharpening a fuzzy term during the conversation?** Update `CONTEXT.md`
   right there.
@@ -134,6 +134,6 @@ Side effects happen inline as decisions crystallize:
   don't re-suggest it?"_ Only offer when the reason would actually be needed by
   a future explorer to avoid re-suggesting the same thing — skip ephemeral
   reasons ("not worth it right now") and self-evident ones. See
-  [ADR-FORMAT.md](../grill-with-docs/ADR-FORMAT.md).
+  [ADR-FORMAT.md](ADR-FORMAT.md).
 - **Want to explore alternative interfaces for the deepened module?** See
   [INTERFACE-DESIGN.md](INTERFACE-DESIGN.md).
