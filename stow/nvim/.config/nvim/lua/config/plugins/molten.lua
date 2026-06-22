@@ -194,6 +194,7 @@ return {
 
           -- Kernel management
           map("n", "<leader>ji", ":MoltenInit<CR>", "Jupyter [I]nit kernel")
+          map("n", "<leader>jI", ":MoltenDeInit<CR>", "Jupyter De[I]nit kernel")
 
           -- Cell execution via quarto.runner (understands quarto cell format)
           map("n", "<leader>jr", function()
@@ -202,11 +203,11 @@ return {
           map("n", "<leader>jR", function()
             require("quarto.runner").run_all()
           end, "Jupyter [R]un all cells")
-          map("v", "<leader>jr", ":<C-u>MoltenEvaluateVisual<CR>", "Jupyter [R]un selection")
+          map("n", "<leader>jd", ":MoltenDelete<CR>", { silent = true, desc = "molten delete cell" })
 
           -- Output management
-          map("n", "<leader>jo", ":noautocmd MoltenShowOutput<CR>", "Jupyter [O]utput show")
-          map("n", "<leader>jd", ":MoltenDelete<CR>", "Jupyter [D]elete output")
+          map("n", "<leader>jo", ":noautocmd MoltenEnterOutput<CR>", { silent = true, desc = "show/enter output" })
+          map("n", "<leader>jh", ":MoltenHideOutput<CR>", { silent = true, desc = "hide output" })
 
           -- Output persistence (saves to <notebook>.qmd.json alongside the .qmd file)
           map("n", "<leader>js", function()
