@@ -71,7 +71,7 @@ return {
     kbd(
       "n",
       "<leader>ot",
-      ":s/\\(# \\)[0-9]\\{8}__*/\\1/ | s/[-_]/ /g<cr>",
+      ":s/\\(: \\)[0-9]\\{8}__*/\\1/ | s/[-_]/ /g<cr>",
       { desc = "[O]bsidian format note [T]itle" }
     )
 

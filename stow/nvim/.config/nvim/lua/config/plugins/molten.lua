@@ -159,6 +159,9 @@ return {
       -- Delegate image rendering to image.nvim (Kitty Protocol)
       vim.g.molten_image_provider = "image.nvim"
 
+      -- Wrap text output
+      vim.g.molten_wrap_output = true
+
       -- Show output as virtual text below the cell rather than a split window
       vim.g.molten_virt_text_output = true
 
@@ -167,7 +170,7 @@ return {
       vim.g.molten_auto_open_output = false
 
       -- Maximum height of the floating output window in lines
-      vim.g.molten_output_win_max_height = 20
+      vim.g.molten_output_win_max_height = 40
 
       -- Corrects a 1-line offset in virtual text placement
       vim.g.molten_virt_lines_off_by_1 = true
