@@ -205,7 +205,7 @@ return {
           map("v", "<leader>jr", ":<C-u>MoltenEvaluateVisual<CR>", "Jupyter [R]un selection")
 
           -- Output management
-          map("n", "<leader>jo", ":MoltenShowOutput<CR>", "Jupyter [O]utput show")
+          map("n", "<leader>jo", ":noautocmd MoltenShowOutput<CR>", "Jupyter [O]utput show")
           map("n", "<leader>jd", ":MoltenDelete<CR>", "Jupyter [D]elete output")
 
           -- Output persistence (saves to <notebook>.qmd.json alongside the .qmd file)
