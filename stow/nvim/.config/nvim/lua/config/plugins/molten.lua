@@ -167,6 +167,24 @@ return {
     end,
 
     config = function()
+      -- Quickly convert between .ipynb <-> .qmd
+      local function toggle_notebook_format()
+        local curr_file = vim.fn.expand "%p" -- fpath for file at point
+        local qmd_path = curr_file:gsub("%.ipynb$", ".qmd")
+        local ipynb_path = curr_file:gsub("%.qmd$", ".ipynb")
+
+        if curr_file == qmd_path then
+          vim.fn.system("quarto convert " .. qmd_path .. " --output " .. ipynb_path)
+          vim.notify("Converted to .ipynb", vim.log.levels.INFO)
+        elseif curr_file == ipynb_path then
+          vim.fn.system("quarto convert " .. ipynb_path .. " --output " .. qmd_path)
+          vim.notify("Converted to .qmd", vim.log.levels.INFO)
+        else
+          error "Current file must be a .qmd or .ipynb file"
+        end
+      end
+      vim.keymap.set("n", "<leader>q", toggle_notebook_format, { desc = "[Q]uarto convert" })
+
       -- Register <leader>j keymaps as buffer-local for .qmd files only.
       -- FileType autocmd (not BufEnter) sets keymaps once per buffer and
       -- fires after quarto-nvim assigns filetype=quarto to .qmd files.
@@ -195,14 +213,6 @@ return {
           -- Output management
           map("n", "<leader>jo", ":noautocmd MoltenEnterOutput<CR>", "[J]upyter enter [O]utput")
           map("n", "<leader>jh", ":MoltenHideOutput<CR>", "[J]upyter [H]ide output")
-
-          -- Output persistence (saves to <notebook>.qmd.json alongside the .qmd file)
-          map("n", "<leader>js", function()
-            vim.cmd("MoltenSave " .. save_path())
-          end, "[J]upyter [S]ave outputs")
-          map("n", "<leader>jl", function()
-            vim.cmd("MoltenLoad " .. save_path())
-          end, "[J]upyter [L]oad outputs")
         end,
       })
     end,
