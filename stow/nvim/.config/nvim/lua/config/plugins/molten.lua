@@ -156,27 +156,14 @@ return {
     -- init runs before config and before the plugin loads.
     -- These globals must be set before molten initializes.
     init = function()
-      -- Delegate image rendering to image.nvim (Kitty Protocol)
-      vim.g.molten_image_provider = "image.nvim"
-
-      -- Wrap text output
+      vim.g.molten_image_provider = "image.nvim" -- use Kitty Protocol
       vim.g.molten_wrap_output = true
-
-      -- Show output as virtual text below the cell rather than a split window
-      vim.g.molten_virt_text_output = true
-
-      -- Don't auto-open the output window on execution.
-      -- Use <leader>jo to view output explicitly.
-      vim.g.molten_auto_open_output = false
-
-      -- Maximum height of the floating output window in lines
+      vim.g.molten_virt_text_output = true -- display below cell, not new window
+      vim.g.molten_auto_open_output = false -- use <leader>jo explicitly
       vim.g.molten_output_win_max_height = 40
-
-      -- Corrects a 1-line offset in virtual text placement
       vim.g.molten_virt_lines_off_by_1 = true
-
-      -- Use Neovim highlight groups for output window borders
       vim.g.molten_use_border_highlights = true
+      vim.g.molten_enter_output_behavior = "open_and_enter"
     end,
 
     config = function()
