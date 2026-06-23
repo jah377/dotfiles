@@ -193,29 +193,29 @@ return {
           end
 
           -- Kernel management
-          map("n", "<leader>ji", ":MoltenInit<CR>", "Jupyter [I]nit kernel")
-          map("n", "<leader>jI", ":MoltenDeInit<CR>", "Jupyter De[I]nit kernel")
+          map("n", "<leader>ji", ":MoltenInit<CR>", "[J]upyter [I]nit kernel")
+          map("n", "<leader>jI", ":MoltenDeInit<CR>", "[J]upyter De[I]nit kernel")
 
           -- Cell execution via quarto.runner (understands quarto cell format)
           map("n", "<leader>jr", function()
             require("quarto.runner").run_cell()
-          end, "Jupyter [R]un cell")
+          end, "[J]upyter [R]un cell")
           map("n", "<leader>jR", function()
             require("quarto.runner").run_all()
-          end, "Jupyter [R]un all cells")
-          map("n", "<leader>jd", ":MoltenDelete<CR>", { silent = true, desc = "molten delete cell" })
+          end, "[J]upyter [R]un all cells")
+          map("n", "<leader>jd", ":MoltenDelete<CR>", "[J]upyter [D]elete cell")
 
           -- Output management
-          map("n", "<leader>jo", ":noautocmd MoltenEnterOutput<CR>", { silent = true, desc = "show/enter output" })
-          map("n", "<leader>jh", ":MoltenHideOutput<CR>", { silent = true, desc = "hide output" })
+          map("n", "<leader>jo", ":noautocmd MoltenEnterOutput<CR>", "[J]upyter enter [O]utput")
+          map("n", "<leader>jh", ":MoltenHideOutput<CR>", "[J]upyter [H]ide output")
 
           -- Output persistence (saves to <notebook>.qmd.json alongside the .qmd file)
           map("n", "<leader>js", function()
             vim.cmd("MoltenSave " .. save_path())
-          end, "Jupyter [S]ave outputs")
+          end, "[J]upyter [S]ave outputs")
           map("n", "<leader>jl", function()
             vim.cmd("MoltenLoad " .. save_path())
-          end, "Jupyter [L]oad outputs")
+          end, "[J]upyter [L]oad outputs")
         end,
       })
     end,
