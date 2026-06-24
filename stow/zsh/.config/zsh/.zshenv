@@ -25,3 +25,7 @@ export HISTSIZE=5000        # lines kept in memory
 export SAVEHIST=5000        # lines saved to file
 
 export UV_SYSTEM_CERTS=true
+
+# Machine-specific context (gitignored). Copy machine.local.zsh.template to
+# machine.local.zsh and set values for this machine.
+[[ -f "$ZDOTDIR/machine.local.zsh" ]] && source "$ZDOTDIR/machine.local.zsh"
