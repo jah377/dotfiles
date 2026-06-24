@@ -37,9 +37,9 @@ return {
     },
 
     config = function()
-      local conform = require("conform")
+      local conform = require "conform"
 
-      conform.setup({
+      conform.setup {
         formatters_by_ft = {
           lua = {
             "stylua", -- standard Lua formatter
@@ -70,6 +70,23 @@ return {
           },
         },
 
+        -- Prettier does not infer a parser for .qmd; teach both formatters to
+        -- treat Quarto files as markdown.
+        formatters = {
+          prettier = {
+            options = {
+              ext_parsers = { qmd = "markdown" },
+              ft_parsers = { quarto = "markdown" },
+            },
+          },
+          prettierd = {
+            prepend_args = function(_, ctx)
+              local ext = vim.fn.fnamemodify(ctx.filename, ":e")
+              if ext == "qmd" then return { "--parser=markdown" } end
+            end,
+          },
+        },
+
         -- Default options that apply to all formatters
         default_format_opts = {
           -- If no formatter is configured for a file type, try LSP formatting
@@ -78,9 +95,7 @@ return {
         },
 
         format_on_save = function(bufnr)
-          if vim.b[bufnr].disable_autoformat then
-            return
-          end
+          if vim.b[bufnr].disable_autoformat then return end
 
           -- Maximum time to wait for formatting before giving up (in ms).
           -- Some formatters are slow on large files; this prevents hanging.
@@ -95,7 +110,7 @@ return {
         -- Show a notification when no formatters are available for a file type
         -- Helps debug why formatting isn't working
         notify_no_formatters = true,
-      })
+      }
     end,
   },
 }

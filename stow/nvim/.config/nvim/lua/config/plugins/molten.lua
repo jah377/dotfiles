@@ -156,27 +156,35 @@ return {
     -- init runs before config and before the plugin loads.
     -- These globals must be set before molten initializes.
     init = function()
-      -- Delegate image rendering to image.nvim (Kitty Protocol)
-      vim.g.molten_image_provider = "image.nvim"
-
-      -- Show output as virtual text below the cell rather than a split window
-      vim.g.molten_virt_text_output = true
-
-      -- Don't auto-open the output window on execution.
-      -- Use <leader>jo to view output explicitly.
-      vim.g.molten_auto_open_output = false
-
-      -- Maximum height of the floating output window in lines
-      vim.g.molten_output_win_max_height = 20
-
-      -- Corrects a 1-line offset in virtual text placement
+      vim.g.molten_image_provider = "image.nvim" -- use Kitty Protocol
+      vim.g.molten_wrap_output = true
+      vim.g.molten_virt_text_output = true -- display below cell, not new window
+      vim.g.molten_auto_open_output = false -- use <leader>jo explicitly
+      vim.g.molten_output_win_max_height = 40
       vim.g.molten_virt_lines_off_by_1 = true
-
-      -- Use Neovim highlight groups for output window borders
       vim.g.molten_use_border_highlights = true
+      vim.g.molten_enter_output_behavior = "open_and_enter"
     end,
 
     config = function()
+      -- Quickly convert between .ipynb <-> .qmd
+      local function toggle_notebook_format()
+        local curr_file = vim.fn.expand "%p" -- fpath for file at point
+        local qmd_path = curr_file:gsub("%.ipynb$", ".qmd")
+        local ipynb_path = curr_file:gsub("%.qmd$", ".ipynb")
+
+        if curr_file == qmd_path then
+          vim.fn.system("quarto convert " .. qmd_path .. " --output " .. ipynb_path)
+          vim.notify("Converted to .ipynb", vim.log.levels.INFO)
+        elseif curr_file == ipynb_path then
+          vim.fn.system("quarto convert " .. ipynb_path .. " --output " .. qmd_path)
+          vim.notify("Converted to .qmd", vim.log.levels.INFO)
+        else
+          error "Current file must be a .qmd or .ipynb file"
+        end
+      end
+      vim.keymap.set("n", "<leader>q", toggle_notebook_format, { desc = "[Q]uarto convert" })
+
       -- Register <leader>j keymaps as buffer-local for .qmd files only.
       -- FileType autocmd (not BufEnter) sets keymaps once per buffer and
       -- fires after quarto-nvim assigns filetype=quarto to .qmd files.
@@ -190,28 +198,21 @@ return {
           end
 
           -- Kernel management
-          map("n", "<leader>ji", ":MoltenInit<CR>", "Jupyter [I]nit kernel")
+          map("n", "<leader>ji", ":MoltenInit<CR>", "[J]upyter [I]nit kernel")
+          map("n", "<leader>jI", ":MoltenDeInit<CR>", "[J]upyter De[I]nit kernel")
 
           -- Cell execution via quarto.runner (understands quarto cell format)
           map("n", "<leader>jr", function()
             require("quarto.runner").run_cell()
-          end, "Jupyter [R]un cell")
+          end, "[J]upyter [R]un cell")
           map("n", "<leader>jR", function()
             require("quarto.runner").run_all()
-          end, "Jupyter [R]un all cells")
-          map("v", "<leader>jr", ":<C-u>MoltenEvaluateVisual<CR>", "Jupyter [R]un selection")
+          end, "[J]upyter [R]un all cells")
+          map("n", "<leader>jd", ":MoltenDelete<CR>", "[J]upyter [D]elete cell")
 
           -- Output management
-          map("n", "<leader>jo", ":MoltenShowOutput<CR>", "Jupyter [O]utput show")
-          map("n", "<leader>jd", ":MoltenDelete<CR>", "Jupyter [D]elete output")
-
-          -- Output persistence (saves to <notebook>.qmd.json alongside the .qmd file)
-          map("n", "<leader>js", function()
-            vim.cmd("MoltenSave " .. save_path())
-          end, "Jupyter [S]ave outputs")
-          map("n", "<leader>jl", function()
-            vim.cmd("MoltenLoad " .. save_path())
-          end, "Jupyter [L]oad outputs")
+          map("n", "<leader>jo", ":noautocmd MoltenEnterOutput<CR>", "[J]upyter enter [O]utput")
+          map("n", "<leader>jh", ":MoltenHideOutput<CR>", "[J]upyter [H]ide output")
         end,
       })
     end,

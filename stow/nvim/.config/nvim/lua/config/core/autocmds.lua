@@ -116,6 +116,8 @@ local function update_overlength_match()
     vim.w.overlength_match_id = nil
   end
 
+  if vim.b.overlength_disabled then return end
+
   local tw = vim.bo.textwidth
   if tw <= 0 then return end
 

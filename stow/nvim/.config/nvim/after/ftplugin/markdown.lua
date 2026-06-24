@@ -3,6 +3,7 @@
 local set = vim.opt_local
 
 vim.b.disable_autoformat = true
+vim.b.overlength_disabled = true
 
 -- Spell: ]s/[s (next/prev), z= (suggest), zg (add to dict)
 set.spell = true

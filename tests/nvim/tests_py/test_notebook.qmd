@@ -90,3 +90,15 @@ x = 1 + 2
 y = x * 3
 print(y)
 ```
+
+## 7. Error Messages
+
+```{python}
+def recurse(n):
+    if n == 0:
+        return int("not a number")
+    return recurse(n - 1)
+
+
+recurse(10)
+```

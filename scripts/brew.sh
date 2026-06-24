@@ -52,9 +52,11 @@ brew install --cask skim # display compiled PDF output
 
 # ---- Python Tools ----
 
+brew install jupyter
 brew install uv     # package and project manager
 brew install pyenv  # manage multiple python versions
 brew install poetry # package/dependency manager
+brew install quarto # convert .ipynb -> .qmd
 
 # ---- Terminal ----
 
