@@ -21,20 +21,15 @@ return {
   "ThePrimeagen/99",
 
   config = function()
-    local _99 = require("99")
+    local _99 = require "99"
     local basename = vim.fs.basename(vim.uv.cwd())
     local kbd = vim.keymap
 
-    local provider = vim.fn.getenv("AI_PROVIDER") == "cursor"
-      and _99.Providers.CursorAgentProvider
+    local provider = vim.fn.getenv "AI_PROVIDER" == "cursor" and _99.Providers.CursorAgentProvider
       or _99.Providers.ClaudeCodeProvider
 
-    _99.setup({
+    _99.setup {
       provider = provider,
-
-      -- claude-haiku-4-5 is fast and cost-effective for coding tasks.
-      model = "claude-haiku-4-5",
-
       logger = {
         level = _99.DEBUG, -- Log level (DEBUG is verbose)
         path = "/tmp/" .. basename .. ".99.debug", -- Log file location
@@ -74,7 +69,7 @@ return {
       md_files = {
         "AGENT.md", -- Project-level AI instructions
       },
-    })
+    }
 
     -- Send visual selection to AI for processing
     kbd.set("v", "<leader>9v", function()
