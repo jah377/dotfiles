@@ -50,15 +50,9 @@ __pycache__/
 .venv/
 venv/
 
-# Machine-specific configs (use *.local pattern for local overrides)
-*.local
-*.local.*
+# Machine-specific configs 
 .env
 .env.*
-
-# stow/local package symlinks into ~/.local/ and must be version-controlled
-!stow/local/.local/
-!stow/local/.local/**
 
 # Secrets and credentials
 *secret*
