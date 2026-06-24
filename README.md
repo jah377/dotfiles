@@ -109,7 +109,36 @@ git -C ~/dotfiles config --local user.name "{{PERSONAL_NAME}}"
 git -C ~/dotfiles config --local user.email "{{PERSONAL_EMAIL}}"
 ```
 
+Then edit the machine context file with work values (see [Configure Machine Context](#configure-machine-context)):
+
+```shell
+# Edit machine.local.zsh: set IS_WORK_MACHINE=true and AI_PROVIDER=cursor
+vim ~/dotfiles/stow/zsh/.config/zsh/machine.local.zsh
+```
+
 # Setup Development Environment
+
+## Configure Machine Context
+
+Machine-specific settings live in `stow/zsh/.config/zsh/machine.local.zsh`,
+which is committed with personal-machine defaults. Edit it before running other
+setup scripts to reflect this machine:
+
+**Personal machine** (default values, no edits needed):
+```shell
+export IS_WORK_MACHINE=false
+export AI_PROVIDER=claude
+```
+
+**Work machine**:
+```shell
+export IS_WORK_MACHINE=true
+export AI_PROVIDER=cursor
+```
+
+`IS_WORK_MACHINE=true` skips personal apps during `brew.sh` (expressvpn,
+whatsapp, keybase, emacs, mactex, skim). `AI_PROVIDER` selects the AI
+provider used by Neovim, tmux, and lazygit.
 
 ## Run Configuration Scripts
 
@@ -163,6 +192,15 @@ Apps `borders`, `aerospace`, and `Raycast` need full control of the machine. To
 grant access, go to _System Settings > Privacy & Security > Accessibility_.
 
 ## Applications
+
+### lazygit
+
+Lazygit is configured with an AI-powered commit message generator. In any
+lazygit context, press `G` to call `ai-commit`, which presents a menu of
+generated conventional-commit messages to choose from.
+
+`ai-commit` lives in `stow/local/.local/scripts/ai-commit` and is available
+in `$PATH` after running `stow.sh`.
 
 ### tmux
 
