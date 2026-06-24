@@ -6,3 +6,15 @@ git:
 gui:
   commitLength:
     show: true
+
+customCommands:
+  - key: "G"
+    description: "AI-powered conventional commit"
+    context: "global"
+    prompts:
+      - type: "menuFromCommand"
+        title: "AI Generated Commit Messages"
+        key: "CommitMsg"
+        command: 'ai-commit'
+    command: "git commit -m \"{{.Form.CommitMsg}}\""
+    loadingText: "Generating commit messages..."
