@@ -25,6 +25,8 @@ return {
     local basename = vim.fs.basename(vim.uv.cwd())
     local kbd = vim.keymap
 
+    -- vim.fn.getenv returns v:null (not "") when unset; the ~= "cursor"
+    -- comparison safely falls through to ClaudeCodeProvider as the default.
     local provider = vim.fn.getenv "AI_PROVIDER" == "cursor" and _99.Providers.CursorAgentProvider
       or _99.Providers.ClaudeCodeProvider
 

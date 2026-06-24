@@ -53,6 +53,7 @@ venv/
 # Machine-specific configs
 *.local
 !stow/local/.local/
+!stow/local/.local/**
 !stow/zsh/.config/zsh/machine.local.zsh
 .env
 .env.*

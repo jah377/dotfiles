@@ -11,10 +11,13 @@ set -euo pipefail
 
 diff_output="$(git diff --cached)"
 
-if [ -z "$diff_output" ]; then
+if [[ -z "$diff_output" ]]; then
   echo "Error: No staged changes."
   exit 1
 fi
+
+stat_output="$(git diff --cached --stat)"
+log_output="$(git log --oneline -10)"
 
 prompt="
 You are an expert at writing Git commits. Your job is to write commit messages
@@ -24,8 +27,8 @@ Your task is to:
 1. Analyze the code changes
 2. Determine the most appropriate commit type
 3. Determine an appropriate scope (component/area affected)
-5. Write clear, concise commit messages
-6. Write exactly 10 different commit proposals
+4. Write clear, concise commit messages
+5. Write exactly 10 different commit proposals
 
 **Instructions**:
 1. Please respond only with the suggested commit messages, with no additional
@@ -64,11 +67,10 @@ IMPORTANT:
 - One message per line
 
 **Previous commits for context**:
-$(git log --oneline -10)
-
+$log_output
 
 **Changes to analyze**:
-$(git diff --cached --stat)
+$stat_output
 
 \`\`\`diff
 $diff_output
@@ -80,6 +82,6 @@ if [[ "${AI_PROVIDER}" == "cursor" ]]; then
 elif [[ "${AI_PROVIDER}" == "claude" ]]; then
   claude -p "$prompt" --output-format json | jq -r '.result'
 else
-    echo "ai-commit: AI_PROVIDER=${AI_PROVIDER} not recognised"
-    exit 1
+  echo "ai-commit: AI_PROVIDER=${AI_PROVIDER} not recognised"
+  exit 1
 fi

@@ -11,7 +11,7 @@
 # Whether this is a work machine. Set to true on work machines to skip personal
 # app installation during brew.sh.
 # Valid values: "true" | "false"
-export IS_WORK_MACHINE=false
+export IS_WORK_MACHINE="false"
 
 # AI provider to use across tools (neovim, tmux, lazygit).
 # Valid values: "claude" | "cursor"
