@@ -25,8 +25,12 @@ return {
     local basename = vim.fs.basename(vim.uv.cwd())
     local kbd = vim.keymap
 
+    local provider = vim.fn.getenv("AI_PROVIDER") == "cursor"
+      and _99.Providers.CursorAgentProvider
+      or _99.Providers.ClaudeCodeProvider
+
     _99.setup({
-      provider = _99.Providers.ClaudeCodeProvider,
+      provider = provider,
 
       -- claude-haiku-4-5 is fast and cost-effective for coding tasks.
       model = "claude-haiku-4-5",
