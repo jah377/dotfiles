@@ -18,6 +18,7 @@ fi
 
 stat_output="$(git diff --cached --stat)"
 log_output="$(git log --oneline -10)"
+n_suggestions=6
 
 prompt="
 You are an expert at writing Git commits. Your job is to write commit messages
@@ -28,7 +29,7 @@ Your task is to:
 2. Determine the most appropriate commit type
 3. Determine an appropriate scope (component/area affected)
 4. Write clear, concise commit messages
-5. Write exactly 10 different commit proposals
+5. Write exactly ${n_suggestions} different commit proposals
 
 **Instructions**:
 1. Please respond only with the suggested commit messages, with no additional
