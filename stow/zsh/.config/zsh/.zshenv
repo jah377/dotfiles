@@ -20,7 +20,7 @@ export LANG=en_US.UTF-8
 export BROWSER=open
 
 # History configuration
-export HISTFILE=~/.zsh_history
+export HISTFILE="$ZDOTDIR/.zsh_history"
 export HISTSIZE=5000        # lines kept in memory
 export SAVEHIST=5000        # lines saved to file
 
