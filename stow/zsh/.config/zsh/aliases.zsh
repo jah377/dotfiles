@@ -22,4 +22,4 @@ alias ...="cd ../.."
 
 # Obsidian-related shortcuts
 alias oo="cd $ZK_DIR"
-alias or="nvim $ZK_INBOX_DIR/*qmd"
+or() { nvim "$ZK_INBOX_DIR"/*qmd; }
