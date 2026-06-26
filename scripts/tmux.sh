@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Must download package manager
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 
 # Download catppuccin theme
 mkdir -p ~/.config/tmux/plugins/catppuccin
