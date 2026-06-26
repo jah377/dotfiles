@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Must download package manager
 git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm

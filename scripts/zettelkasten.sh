@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 #
 # Script Name: clone_notes.sh
 # Description: Clone notes repo locally
