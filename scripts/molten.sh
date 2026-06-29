@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 #
 # Script Name: molten.sh
 # Description: Create .venv for molten tools

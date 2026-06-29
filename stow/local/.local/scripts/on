@@ -4,19 +4,17 @@
 #
 # Usage: on "<note title>"
 # Example: on "the wonderful thing about tiggers"
+#          -> 20250621__The-Wonderful-Thing-About-Tiggers.qmd
 #
-# Creates a file named YYYY-MM-DD_The_Wonderful_Thing_About_Tiggers.md
-# in ~/zettelkasten/tmp_notes/ and opens it in Neovim.
+# Creates a file named YYYYMMDD__Title-Case.qmd
+# in $ZK_INBOX_DIR and opens it in Neovim.
 
 if [ -z "$1" ]; then
   echo "Error: A file name must be set."
   exit 1
 fi
 
-# # Replace spaces with '-' for fs-friendly name
-# file_name=$(echo "$1" | tr ' ' '-')
-
-# Convert to title-case & replace " " with "_" for fs-friendly name
+# Convert to title-case & replace " " with "-" for fs-friendly name
 file_name=$( echo "$1" | awk '{
                     for (i = 1; i <= NF; i++)
                         $i = toupper(substr($i,1,1)) substr($i,2)

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 if ! command -v cursor >/dev/null 2>&1; then
     echo "Installing Cursor..."

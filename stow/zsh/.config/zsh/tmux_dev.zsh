@@ -14,6 +14,11 @@ typeset -A _TMUX_DEV_WINDOW_CMDS=(
     [dagster]=""
 )
 
+# On work machines, replace the claude window's command with cursor's agent CLI
+# so every AI window uses the same provider. The [cursor] entry in the static
+# map above is for the dedicated cursor window in dev-work sessions.
+[[ "${AI_PROVIDER}" == "cursor" ]] && _TMUX_DEV_WINDOW_CMDS[claude]="agent --mode ask"
+
 # Internal helper: creates tmux session with specified windows
 # Usage: _tmux_dev_create_session <directory> <session_name> <window1> [window2...]
 _tmux_dev_create_session() {

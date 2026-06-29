@@ -12,6 +12,7 @@ plan/
 ._*
 
 # Shell history files
+.zsh_history
 *.zsh_history
 *.bash_history
 *.zsh_sessions/
@@ -50,15 +51,13 @@ __pycache__/
 .venv/
 venv/
 
-# Machine-specific configs (use *.local pattern for local overrides)
+# Machine-specific configs
 *.local
-*.local.*
-.env
-.env.*
-
-# stow/local package symlinks into ~/.local/ and must be version-controlled
 !stow/local/.local/
 !stow/local/.local/**
+!stow/zsh/.config/zsh/machine.local.zsh
+.env
+.env.*
 
 # Secrets and credentials
 *secret*

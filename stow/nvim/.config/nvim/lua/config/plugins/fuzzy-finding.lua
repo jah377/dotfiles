@@ -62,6 +62,9 @@ local telescope_spec = {
     keymap.set("n", "<space>fL", function()
       builtin.find_files({ cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy") })
     end, { desc = "Find Lazy Plugin Files" })
+    keymap.set("n", "<leader>fF", function()
+      builtin.find_files({ no_ignore = true, hidden = true })
+    end, { desc = "Find All Files (incl. ignored)" })
     keymap.set("n", "<leader>mh", "<cmd>Telescope heading<CR>", { desc = "[M]arkdown [H]eadings" })
   end,
 }

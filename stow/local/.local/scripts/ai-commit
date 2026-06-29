@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+set -euo pipefail
+#
+# See https://github.com/jesseduffield/lazygit/issues/3212
+#
+# ai-commit - Generate a commit message from staged changes using the
+#             configured AI provider (see machine.local.zsh)
+# Usage: ai-commit [--type <commit_type>]
+#   Writes a plain-text commit message to stdout.
+#   Intended to be called from lazygit's custom commit command.
+#
+# Examples:
+#   ai-commit                  # AI determines the commit type
+#   ai-commit --type feat      # constrain suggestions to "feat" type
+#   ai-commit --type refactor  # constrain suggestions to "refactor" type
+
+# Use provided --type value or default to AI-determined type selection
+COMMIT_TYPE="${2:-ai-defined}"
+
+# Exit if no staged changes
+GIT_STAGED_DIFF="$(git diff --cached)"
+if [[ -z "$GIT_STAGED_DIFF" ]]; then
+  echo "Error: No staged changes."
+  exit 1
+fi
+
+COMMITS_TO_SUGGEST=6
+GIT_LOG=="$(git log --oneline -10)"
+GIT_LOG_STAT="$(git diff --cached --stat)"
+
+# Allowed types should mirror types listed in lazygit config.yaml
+if [[ "$COMMIT_TYPE" == "ai-defined" || -z "$COMMIT_TYPE" ]]; then
+  COMMIT_TYPE_INSTRUCTIONS="Allowed types:
+  - feat: A new feature
+  - fix: A bug fix
+  - docs: Documentation only changes
+  - style: Changes that do not affect the meaning of the code
+  - refactor: A code change that neither fixes a bug nor adds a feature
+  - perf: A code change that improves performance
+  - test: Adding missing tests or correcting existing tests
+  - build: Changes that affect the build system or external dependencies
+  - ci: Changes to CI configuration files and scripts
+  - chore: Other changes that do not modify src or test files
+  - revert: Reverts a previous commit"
+else
+  COMMIT_TYPE_INSTRUCTIONS="You MUST use the commit type '$COMMIT_TYPE' for
+  ALL suggestions. Do not use any other type."
+fi
+
+prompt="
+You are an expert at writing Git commits. Your job is to write commit messages
+that follow the Conventional Commits format.
+
+The user has selected: $COMMIT_TYPE
+
+Your task is to:
+1. Analyze the code changes
+2. Determine the most appropriate commit type if user selected ai-defined
+3. Determine an appropriate scope, component, or area affected
+4. Determine an appropriate scope (component/area affected)
+5. Write exactly $COMMITS_TO_SUGGEST different clear, concise commit
+   proposals
+
+Available commit types:
+$COMMIT_TYPE_INSTRUCTIONS
+
+Follow these guidelines:
+- Structure: <type>(<scope>): <description>
+- If user selected ai-defined, analyze the changes and pick the most suitable
+type
+- If user selected a specific type, use that type: $COMMIT_TYPE
+- Add scope in parentheses if applicable, for example auth, api, ui, config
+- Use lowercase for description except proper nouns
+- Use imperative mood: add, not added
+- Keep description under 72 characters when possible
+- No period at the end of subject line
+
+IMPORTANT:
+- Generate exactly $COMMITS_TO_SUGGEST different commit message options
+- If user selected ai-defined, you can use different types for different
+options
+- If user selected a specific type, all messages must use that type
+- Only return commit messages, no explanations
+- Do not use markdown code blocks
+- One message per line
+
+**Previous commits for context**:
+$GIT_LOG
+
+**Changes to analyze**:
+$GIT_LOG_STAT
+
+\`\`\`diff
+$GIT_STAGED_DIFF
+\`\`\`
+"
+
+if [[ "${AI_PROVIDER}" == "cursor" ]]; then
+  agent -p "$prompt" --output-format json | JQ_TEXT=text jq -r "select(.type == env.JQ_TEXT) | .part.text? // empty"
+elif [[ "${AI_PROVIDER}" == "claude" ]]; then
+  claude -p "$prompt" --output-format json | jq -r '.result'
+else
+  echo "ai-commit: AI_PROVIDER=$AI_PROVIDER not recognised"
+  exit 1
+fi

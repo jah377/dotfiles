@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 #
 # SCRIPT NAME: brew.sh
 #
@@ -13,9 +14,12 @@
 
 brew install --cask bitwarden        # OS-agnostic password manager
 brew install --cask raycast          # smart spotlight replacement
-brew install --cask expressvpn       # virtual private network tool
-brew install --cask whatsapp keybase # messaging-apps
 brew install --cask google-chrome
+
+if [[ "${IS_WORK_MACHINE}" != "true" ]]; then
+    brew install --cask expressvpn       # virtual private network tool
+    brew install --cask whatsapp keybase # messaging-apps
+fi
 
 # ---- User Experience ----
 
@@ -39,16 +43,20 @@ brew install tree-sitter-cli
 brew install npm # required for :Mason
 brew install trash # required for :Oil
 
-brew tap d12frosted/emacs-plus
-brew install --cask emacs-app
+if [[ "${IS_WORK_MACHINE}" != "true" ]]; then
+    brew tap d12frosted/emacs-plus
+    brew install --cask emacs-app
+fi
 
 brew install claude-code
 brew install openspec # SDD wrapper
 brew install rtk # Improve token efficiency
 
 # ---- Latex tools ----
-brew install --cask mactex # TeX distribution to compile .tex
-brew install --cask skim # display compiled PDF output
+if [[ "${IS_WORK_MACHINE}" != "true" ]]; then
+    brew install --cask mactex # TeX distribution to compile .tex
+    brew install --cask skim   # display compiled PDF output
+fi
 
 # ---- Python Tools ----
 
