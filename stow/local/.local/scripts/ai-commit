@@ -95,9 +95,9 @@ $GIT_STAGED_DIFF
 \`\`\`
 "
 
-if [[ "${AI_PROVIDER}" == "cursor" ]]; then
-  agent -p "$prompt" --output-format json | JQ_TEXT=text jq -r "select(.type == env.JQ_TEXT) | .part.text? // empty"
-elif [[ "${AI_PROVIDER}" == "claude" ]]; then
+if [[ "$AI_PROVIDER" == "cursor" ]]; then
+  agent -p "$prompt" --output-format json | jq -r '.result'
+elif [[ "$AI_PROVIDER" == "claude" ]]; then
   claude -p "$prompt" --output-format json | jq -r '.result'
 else
   echo "ai-commit: AI_PROVIDER=$AI_PROVIDER not recognised"
