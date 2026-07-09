@@ -199,7 +199,7 @@ return {
 
           -- Kernel management
           map("n", "<leader>ji", ":MoltenInit<CR>", "[J]upyter [I]nit kernel")
-          map("n", "<leader>jI", ":MoltenDeInit<CR>", "[J]upyter De[I]nit kernel")
+          map("n", "<leader>jI", ":MoltenDeinit<CR>", "[J]upyter De[I]nit kernel")
 
           -- Cell execution via quarto.runner (understands quarto cell format)
           map("n", "<leader>jr", function()
