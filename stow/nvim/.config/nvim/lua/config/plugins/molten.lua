@@ -183,7 +183,7 @@ return {
           error "Current file must be a .qmd or .ipynb file"
         end
       end
-      vim.keymap.set("n", "<leader>q", toggle_notebook_format, { desc = "[Q]uarto convert" })
+      vim.keymap.set("n", "<leader>Q", toggle_notebook_format, { desc = "[Q]uarto convert" })
 
       -- Register <leader>j keymaps as buffer-local for .qmd files only.
       -- FileType autocmd (not BufEnter) sets keymaps once per buffer and
