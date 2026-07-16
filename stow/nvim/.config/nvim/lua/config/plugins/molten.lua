@@ -156,9 +156,9 @@ return {
     -- init runs before config and before the plugin loads.
     -- These globals must be set before molten initializes.
     init = function()
-      vim.g.molten_image_provider = "image.nvim" -- use Kitty Protocol
+      vim.g.molten_image_provider = "image.nvim" -- images behavior weirdly in wezterm
       vim.g.molten_wrap_output = true
-      vim.g.molten_virt_text_output = true -- display below cell, not new window
+      vim.g.molten_virt_text_output = false -- display below cell, not new window
       vim.g.molten_auto_open_output = false -- use <leader>jo explicitly
       vim.g.molten_output_win_max_height = 40
       vim.g.molten_virt_lines_off_by_1 = true
@@ -167,9 +167,45 @@ return {
     end,
 
     config = function()
-      -- Quickly convert between .ipynb <-> .qmd
+      local FENCE_OPEN = "^```{"
+      local FENCE_CLOSE = "^```%s*$"
+
+      -- Returns (cell_start, cell_end) as 1-based line numbers, or (nil, nil)
+      -- with a warning if the cursor is not inside a valid cell.
+      local function find_cell_boundaries(row)
+        local lines_above = vim.api.nvim_buf_get_lines(0, 0, row, false)
+        local cell_start = nil
+        for i = #lines_above, 1, -1 do
+          if lines_above[i]:match(FENCE_OPEN) then
+            cell_start = i
+            break
+          end
+        end
+
+        if not cell_start then
+          vim.notify("Not inside a code cell", vim.log.levels.WARN)
+          return nil, nil
+        end
+
+        local lines_below = vim.api.nvim_buf_get_lines(0, cell_start, -1, false)
+        local cell_end = nil
+        for i, line in ipairs(lines_below) do
+          if line:match(FENCE_CLOSE) then
+            cell_end = cell_start + i
+            break
+          end
+        end
+
+        if not cell_end then
+          vim.notify("Could not find end of code cell", vim.log.levels.WARN)
+          return nil, nil
+        end
+
+        return cell_start, cell_end
+      end
+
       local function toggle_notebook_format()
-        local curr_file = vim.fn.expand "%p" -- fpath for file at point
+        local curr_file = vim.fn.expand "%p"
         local qmd_path = curr_file:gsub("%.ipynb$", ".qmd")
         local ipynb_path = curr_file:gsub("%.qmd$", ".ipynb")
 
@@ -184,6 +220,76 @@ return {
         end
       end
       vim.keymap.set("n", "<leader>Q", toggle_notebook_format, { desc = "[Q]uarto convert" })
+
+      -- Searches from the line after the cursor so the current fence is never re-matched.
+      local function goto_next_cell()
+        local row = vim.api.nvim_win_get_cursor(0)[1]
+        local lines = vim.api.nvim_buf_get_lines(0, row, -1, false)
+        for i, line in ipairs(lines) do
+          if line:match(FENCE_OPEN) then
+            vim.api.nvim_win_set_cursor(0, { row + i + 1, 0 })
+            return
+          end
+        end
+        vim.notify("No next cell", vim.log.levels.WARN)
+      end
+
+      -- Two-pass: pass 1 skips the current cell's opening fence, pass 2 finds the one before it.
+      local function goto_prev_cell()
+        local row = vim.api.nvim_win_get_cursor(0)[1]
+        local lines = vim.api.nvim_buf_get_lines(0, 0, row - 1, false)
+
+        local search_end = #lines
+        for i = #lines, 1, -1 do
+          if lines[i]:match(FENCE_OPEN) then
+            search_end = i - 1
+            break
+          end
+        end
+
+        for i = search_end, 1, -1 do
+          if lines[i]:match(FENCE_OPEN) then
+            vim.api.nvim_win_set_cursor(0, { i + 1, 0 })
+            return
+          end
+        end
+        vim.notify("No previous cell", vim.log.levels.WARN)
+      end
+
+      local function select_cell_contents()
+        local row = vim.api.nvim_win_get_cursor(0)[1]
+        local cell_start, cell_end = find_cell_boundaries(row)
+        if not cell_start then return end
+
+        local content_start = cell_start + 1
+        local content_end = cell_end - 1
+
+        if content_start > content_end then
+          vim.notify("Code cell is empty", vim.log.levels.WARN)
+          return
+        end
+
+        vim.api.nvim_win_set_cursor(0, { content_start, 0 })
+        vim.cmd "normal! V"
+        vim.api.nvim_win_set_cursor(0, { content_end, 0 })
+      end
+
+      local function delete_current_cell_contents()
+        local row = vim.api.nvim_win_get_cursor(0)[1]
+        local cell_start, cell_end = find_cell_boundaries(row)
+        if not cell_start then return end
+
+        vim.api.nvim_buf_set_lines(0, cell_start, cell_end - 1, false, { "" })
+        vim.api.nvim_win_set_cursor(0, { cell_start + 1, 0 })
+      end
+
+      local function delete_current_cell()
+        local row = vim.api.nvim_win_get_cursor(0)[1]
+        local cell_start, cell_end = find_cell_boundaries(row)
+        if not cell_start then return end
+
+        vim.api.nvim_buf_set_lines(0, cell_start - 1, cell_end, false, {})
+      end
 
       -- Register <leader>j keymaps as buffer-local for .qmd files only.
       -- FileType autocmd (not BufEnter) sets keymaps once per buffer and
@@ -208,10 +314,17 @@ return {
           map("n", "<leader>jR", function()
             require("quarto.runner").run_all()
           end, "[J]upyter [R]un all cells")
-          map("n", "<leader>jd", ":MoltenDelete<CR>", "[J]upyter [D]elete cell")
+
+          -- Cell navigation
+          map("n", "<leader>jn", goto_next_cell, "[J]upyter [N]ext cell")
+          map("n", "<leader>jp", goto_prev_cell, "[J]upyter [P]rev cell")
+          map("n", "<leader>jd", delete_current_cell_contents, "[J]upyter [D]elete cell contents")
+          map("n", "<leader>jD", delete_current_cell, "[J]upyter [D]elete cell")
+          map("n", "<leader>jv", select_cell_contents, "[J]upyter [V]isual select cell")
 
           -- Output management
           map("n", "<leader>jo", ":noautocmd MoltenEnterOutput<CR>", "[J]upyter enter [O]utput")
+          map("n", "<leader>jO", ":noautocmd MoltenImagePopup<CR>", "[J]upyter Image P[O]pup")
           map("n", "<leader>jh", ":MoltenHideOutput<CR>", "[J]upyter [H]ide output")
         end,
       })

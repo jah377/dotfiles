@@ -146,6 +146,10 @@ provider used by Neovim, tmux, and lazygit.
 # Configure macOS settings
 bash ~/dotfiles/scripts/osx.sh
 
+# Install kitty-terminfo before installing wezterm
+# Wezterm installed in `brew.sh`
+bash ~/dotfiles/scripts/wezterm.sh
+
 # Download required packages
 bash ~/dotfiles/scripts/brew.sh
 

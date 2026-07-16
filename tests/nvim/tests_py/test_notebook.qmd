@@ -38,7 +38,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 x = np.linspace(0, 2 * np.pi, 200)
-fig, ax = plt.subplots(figsize=(6, 3))
+fig, ax = plt.subplots(figsize=(12, 8))
 ax.plot(x, np.sin(x), label="sin(x)")
 ax.plot(x, np.cos(x), label="cos(x)", linestyle="--")
 ax.set_title("Sine and Cosine")
