@@ -16,6 +16,17 @@ local autocmd = vim.api.nvim_create_autocmd
 -- `{ clear = true }` removes existing autocmds for group
 local augroup = vim.api.nvim_create_augroup
 
+-- Drop folded highlight so folded sections render identically to surrounding text
+augroup("FoldedHighlightGroup", { clear = true })
+autocmd("ColorScheme", {
+  desc = "Link Folded highlight to Normal to suppress fold styling",
+  group = "FoldedHighlightGroup",
+  pattern = "*",
+  callback = function()
+    vim.api.nvim_set_hl(0, "Folded", { link = "Normal" })
+  end,
+})
+
 -- Highlight text when yanking
 -- See `:help vim.highlight.on_yank`
 augroup("HighlightYankGroup", { clear = true })

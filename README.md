@@ -17,13 +17,13 @@ resources:
 
 ## Install Homebrew
 
-```shell
+```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 Run these commands in your terminal to add Homebrew to your PATH:
 
-```shell
+```bash
 echo >> /Users/<USER>/.zprofile
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/<USER>/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -31,14 +31,14 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ## Install and Configure Git
 
-```shell
+```bash
 # Install git using HomeBrew
 brew install git
 ```
 
 ### Configure Git on Personal Machine
 
-```shell
+```bash
 # Generate a new SSH key for personal GitHub
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
 
@@ -58,7 +58,7 @@ git clone git@github:jah377/dotfiles.git ~/dotfiles
 Additional steps required to use two GitHub accounts from one machine (see
 [blog](https://dineshpandiyan.com/blog/two-github-accounts-one-machine/).
 
-```shell
+```bash
 # Create a new SSH key for both GitHub accounts
 ssh-keygen -t ed25519 -C {{WORK_EMAIL}} -f ~/.ssh/id_ed25519
 ssh-keygen -t ed25519 -C {{USER_EMAIL}} -f ~/.ssh/id_ed25519_personal
@@ -70,7 +70,7 @@ pbcopy < ~/.ssh/id_ed25519_personal.pub
 
 Then create the file `.ssh/config` and paste the following:
 
-```shell
+```bash
 # Personal GitHub account
 Host github.com-personal
  HostName github.com
@@ -92,14 +92,14 @@ Host github.com
 
 Then clone this dotfiles repo:
 
-```shell
+```bash
 # Must use alias defined in .ssh/config
 git clone git@github.com-personal:jah377/dotfiles.git ~/dotfiles
 ```
 
 Then set name and email for both users:
 
-```shell
+```bash
 # Set global config
 git config --global user.name "{{WORK_NAME}}"
 git config --global user.email "{{WORK_EMAIL}}"
@@ -111,7 +111,7 @@ git -C ~/dotfiles config --local user.email "{{PERSONAL_EMAIL}}"
 
 Then edit the machine context file with work values (see [Configure Machine Context](#configure-machine-context)):
 
-```shell
+```bash
 # Edit machine.local.zsh: set IS_WORK_MACHINE=true and AI_PROVIDER=cursor
 vim ~/dotfiles/stow/zsh/.config/zsh/machine.local.zsh
 ```
@@ -125,13 +125,13 @@ which is committed with personal-machine defaults. Edit it before running other
 setup scripts to reflect this machine:
 
 **Personal machine** (default values, no edits needed):
-```shell
+```bash
 export IS_WORK_MACHINE=false
 export AI_PROVIDER=claude
 ```
 
 **Work machine**:
-```shell
+```bash
 export IS_WORK_MACHINE=true
 export AI_PROVIDER=cursor
 ```
@@ -142,7 +142,7 @@ provider used by Neovim, tmux, and lazygit.
 
 ## Run Configuration Scripts
 
-```shell
+```bash
 # Configure macOS settings
 bash ~/dotfiles/scripts/osx.sh
 
@@ -171,7 +171,7 @@ I made a custom keyboard bundle `ABC_wo_opt_symbols.bundle` using `ukelele`.
 To use, you must copy the file to `/Library`, select in System Settings >>
 Keyboard >> Text Input, and restart the computer
 
-```shell
+```bash
 # to copy custom keyboard layout
 cp -R ~/dotfiles/custom_keyboard/ABC_wo_opt_symbols.bundle ~/Library/Keyboard\ Layout
 ```
