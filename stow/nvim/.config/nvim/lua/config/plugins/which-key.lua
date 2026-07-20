@@ -34,6 +34,7 @@ return {
         { "<leader>c", group = "code" }, -- plugins/nvim-treesitter-textobject.lua
         { "<leader>o", group = "obsidian" }, -- plugins/obsidian.lua
         { "<leader>j", group = "jupyter" }, -- plugins/molten.lua
+        { "<leader>g", group = "git" }, -- plugins/git-blame.lua
 
         -- plugins/telescope.lua
         -- core/keymaps.lua
