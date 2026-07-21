@@ -68,6 +68,10 @@ return {
             "prettierd",
             "prettier",
           },
+
+          yaml = {
+            "yamlfmt",
+          },
         },
 
         -- Prettier does not infer a parser for .qmd; teach both formatters to

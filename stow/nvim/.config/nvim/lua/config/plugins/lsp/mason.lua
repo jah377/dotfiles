@@ -37,6 +37,7 @@ return {
         "lua_ls", -- Lua language server (for Neovim config)
         "pyright", -- Python language server (Microsoft's implementation)
         "marksman", -- Markdown language server
+        "yamlls", -- YAML language server
       },
     },
 

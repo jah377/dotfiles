@@ -1,0 +1,122 @@
+# =============================================================================
+# FILE: test_yaml.yaml
+#
+# PURPOSE:
+#   Test file for validating yamlls (YAML Language Server) formatting,
+#   diagnostics, and completion in Neovim.
+#
+# USAGE:
+#   Open this file in Neovim and verify:
+#   - Diagnostics appear for intentional errors (marked with EXPECT ERROR)
+#   - Formatting works via :lua vim.lsp.buf.format()
+#   - Hover shows type info on keys
+#   - Completion works for known schema keys
+#
+# =============================================================================
+# ---------------------------------------------------------------------------
+# Section 1: Basic key-value pairs and scalar types
+# ---------------------------------------------------------------------------
+string_unquoted: hello world
+string_single: "single quoted"
+string_double: "double quoted with\nnewline escape"
+integer: 42
+float: 3.14
+boolean_true: true
+boolean_false: false
+null_value: null
+tilde_null: ~
+date: 2025-12-21
+timestamp: 2025-12-21T10:30:00Z
+# ---------------------------------------------------------------------------
+# Section 2: Sequences (lists)
+# ---------------------------------------------------------------------------
+simple_list:
+  - item_one
+  - item_two
+  - item_three
+nested_list:
+  - - a
+    - b
+  - - c
+    - d
+inline_list: [one, two, three]
+# ---------------------------------------------------------------------------
+# Section 3: Mappings (dictionaries)
+# ---------------------------------------------------------------------------
+nested_mapping:
+  level_one:
+    level_two:
+      level_three: deep value
+inline_mapping: {key1: val1, key2: val2}
+# ---------------------------------------------------------------------------
+# Section 4: Multiline strings
+# ---------------------------------------------------------------------------
+literal_block: |
+  This preserves newlines.
+  Each line stays as-is.
+  Trailing newline included.
+folded_block: >
+  This folds newlines into spaces. Useful for long paragraphs.
+
+literal_strip: |-
+  No trailing newline
+  after the last line
+folded_keep: >+
+  Trailing newlines are kept
+
+
+
+# ---------------------------------------------------------------------------
+# Section 5: Anchors and aliases
+# ---------------------------------------------------------------------------
+defaults: &default_settings
+  adapter: postgres
+  host: localhost
+  port: 5432
+development:
+  database: dev_db
+  !!merge <<: *default_settings
+production:
+  database: prod_db
+  !!merge <<: *default_settings
+  host: db.production.internal
+# ---------------------------------------------------------------------------
+# Section 6: Complex keys and mixed structures
+# ---------------------------------------------------------------------------
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+      - "8443:443"
+    environment:
+      - NODE_ENV=production
+      - LOG_LEVEL=info
+    volumes:
+      - type: bind
+        source: ./html
+        target: /usr/share/nginx/html
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+
+# ---------------------------------------------------------------------------
+# Section 7: Edge cases for formatting
+# ---------------------------------------------------------------------------
+empty_mapping: {}
+empty_sequence: []
+empty_string: ""
+long_line: "This is a deliberately long string value that should trigger line length warnings if the yamlls schema or configuration has a max line length setting enabled"
+# Mixed types in a sequence
+mixed_types:
+  - 1
+  - "two"
+  - true
+  - null
+  - 3.14
+  - nested:
+      key: value
+

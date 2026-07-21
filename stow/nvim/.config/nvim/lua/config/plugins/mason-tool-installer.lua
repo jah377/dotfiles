@@ -41,7 +41,7 @@ return {
 
     -- Configuration function
     config = function()
-      require("mason-tool-installer").setup({
+      require("mason-tool-installer").setup {
         -- List of tools to ensure are installed.
         -- Mason will automatically download and install these if missing.
         -- Tool names must match Mason's package names exactly.
@@ -61,6 +61,10 @@ return {
 
           -- Prettier itself - fallback if prettierd isn't available
           "prettier",
+
+          -- YAML-specific linter and formatter
+          "yamllint",
+          "yamlfmt",
         },
 
         -- Automatically check for and install updates to these tools
@@ -69,7 +73,7 @@ return {
         -- Run installation check when Neovim starts.
         -- This ensures any missing tools are installed immediately.
         run_on_start = true,
-      })
+      }
     end,
   },
 }
