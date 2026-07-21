@@ -105,6 +105,20 @@ return {
   },
 
   -- ---------------------------------------------------------------------------
+  -- jupytext.nvim: Transparently converts .ipynb to .qmd on open and back
+  -- on save. Replaces manual quarto convert workflow.
+  -- ---------------------------------------------------------------------------
+  {
+    "GCBallesteros/jupytext.nvim",
+    lazy = false,
+    opts = {
+      style = "quarto",
+      output_extension = "qmd",
+      force_ft = "quarto",
+    },
+  },
+
+  -- ---------------------------------------------------------------------------
   -- quarto-nvim: .qmd filetype wiring and otter.nvim integration.
   -- Sets filetype=quarto for .qmd files, configures treesitter injections,
   -- and activates otter.nvim LSP for {python} blocks.
@@ -203,23 +217,6 @@ return {
 
         return cell_start, cell_end
       end
-
-      local function toggle_notebook_format()
-        local curr_file = vim.fn.expand "%p"
-        local qmd_path = curr_file:gsub("%.ipynb$", ".qmd")
-        local ipynb_path = curr_file:gsub("%.qmd$", ".ipynb")
-
-        if curr_file == qmd_path then
-          vim.fn.system("quarto convert " .. qmd_path .. " --output " .. ipynb_path)
-          vim.notify("Converted to .ipynb", vim.log.levels.INFO)
-        elseif curr_file == ipynb_path then
-          vim.fn.system("quarto convert " .. ipynb_path .. " --output " .. qmd_path)
-          vim.notify("Converted to .qmd", vim.log.levels.INFO)
-        else
-          error "Current file must be a .qmd or .ipynb file"
-        end
-      end
-      vim.keymap.set("n", "<leader>Q", toggle_notebook_format, { desc = "[Q]uarto convert" })
 
       -- Searches from the line after the cursor so the current fence is never re-matched.
       local function goto_next_cell()
