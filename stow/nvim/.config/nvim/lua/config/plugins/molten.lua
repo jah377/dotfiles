@@ -105,20 +105,6 @@ return {
   },
 
   -- ---------------------------------------------------------------------------
-  -- jupytext.nvim: Transparently converts .ipynb to .qmd on open and back
-  -- on save. Replaces manual quarto convert workflow.
-  -- ---------------------------------------------------------------------------
-  {
-    "GCBallesteros/jupytext.nvim",
-    lazy = false,
-    opts = {
-      style = "quarto",
-      output_extension = "qmd",
-      force_ft = "quarto",
-    },
-  },
-
-  -- ---------------------------------------------------------------------------
   -- quarto-nvim: .qmd filetype wiring and otter.nvim integration.
   -- Sets filetype=quarto for .qmd files, configures treesitter injections,
   -- and activates otter.nvim LSP for {python} blocks.

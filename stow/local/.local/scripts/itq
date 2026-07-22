@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# og - Organize files into tag-specific sub-directories
+
+quarto convert "$(fd -e ipynb | fzf)"
