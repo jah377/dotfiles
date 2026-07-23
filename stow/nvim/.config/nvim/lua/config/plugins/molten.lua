@@ -25,20 +25,33 @@
 --   5. <leader>jr                     (execute the cell under cursor)
 --
 -- KEYMAPS (active only in .qmd buffers):
---   <leader>ji  : Init kernel (select from registered Jupyter kernels)
---   <leader>jr  : Run cell under cursor (normal) / run selection (visual)
---   <leader>jR  : Run all cells in buffer
---   <leader>jo  : Show output window for current cell
---   <leader>jd  : Delete output for current cell
---   <leader>js  : Save outputs to sidecar JSON (persists across sessions)
---   <leader>jl  : Load saved outputs (use after <leader>ji if auto-load fails)
+--   Kernel management:
+--     <leader>ji  : Init kernel (select from registered Jupyter kernels)
+--     <leader>jI  : Restart kernel (clears all outputs)
+--     <leader>jx  : Kill kernel (shutdown)
+--   Cell execution:
+--     <leader>jr  : Run cell under cursor
+--     <leader>jR  : Run all cells in buffer
+--     <leader>je  : Run cell and advance to next (creates cell if at end)
+--   Cell creation:
+--     <leader>ja  : Insert cell above current cell
+--     <leader>jb  : Insert cell below current cell
+--   Cell navigation:
+--     <leader>jn  : Jump to next cell
+--     <leader>jp  : Jump to previous cell
+--     <leader>jv  : Visual select cell contents
+--     <leader>jd  : Delete cell contents (keep fences)
+--     <leader>jD  : Delete entire cell (fences + contents)
+--   Output management:
+--     <leader>jo  : Enter output window for current cell
+--     <leader>jO  : Image popup for current cell
+--     <leader>jh  : Hide output for current cell
 --
 -- OUTPUT PERSISTENCE:
 --   Outputs are saved to <notebook>.qmd.json alongside the .qmd file.
 --   This path is version-controllable — commit it with the notebook.
 --   Auto-save: triggers on BufWinLeave for .qmd files
 --   Auto-load: triggers 500ms after MoltenInitPost (deferred to ensure kernel ready)
---   If auto-load doesn't fire: <leader>ji then <leader>jl
 --
 -- NOTES:
 --   - WezTerm supports Kitty Graphics Protocol natively (no extra config needed)
@@ -156,9 +169,9 @@ return {
     -- init runs before config and before the plugin loads.
     -- These globals must be set before molten initializes.
     init = function()
-      vim.g.molten_image_provider = "image.nvim" -- images behavior weirdly in wezterm
+      vim.g.molten_image_provider = "image.nvim" -- use image.nvim for inline image rendering
       vim.g.molten_wrap_output = true
-      vim.g.molten_virt_text_output = false -- display below cell, not new window
+      vim.g.molten_virt_text_output = true -- render output as virtual text below cell
       vim.g.molten_auto_open_output = false -- use <leader>jo explicitly
       vim.g.molten_output_win_max_height = 40
       vim.g.molten_virt_lines_off_by_1 = true
@@ -167,112 +180,7 @@ return {
     end,
 
     config = function()
-      local FENCE_OPEN = "^```{"
-      local FENCE_CLOSE = "^```%s*$"
-
-      -- Returns (cell_start, cell_end) as 1-based line numbers, or (nil, nil)
-      -- with a warning if the cursor is not inside a valid cell.
-      local function find_cell_boundaries(row)
-        local lines_above = vim.api.nvim_buf_get_lines(0, 0, row, false)
-        local cell_start = nil
-        for i = #lines_above, 1, -1 do
-          if lines_above[i]:match(FENCE_OPEN) then
-            cell_start = i
-            break
-          end
-        end
-
-        if not cell_start then
-          vim.notify("Not inside a code cell", vim.log.levels.WARN)
-          return nil, nil
-        end
-
-        local lines_below = vim.api.nvim_buf_get_lines(0, cell_start, -1, false)
-        local cell_end = nil
-        for i, line in ipairs(lines_below) do
-          if line:match(FENCE_CLOSE) then
-            cell_end = cell_start + i
-            break
-          end
-        end
-
-        if not cell_end then
-          vim.notify("Could not find end of code cell", vim.log.levels.WARN)
-          return nil, nil
-        end
-
-        return cell_start, cell_end
-      end
-
-      -- Searches from the line after the cursor so the current fence is never re-matched.
-      local function goto_next_cell()
-        local row = vim.api.nvim_win_get_cursor(0)[1]
-        local lines = vim.api.nvim_buf_get_lines(0, row, -1, false)
-        for i, line in ipairs(lines) do
-          if line:match(FENCE_OPEN) then
-            vim.api.nvim_win_set_cursor(0, { row + i + 1, 0 })
-            return
-          end
-        end
-        vim.notify("No next cell", vim.log.levels.WARN)
-      end
-
-      -- Two-pass: pass 1 skips the current cell's opening fence, pass 2 finds the one before it.
-      local function goto_prev_cell()
-        local row = vim.api.nvim_win_get_cursor(0)[1]
-        local lines = vim.api.nvim_buf_get_lines(0, 0, row - 1, false)
-
-        local search_end = #lines
-        for i = #lines, 1, -1 do
-          if lines[i]:match(FENCE_OPEN) then
-            search_end = i - 1
-            break
-          end
-        end
-
-        for i = search_end, 1, -1 do
-          if lines[i]:match(FENCE_OPEN) then
-            vim.api.nvim_win_set_cursor(0, { i + 1, 0 })
-            return
-          end
-        end
-        vim.notify("No previous cell", vim.log.levels.WARN)
-      end
-
-      local function select_cell_contents()
-        local row = vim.api.nvim_win_get_cursor(0)[1]
-        local cell_start, cell_end = find_cell_boundaries(row)
-        if not cell_start then return end
-
-        local content_start = cell_start + 1
-        local content_end = cell_end - 1
-
-        if content_start > content_end then
-          vim.notify("Code cell is empty", vim.log.levels.WARN)
-          return
-        end
-
-        vim.api.nvim_win_set_cursor(0, { content_start, 0 })
-        vim.cmd "normal! V"
-        vim.api.nvim_win_set_cursor(0, { content_end, 0 })
-      end
-
-      local function delete_current_cell_contents()
-        local row = vim.api.nvim_win_get_cursor(0)[1]
-        local cell_start, cell_end = find_cell_boundaries(row)
-        if not cell_start then return end
-
-        vim.api.nvim_buf_set_lines(0, cell_start, cell_end - 1, false, { "" })
-        vim.api.nvim_win_set_cursor(0, { cell_start + 1, 0 })
-      end
-
-      local function delete_current_cell()
-        local row = vim.api.nvim_win_get_cursor(0)[1]
-        local cell_start, cell_end = find_cell_boundaries(row)
-        if not cell_start then return end
-
-        vim.api.nvim_buf_set_lines(0, cell_start - 1, cell_end, false, {})
-      end
+      local quarto_extras = require "config.plugins.custom.quarto_extras"
 
       -- Register <leader>j keymaps as buffer-local for .qmd files only.
       -- FileType autocmd (not BufEnter) sets keymaps once per buffer and
@@ -288,7 +196,8 @@ return {
 
           -- Kernel management
           map("n", "<leader>ji", ":MoltenInit<CR>", "[J]upyter [I]nit kernel")
-          map("n", "<leader>jI", ":MoltenDeinit<CR>", "[J]upyter De[I]nit kernel")
+          map("n", "<leader>jI", quarto_extras.restart_kernel, "[J]upyter re[I]nit kernel")
+          map("n", "<leader>jx", ":MoltenDeinit<CR>", "[J]upyter e[X]it kernel")
 
           -- Cell execution via quarto.runner (understands quarto cell format)
           map("n", "<leader>jr", function()
@@ -297,13 +206,19 @@ return {
           map("n", "<leader>jR", function()
             require("quarto.runner").run_all()
           end, "[J]upyter [R]un all cells")
+          map("n", "<leader>je", quarto_extras.run_cell_and_advance, "[J]upyter [E]xecute cell & advance")
+
+          -- Cell creation
+          map("n", "<leader>ja", quarto_extras.insert_cell_above, "[J]upyter insert cell [A]bove")
+          map("n", "<leader>jb", quarto_extras.insert_cell_below, "[J]upyter insert cell [B]elow")
 
           -- Cell navigation
-          map("n", "<leader>jn", goto_next_cell, "[J]upyter [N]ext cell")
-          map("n", "<leader>jp", goto_prev_cell, "[J]upyter [P]rev cell")
-          map("n", "<leader>jd", delete_current_cell_contents, "[J]upyter [D]elete cell contents")
-          map("n", "<leader>jD", delete_current_cell, "[J]upyter [D]elete cell")
-          map("n", "<leader>jv", select_cell_contents, "[J]upyter [V]isual select cell")
+          map("n", "<leader>jn", quarto_extras.goto_next_cell, "[J]upyter [N]ext cell")
+          map("n", "<leader>jp", quarto_extras.goto_prev_cell, "[J]upyter [P]rev cell")
+          map("n", "<leader>jd", quarto_extras.delete_current_cell_contents, "[J]upyter [D]elete cell contents")
+          map("n", "<leader>jD", quarto_extras.delete_current_cell, "[J]upyter [D]elete cell")
+          map("n", "<leader>jv", quarto_extras.select_cell_contents, "[J]upyter [V]isual select cell")
+          map("n", "<leader>jl", quarto_extras.replace_block_lang, "[J]upyter replace cell [L]anguage")
 
           -- Output management
           map("n", "<leader>jo", ":noautocmd MoltenEnterOutput<CR>", "[J]upyter enter [O]utput")

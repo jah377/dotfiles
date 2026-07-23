@@ -5,8 +5,31 @@ title: "Molten + Quarto Setup Verification"
 # Setup Verification
 
 This notebook verifies that molten-nvim, quarto-nvim, otter.nvim, and
-image.nvim are configured correctly. Run each cell with `<leader>jr` and check
-the expected output described in each section.
+image.nvim are configured correctly.
+
+- **KEYMAPS** (active only in .qmd buffers):
+  - **Kernel management:**
+    - `<leader>ji`: Init kernel (select from registered Jupyter kernels)
+    - `<leader>jI`: Restart kernel (clears all outputs)
+    - `<leader>jx`: Kill kernel (shutdown)
+  - **Cell execution:**
+    - `<leader>jr`: Run cell under cursor
+    - `<leader>jR`: Run all cells in buffer
+    - `<leader>je`: Run cell and advance to next (creates cell if at end)
+  - **Cell creation:**
+    - `<leader>ja`: Insert cell above current cell
+    - `<leader>jb`: Insert cell below current cell
+  - **Cell navigation:**
+    - `<leader>jn`: Jump to next cell
+    - `<leader>jp`: Jump to previous cell
+    - `<leader>jv`: Visual select cell contents
+    - `<leader>jd`: Delete cell contents (keep fences)
+    - `<leader>jD`: Delete entire cell (fences + contents)
+    - `<leader>jl`: Replace cell language (clears language, enters insert mode)
+  - **Output management:**
+    - `<leader>jo`: Enter output window for current cell
+    - `<leader>jO`: Image popup for current cell
+    - `<leader>jh`: Hide output for current cell
 
 ## 1. Text Output
 

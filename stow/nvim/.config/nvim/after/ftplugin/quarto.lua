@@ -27,7 +27,8 @@ _G.__quarto.foldexpr = function()
   local buf = vim.api.nvim_get_current_buf()
   local node = vim.treesitter.get_node({ bufnr = buf, pos = { lnum - 1, 0 }, ignore_injections = true })
   while node do
-    if node:type() == "fenced_code_block" then return "=" end
+    local t = node:type()
+    if t == "fenced_code_block" or t == "list" then return "=" end
     node = node:parent()
   end
   return vim.treesitter.foldexpr(lnum)
