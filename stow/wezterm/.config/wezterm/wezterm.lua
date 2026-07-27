@@ -19,7 +19,7 @@ config.enable_kitty_keyboard = true -- necessary to use 'C-=' binding
 -- Fix image display issue using kitty-terminfo file
 -- Use `wezterm.sh` script to download the terminfo file
 -- See https://youtu.be/8m88Mh12yVw?si=4c_pHx1-64N8ujYo
-config.term = "xterm-kitty"
+-- config.term = "xterm-kitty"
 
 config.window_padding = {
   left = 10,
