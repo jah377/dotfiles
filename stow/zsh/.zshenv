@@ -12,6 +12,7 @@
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+[[ -f "$ZDOTDIR/.zshenv" ]] && source "$ZDOTDIR/.zshenv"
 
 # See structure of https://github.com/jah377/zettelkasten
 export ZK_DIR="$HOME/zettelkasten" # location of zettelkasten repo
