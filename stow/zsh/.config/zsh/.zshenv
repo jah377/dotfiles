@@ -26,5 +26,5 @@ export SAVEHIST=5000        # lines saved to file
 
 export UV_SYSTEM_CERTS=true
 
-# Machine-specific context. Edit machine.local.zsh to set values for this machine.
+# Machine-specific context (untracked). Copy from machine.local.zsh.example.
 [[ -f "$ZDOTDIR/machine.local.zsh" ]] && source "$ZDOTDIR/machine.local.zsh"

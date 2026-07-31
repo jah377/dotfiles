@@ -2,8 +2,11 @@
 # machine.local.zsh - Machine-Specific Configuration
 # ==============================================================================
 #
-# Tracked in git with safe defaults. Edit this file to reflect this machine's
-# context before or after running setup scripts.
+# Not tracked in git. Copy this example once per machine:
+#
+#   cp "$ZDOTDIR/machine.local.zsh.example" "$ZDOTDIR/machine.local.zsh"
+#
+# Then edit machine.local.zsh for this machine's context.
 # Sourced from .zshenv on every shell invocation.
 #
 # ==============================================================================

@@ -109,22 +109,27 @@ git -C ~/dotfiles config --local user.name "{{PERSONAL_NAME}}"
 git -C ~/dotfiles config --local user.email "{{PERSONAL_EMAIL}}"
 ```
 
-Then edit the machine context file with work values (see [Configure Machine Context](#configure-machine-context)):
+Then configure the machine context file with work values (see [Configure Machine Context](#configure-machine-context)):
 
 ```bash
-# Edit machine.local.zsh: set IS_WORK_MACHINE=true and AI_PROVIDER=cursor
-vim ~/dotfiles/stow/zsh/.config/zsh/machine.local.zsh
+# Copy example, then set IS_WORK_MACHINE=true and AI_PROVIDER=cursor
+cp ~/.config/zsh/machine.local.zsh.example ~/.config/zsh/machine.local.zsh
+vim ~/.config/zsh/machine.local.zsh
 ```
 
 # Setup Development Environment
 
 ## Configure Machine Context
 
-Machine-specific settings live in `stow/zsh/.config/zsh/machine.local.zsh`,
-which is committed with personal-machine defaults. Edit it before running other
-setup scripts to reflect this machine:
+Machine-specific settings live in `~/.config/zsh/machine.local.zsh`, which is
+not tracked in git. Copy the example once per machine, then edit before running
+other setup scripts:
 
-**Personal machine** (default values, no edits needed):
+```bash
+cp ~/.config/zsh/machine.local.zsh.example ~/.config/zsh/machine.local.zsh
+```
+
+**Personal machine** (default values in the example):
 ```bash
 export IS_WORK_MACHINE=false
 export AI_PROVIDER=claude
