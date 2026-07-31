@@ -36,9 +36,9 @@ return {
         { "<leader>j", group = "jupyter" }, -- plugins/molten.lua
         { "<leader>g", group = "git" }, -- plugins/git-blame.lua
 
-        -- plugins/telescope.lua
-        -- core/keymaps.lua
-        { "<leader>m", group = "markdown" },
+        { "<leader>m", group = "markdown" }, -- plugins/fuzzy-finding.lua
+        -- img-clip.lua (<leader>ip), molten.lua (<leader>it)
+        { "<leader>i", group = "images" },
       },
 
       icons = {

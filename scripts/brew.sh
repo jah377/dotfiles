@@ -42,6 +42,8 @@ brew install neovim
 brew install tree-sitter-cli
 brew install npm # required for :Mason
 brew install trash # required for :Oil
+brew install imagemagick # required for image.nvim (scale/crop before Kitty render)
+brew install pngpaste    # required for img-clip.nvim clipboard paste on macOS
 
 if [[ "${IS_WORK_MACHINE}" != "true" ]]; then
     brew tap d12frosted/emacs-plus

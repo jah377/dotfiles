@@ -54,12 +54,13 @@
 --   Auto-load: triggers 500ms after MoltenInitPost (deferred to ensure kernel ready)
 --
 -- NOTES:
---   - WezTerm supports Kitty Graphics Protocol natively (no extra config needed)
---   - image.nvim build=false skips luarocks/magick; PNG/JPG output works without it.
---     SVG support requires: brew install luarocks && luarocks install magick
+--   - WezTerm + tmux: TERM must be xterm-kitty (tmux default-terminal), Kitty
+--     terminfo installed (scripts/wezterm.sh), allow-passthrough on
+--   - image.nvim needs ImageMagick CLI (`brew install imagemagick`) for magick_cli
+--   - Note images: img-clip.nvim + vault-root assets/ (see img-clip.lua)
 --   - If .qmd syntax highlighting looks wrong: :TSInstall quarto
 --   - Keymaps are buffer-local and do not appear in .py or other file types
---   - Run :checkhealth molten and :checkhealth image to verify setup
+--   - Run :checkhealth molten and :ImageReport to verify image setup
 --
 -- DOCUMENTATION:
 --   > molten-nvim  : https://github.com/benlubas/molten-nvim
@@ -69,41 +70,78 @@
 --
 -- =============================================================================
 
+local img_clip_helpers = require "config.plugins.custom.img_clip_helpers"
+
 return {
   -- ---------------------------------------------------------------------------
   -- image.nvim: Kitty Graphics Protocol image rendering backend.
-  -- Renders matplotlib figures and other image output inline in the buffer.
+  -- Renders Molten plots and Markdown/Quarto ![](…) images inline.
   -- ---------------------------------------------------------------------------
   {
     "3rd/image.nvim",
 
-    -- build=false skips luarocks/magick installation.
-    -- magick is only required for SVG rendering; PNG/JPG works without it.
+    -- build=false skips luarocks/magick rock; magick_cli uses system ImageMagick.
     build = false,
 
-    -- Only load when opening file types that use inline images
     ft = { "quarto", "markdown" },
 
     opts = {
-      -- Kitty Graphics Protocol: supported natively by WezTerm
       backend = "kitty",
-
-      -- Only render the image nearest the cursor.
-      -- Prevents large notebooks from rendering all figures simultaneously.
-      only_render_image_at_cursor = true,
-
-      -- Cap image height at 40% of the window to prevent large figures
-      -- from pushing other content off screen.
-      max_height_window_percentage = 40,
+      max_height_window_percentage = 50,
+      max_width_window_percentage = 50,
+      window_overlap_clear_enabled = true, -- to prevent image + telescope/oil overlap
+      tmux_show_only_in_active_window = true,
 
       integrations = {
         markdown = {
           enabled = true,
-          -- Activate for both markdown and quarto filetypes
           filetypes = { "markdown", "quarto" },
+          resolve_image_path = img_clip_helpers.resolve_image_path,
+          window_overlap_clear_enabled = true, -- to prevent image + telescope/oil overlap
+          -- Want to see iamge while taking notes
+          floating_windows = false, -- show in document
+          only_render_image_at_cursor = false, -- always display image
+          clear_in_insert_mode = false, -- always display image
         },
+        -- Disable unused document integrations so toggle re-setup stays cheap
+        neorg = { enabled = false },
+        typst = { enabled = false },
+        asciidoc = { enabled = false },
+        html = { enabled = false },
+        css = { enabled = false },
+        org = { enabled = false },
+        syslang = { enabled = false },
       },
     },
+
+    config = function(_, opts)
+      require("image").setup(opts)
+
+      local function toggle_cursor_only()
+        local md = opts.integrations.markdown
+        md.only_render_image_at_cursor = not md.only_render_image_at_cursor
+
+        local image = require "image"
+        image.clear()
+        -- Re-setup required: integration options are copied into an internal ctx.
+        image.setup(opts)
+
+        vim.notify(
+          md.only_render_image_at_cursor and "Images: cursor only" or "Images: all in view",
+          vim.log.levels.INFO
+        )
+      end
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "markdown", "quarto" },
+        callback = function(ev)
+          vim.keymap.set("n", "<leader>it", toggle_cursor_only, {
+            buffer = ev.buf,
+            desc = "[I]mage preview [T]oggle",
+          })
+        end,
+      })
+    end,
   },
 
   -- ---------------------------------------------------------------------------
@@ -172,7 +210,7 @@ return {
       vim.g.molten_image_provider = "image.nvim" -- use image.nvim for inline image rendering
       vim.g.molten_wrap_output = true
       vim.g.molten_virt_text_output = false -- disabled; weird behavior with plots
-      vim.g.molten_auto_open_output = true -- use <leader>jo explicitly
+      vim.g.molten_auto_open_output = false -- use <leader>jo explicitly
       vim.g.molten_output_win_max_height = 40
       vim.g.molten_virt_lines_off_by_1 = true
       vim.g.molten_use_border_highlights = true
