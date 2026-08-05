@@ -21,7 +21,7 @@ return {
     build = ":TSUpdate",
 
     config = function()
-      require("nvim-treesitter").setup({
+      require("nvim-treesitter").setup {
         ensure_installed = {
           "lua",
           "vim",
@@ -37,6 +37,7 @@ return {
           "toml",
           "comment",
           "regex",
+          "kitty",
         },
 
         -- Don't install parsers synchronously (would block startup)
@@ -44,7 +45,7 @@ return {
 
         -- Prevent unexpected downloads for file types not in list
         auto_install = false,
-      })
+      }
 
       -- Use bash parser for zsh files
       vim.treesitter.language.register("bash", "zsh")

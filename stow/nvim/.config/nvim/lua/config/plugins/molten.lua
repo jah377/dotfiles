@@ -141,6 +141,29 @@ return {
           })
         end,
       })
+
+      -- Clear images when pane loses focus; re-render when it regains focus. Prevents stale image overlays from
+      -- persisting across tmux pane/window switches.
+      local image_focus_group = vim.api.nvim_create_augroup("image-focus", { clear = true })
+
+      vim.api.nvim_create_autocmd("FocusLost", {
+        group = image_focus_group,
+        callback = function()
+          require("image").clear()
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("FocusGained", {
+        group = image_focus_group,
+        callback = function()
+          local ft = vim.bo.filetype
+          if ft == "markdown" or ft == "quarto" then
+            local image = require "image"
+            image.clear()
+            image.setup(opts)
+          end
+        end,
+      })
     end,
   },
 

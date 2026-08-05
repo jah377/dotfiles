@@ -16,6 +16,7 @@ alias ff="fzf --walker=file,hidden" # return file name
 alias dev="tmux_dev"
 alias dd="dev-dots"
 alias dw="dev-work"
+alias tas="tmux attach-session"
 
 # Directories
 alias ..="cd .."

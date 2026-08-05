@@ -3,19 +3,33 @@ set -euo pipefail
 #
 # See https://github.com/jesseduffield/lazygit/issues/3212
 #
-# ai-commit - Generate a commit message from staged changes using the
-#             configured AI provider (see machine.local.zsh)
-# Usage: ai-commit [--type <commit_type>]
-#   Writes a plain-text commit message to stdout.
+# ai-commit - Generate commit message components from staged changes using
+#             the configured AI provider (see machine.local.zsh)
+# Usage: ai-commit --type <type> --part <title|problem|solution>
+#                  [--title <title>] [--problem <problem>]
+#   Writes plain-text suggestions to stdout, one per line.
 #   Intended to be called from lazygit's custom commit command.
 #
-# Examples:
-#   ai-commit                  # AI determines the commit type
-#   ai-commit --type feat      # constrain suggestions to "feat" type
-#   ai-commit --type refactor  # constrain suggestions to "refactor" type
+# Modes:
+#   ai-commit --type feat --part title
+#   ai-commit --type feat --part problem --title "feat(tmux): add conf.d"
+#   ai-commit --type feat --part solution --title "..." --problem "..."
 
-# Use provided --type value or default to AI-determined type selection
-COMMIT_TYPE="${2:-ai-defined}"
+# Parse arguments
+COMMIT_TYPE="ai-defined"
+PART="title"
+TITLE=""
+PROBLEM=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --type)    COMMIT_TYPE="${2:-ai-defined}"; shift 2 ;;
+    --part)    PART="$2"; shift 2 ;;
+    --title)   TITLE="$2"; shift 2 ;;
+    --problem) PROBLEM="$2"; shift 2 ;;
+    *)         shift ;;
+  esac
+done
 
 # Exit if no staged changes
 GIT_STAGED_DIFF="$(git diff --cached)"
@@ -24,8 +38,8 @@ if [[ -z "$GIT_STAGED_DIFF" ]]; then
   exit 1
 fi
 
-COMMITS_TO_SUGGEST=6
-GIT_LOG=="$(git log --oneline -10)"
+SUGGESTIONS=6
+GIT_LOG="$(git log -10)"
 GIT_LOG_STAT="$(git diff --cached --stat)"
 
 # Allowed types should mirror types listed in lazygit config.yaml
@@ -47,42 +61,8 @@ else
   ALL suggestions. Do not use any other type."
 fi
 
-prompt="
-You are an expert at writing Git commits. Your job is to write commit messages
-that follow the Conventional Commits format.
-
-The user has selected: $COMMIT_TYPE
-
-Your task is to:
-1. Analyze the code changes
-2. Determine the most appropriate commit type if user selected ai-defined
-3. Determine an appropriate scope, component, or area affected
-4. Determine an appropriate scope (component/area affected)
-5. Write exactly $COMMITS_TO_SUGGEST different clear, concise commit
-   proposals
-
-Available commit types:
-$COMMIT_TYPE_INSTRUCTIONS
-
-Follow these guidelines:
-- Structure: <type>(<scope>): <description>
-- If user selected ai-defined, analyze the changes and pick the most suitable
-type
-- If user selected a specific type, use that type: $COMMIT_TYPE
-- Add scope in parentheses if applicable, for example auth, api, ui, config
-- Use lowercase for description except proper nouns
-- Use imperative mood: add, not added
-- Keep description under 72 characters when possible
-- No period at the end of subject line
-
-IMPORTANT:
-- Generate exactly $COMMITS_TO_SUGGEST different commit message options
-- If user selected ai-defined, you can use different types for different
-options
-- If user selected a specific type, all messages must use that type
-- Only return commit messages, no explanations
-- Do not use markdown code blocks
-- One message per line
+# Shared context appended to all prompts
+read -r -d '' CONTEXT <<EOF || true
 
 **Previous commits for context**:
 $GIT_LOG
@@ -93,7 +73,102 @@ $GIT_LOG_STAT
 \`\`\`diff
 $GIT_STAGED_DIFF
 \`\`\`
+EOF
+
+if [[ "$PART" == "title" ]]; then
+  prompt="
+You are an expert at writing Git commits. Your job is to write commit
+subject lines that follow the Conventional Commits format.
+
+The user has selected: $COMMIT_TYPE
+
+Your task is to:
+1. Analyze the code changes
+2. Determine the most appropriate commit type if user selected ai-defined
+3. Determine an appropriate scope (component/area affected)
+4. Write exactly $SUGGESTIONS different clear, concise subject lines
+
+Available commit types:
+$COMMIT_TYPE_INSTRUCTIONS
+
+Follow these guidelines:
+- Structure: <type>(<scope>): <description>
+- If user selected ai-defined, analyze the changes and pick the most
+  suitable type
+- If user selected a specific type, use that type: $COMMIT_TYPE
+- Add scope in parentheses if applicable, for example auth, api, ui, config
+- Use lowercase for description except proper nouns
+- Use imperative mood: add, not added
+- Keep each line under 72 characters
+- No period at the end of subject line
+
+IMPORTANT:
+- Generate exactly $SUGGESTIONS different subject line options
+- If user selected ai-defined, you can use different types for different
+  options
+- If user selected a specific type, all messages must use that type
+- Only return subject lines, no explanations
+- Do not use markdown code blocks
+- One subject line per line
+
+$CONTEXT
 "
+
+elif [[ "$PART" == "problem" ]]; then
+  prompt="
+You are an expert at writing Git commit bodies. The user has already
+chosen the following commit subject line:
+
+  $TITLE
+
+Your task is to generate exactly $SUGGESTIONS different Problem
+statements for this commit.
+
+Each statement must:
+- Start with 'Problem: '
+- Be 1-2 sentences summarizing the issue or need this commit addresses
+- Stay under 72 characters total (including the 'Problem: ' prefix)
+- Be a single line
+
+IMPORTANT:
+- Generate exactly $SUGGESTIONS different Problem statements
+- Only return Problem statements, no explanations or other text
+- Do not use markdown code blocks
+- One statement per line
+
+$CONTEXT
+"
+
+elif [[ "$PART" == "solution" ]]; then
+  prompt="
+You are an expert at writing Git commit bodies. The user has already
+chosen the following commit subject line and problem statement:
+
+  Subject: $TITLE
+  $PROBLEM
+
+Your task is to generate exactly $SUGGESTIONS different Solution
+statements that pair with the problem statement above.
+
+Each statement must:
+- Start with 'Solution: '
+- Be 1-2 sentences summarizing the approach taken
+- Stay under 72 characters total (including the 'Solution: ' prefix)
+- Be a single line
+
+IMPORTANT:
+- Generate exactly $SUGGESTIONS different Solution statements
+- Only return Solution statements, no explanations or other text
+- Do not use markdown code blocks
+- One statement per line
+
+$CONTEXT
+"
+
+else
+  echo "ai-commit: --part must be 'title', 'problem', or 'solution', got '$PART'"
+  exit 1
+fi
 
 if [[ "$AI_PROVIDER" == "cursor" ]]; then
   agent -p "$prompt" --output-format json | jq -r '.result'

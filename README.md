@@ -154,6 +154,7 @@ bash ~/dotfiles/scripts/osx.sh
 # Install kitty-terminfo before installing wezterm (needed for inline images in
 # Neovim via image.nvim inside tmux). WezTerm itself is installed in brew.sh.
 bash ~/dotfiles/scripts/wezterm.sh
+bash ~/dotfiles/scripts/kitty.sh
 
 # Download required packages
 bash ~/dotfiles/scripts/brew.sh
