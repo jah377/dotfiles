@@ -6,36 +6,6 @@ git:
 gui:
   commitLength:
     show: true
-  # Catppuccin Mocha theme
-  # See: https://github.com/catppuccin/lazygit
-  theme:
-    activeBorderColor:
-      - '#89b4fa'
-      - bold
-    inactiveBorderColor:
-      - '#a6adc8'
-    searchingActiveBorderColor:
-      - '#f9e2af'
-    optionsTextColor:
-      - '#89b4fa'
-    selectedLineBgColor:
-      - '#313244'
-    inactiveViewSelectedLineBgColor:
-      - '#6c7086'
-    cherryPickedCommitFgColor:
-      - '#89b4fa'
-    cherryPickedCommitBgColor:
-      - '#45475a'
-    markedBaseCommitFgColor:
-      - '#89b4fa'
-    markedBaseCommitBgColor:
-      - '#f9e2af'
-    unstagedChangesColor:
-      - '#f38ba8'
-    defaultFgColor:
-      - '#cdd6f4'
-  authorColors:
-    '*': '#b4befe'
 
 customCommands:
   - key: "G"
@@ -83,16 +53,8 @@ customCommands:
             description: "adding missing tests or correcting existing tests"
             value: "test"
       - type: "menuFromCommand"
-        title: "AI Generated Commit Titles"
-        key: "CommitTitle"
-        command: 'ai-commit --type {{.Form.Type}} --part title'
-      - type: "menuFromCommand"
-        title: "AI Generated Problem Statements"
-        key: "Problem"
-        command: 'ai-commit --type {{.Form.Type}} --part problem --title "{{.Form.CommitTitle}}"'
-      - type: "menuFromCommand"
-        title: "AI Generated Solution Statements"
-        key: "Solution"
-        command: 'ai-commit --type {{.Form.Type}} --part solution --title "{{.Form.CommitTitle}}" --problem "{{.Form.Problem}}"'
-    command: 'git commit -m "{{.Form.CommitTitle}}" -m "{{.Form.Problem}}" -m "{{.Form.Solution}}"'
+        title: "AI Generated Commit Messages"
+        key: "CommitMsg"
+        command: 'ai-commit --type {{.Form.Type}}'
+    command: "git commit -m \"{{.Form.CommitMsg}}\""
     loadingText: "Generating commit messages..."
