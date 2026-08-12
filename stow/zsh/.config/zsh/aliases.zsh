@@ -18,6 +18,11 @@ alias dd="dev-dots"
 alias dw="dev-work"
 alias tas="tmux attach-session"
 
+# Quickly set default browser
+alias dbc="defaultbrowser chrome"
+alias dbs="defaultbrowser safari"
+alias dbe="defaultbrowser edgemac"
+
 # Directories
 alias ..="cd .."
 alias ...="cd ../.."
