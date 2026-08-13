@@ -1,10 +1,10 @@
 ---
 name: dignified-python
 description:
-  Opinionated production Python standards with automatic version detection
-  (3.10-3.13). Use when writing, reviewing, or refactoring Python in repos
-  that want modern type syntax, explicit condition checks where practical,
-  pathlib operations, interface guidance, and pragmatic production patterns.
+  Opinionated production Python standards with automatic version detection (3.10-3.13). Use when
+  writing, reviewing, or refactoring Python in repos that want modern type syntax, explicit
+  condition checks where practical, pathlib operations, interface guidance, and pragmatic
+  production patterns.
 references:
   - dignified-python-core
   - cli-patterns
@@ -20,8 +20,7 @@ references:
 
 # Dignified Python
 
-Opinionated Python guidance for writing clean, maintainable, modern Python code
-(versions
+Opinionated Python guidance for writing clean, maintainable, modern Python code (versions
 3.10-3.13).
 
 ## When to Use This Skill
@@ -36,9 +35,8 @@ Auto-invoke when users ask about:
 - "code review" / "improve this code"
 - Any Python code quality or standards question
 
-**Note**: This skill is **general-purpose Python style guidance**, not
-Dagster-specific. It captures one explicit, LBYL-leaning set of conventions;
-project conventions can override it when needed.
+**Note**: This skill is **general-purpose Python style guidance**, not Dagster-specific. It
+captures one explicit, LBYL-leaning set of conventions; project conventions can override it when needed.
 
 ## When to Use This Skill vs. Others
 
@@ -62,8 +60,7 @@ project conventions can override it when needed.
 
 **Identify the project's minimum Python version** by checking (in order):
 
-1. `pyproject.toml` - Look for `requires-python` field (e.g., `requires-python
-= ">=3.12"`)
+1. `pyproject.toml` - Look for `requires-python` field (e.g., `requires-python = ">=3.12"`)
 2. `setup.py` or `setup.cfg` - Look for `python_requires`
 3. `.python-version` file - Contains version like `3.12` or `3.12.0`
 4. Default to Python 3.12 if no version specifier found
@@ -77,8 +74,8 @@ project conventions can override it when needed.
 
 ## Conditional Loading (Load Based on Task Patterns)
 
-Core files above cover 80%+ of Python code patterns. Only load these additional
-files when you detect specific patterns:
+Core files above cover 80%+ of Python code patterns. Only load these additional files when you
+detect specific patterns:
 
 Pattern detection examples:
 
@@ -167,8 +164,8 @@ This skill's reference material is organized by topic:
 
 1. **Core knowledge** is loaded automatically (defaults, pathlib, imports,
    anti-patterns)
-2. **Version detection** happens once - identify the minimum Python version and
-   load the appropriate version file
+2. **Version detection** happens once - identify the minimum Python version and load the appropriate
+   version file
 3. **Reference documents** are loaded on-demand based on the triggers above
 4. **Additional patterns** may require extra loading (CLI patterns, subprocess)
 5. **Each file is self-contained** with complete guidance for its domain
