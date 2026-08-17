@@ -38,13 +38,15 @@ dotfiles/
 │   │   └── .config/zsh/     # Actual configs (XDG-compliant)
 │   │       ├── .zshenv      # Environment variables
 │   │       ├── .zprofile    # Login shell config
-│   │       ├── .zshrc       # Interactive shell config
-│   │       └── *.zsh        # Modular config files auto-sourced by .zshrc
+│   │       ├── .zshrc       # Interactive shell manifest (sources conf.d/)
+│   │       ├── machine.local.zsh  # Machine-specific overrides (untracked)
+│   │       └── conf.d/      # Modular config files sourced by .zshrc
+│   │           └── *.zsh    # One file per tool/concern
 │   └── [other tools]/       # Additional tool configurations
 └── README.md                # Repository documentation
 ```
 
-**Key Pattern**: Bootstrap `.zshenv` in `$HOME` redirects zsh to load configs from `~/.config/zsh/`
+**Key Pattern**: Bootstrap `.zshenv` in `$HOME` redirects zsh to load configs from `~/.config/zsh/`. `.zshrc` is a pure manifest that sources all modules from `conf.d/`.
 
 ## Configured Tools
 

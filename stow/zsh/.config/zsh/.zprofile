@@ -1,22 +1,10 @@
-# =============================================================================
-# .zprofile - Login Shell Configuration
-# =============================================================================
-#
-# This file is sourced for login shells (when you first log in to your system).
-# It's typically used for:
-#   - Setting up env variables that should be available to all processes
-#   - Starting background services or daemons
-#   - One-time initialization tasks
-#
-# Note: Most interactive configuration is in .zshrc
-# =============================================================================
-
-# Homebrew
+# -- homebrew -----------------------------------------------------------------
 # See https://docs.brew.sh/Manpage#shellenv-shell
 eval "$(/opt/homebrew/bin/brew shellenv)"
 export HOMEBREW_NO_AUTO_UPDATE=1
 export PATH="$HOMEBREW_PREFIX/opt/trash/bin:$PATH"
 
+# -- path ---------------------------------------------------------------------
 # brew shellenv prepends Homebrew, which would shadow ~/.local/bin (e.g.
 # cursor-agent from cursor-cli cask vs the complete install from Cursor). Keep
 # user-local first.

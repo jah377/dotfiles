@@ -1,3 +1,5 @@
+# Inline command suggestions based on history
+# See https://github.com/zsh-users/zsh-autosuggestions
 source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Default: 'CTRL+f' to use suggestion
