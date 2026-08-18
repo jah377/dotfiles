@@ -63,20 +63,28 @@ copy_skill() {
   cp -r "$src" "$dest"
 }
 
-copy_skill "$MATTPOCOCK/skills/engineering/improve-codebase-architecture" "$BASE/skills/improve-codebase-architecture"
 copy_skill "$MATTPOCOCK/skills/engineering/resolving-merge-conflicts"     "$BASE/skills/resolve-merge-conflict"
 copy_skill "$MATTPOCOCK/skills/productivity/grilling"                     "$BASE/skills/grilling"
 copy_skill "$MATTPOCOCK/skills/productivity/wait-what"                    "$BASE/skills/wait-what"
+copy_skill "$MATTPOCOCK/skills/engineering/improve-codebase-architecture" "$BASE/skills/improve-codebase-architecture"
+
+# Indirectly used by `improve-codebase-architecture` skill
+copy_skill "$MATTPOCOCK/skills/engineering/codebase-design"               "$BASE/skills/codebase-design"
+copy_skill "$MATTPOCOCK/skills/engineering/domain-modeling"               "$BASE/skills/domain-modeling"
 
 copy_skill "$KARPATHY/skills/karpathy-guidelines"                         "$BASE/skills/karpathy-guidelines"
-copy_skill "$ADDYOSMANI/skills/code-review-and-quality"                   "$BASE/skills/code-review-and-quality"
 copy_skill "$CURSOR/cursor-team-kit/skills/make-pr-easy-to-review"        "$BASE/skills/make-pr-easy-to-review"
 copy_skill "$ANTHROPIC/skills/skill-creator"                              "$BASE/skills/skill-creator"
+copy_skill "$ADDYOSMANI/skills/code-review-and-quality"                   "$BASE/skills/code-review-and-quality"
+
+# Indirectly used by `code-review-and-quality` skill
+copy_skill "$ADDYOSMANI/skills/security-and-hardening"                    "$BASE/skills/security-and-hardening"
+copy_skill "$ADDYOSMANI/skills/performance-optimization"                  "$BASE/skills/performance-optimization"
 
 copy_skill "$THERMOS/skills/thermo-nuclear-code-quality-review"           "$BASE/skills/thermo-nuclear-code-quality-review"
 copy_skill "$THERMOS/skills/thermo-nuclear-review"                        "$BASE/skills/thermo-nuclear-review"
 copy_skill "$THERMOS/skills/thermos"                                      "$BASE/skills/thermos"
 
 # dagster-skills uses a double-nested path: skills/<name>/skills/<name>/
-copy_skill "$DAGSTER/skills/dagster-expert/skills/dagster-expert"          "$BASE/skills/dagster-expert"
-copy_skill "$DAGSTER/skills/dignified-python/skills/dignified-python"      "$BASE/skills/dignified-python"
+copy_skill "$DAGSTER/skills/dagster-expert/skills/dagster-expert"         "$BASE/skills/dagster-expert"
+copy_skill "$DAGSTER/skills/dignified-python/skills/dignified-python"     "$BASE/skills/dignified-python"
