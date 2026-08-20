@@ -17,7 +17,7 @@ set.textwidth = 79 -- PEP 8 line length
 set.formatoptions:append("t")
 set.formatoptions:append("c")
 
-vim.bo.formatexpr = "v:lua.require'config.core.python_format'.formatexpr()"
+vim.bo.formatexpr = "v:lua.require'config.filetype.python_format'.formatexpr()"
 
 -- Auto-capitalize booleans (Python uses True/False, not true/false)
 vim.cmd.inoreabbrev("<buffer> true True")

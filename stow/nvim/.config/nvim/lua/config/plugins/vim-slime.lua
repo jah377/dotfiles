@@ -79,7 +79,7 @@ return {
       -- Configure the default tmux target.
       -- This tells slime where to send the code.
       vim.g.slime_default_config = {
-        socket_name = "default",    -- tmux socket name
+        socket_name = "default", -- tmux socket name
         target_pane = "{right-of}", -- Send to the pane on the right
       }
 
@@ -89,14 +89,14 @@ return {
       -- Insert cell delimiter below current line
       -- Creates a new cell boundary for notebook-style development
       vim.keymap.set({ "n", "i" }, "<C-c>i", function()
-        local line = vim.api.nvim_win_get_cursor(0)[1]  -- Get current line number
+        local line = vim.api.nvim_win_get_cursor(0)[1] -- Get current line number
         -- Insert blank line and cell delimiter after current line
         vim.api.nvim_buf_set_lines(0, line, line, false, { "", vim.b.slime_cell_delimiter })
       end, { desc = "Slime: Create Cell Below", buffer = true })
 
       -- Insert cell delimiter above current line
       vim.keymap.set({ "n", "i" }, "<C-c>I", function()
-        local line = vim.api.nvim_win_get_cursor(0)[1]  -- Get current line number
+        local line = vim.api.nvim_win_get_cursor(0)[1] -- Get current line number
         -- Insert cell delimiter and blank line before current line
         vim.api.nvim_buf_set_lines(0, line - 1, line - 1, false, { vim.b.slime_cell_delimiter, "" })
       end, { desc = "Slime: Create Cell Above", buffer = true })

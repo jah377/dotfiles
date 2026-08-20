@@ -29,21 +29,21 @@ return {
   },
 
   config = function()
-    local lspkind = require("lspkind")
-    local cmp = require("cmp")
-    local luasnip = require("luasnip")
+    local lspkind = require "lspkind"
+    local cmp = require "cmp"
+    local luasnip = require "luasnip"
 
     require("luasnip.loaders.from_vscode").lazy_load()
 
-    cmp.setup({
+    cmp.setup {
       performance = { max_view_entries = 15 },
 
-      mapping = cmp.mapping.preset.insert({
+      mapping = cmp.mapping.preset.insert {
         ["<C-y>"] = cmp.mapping.complete(),
         ["<esc>"] = cmp.mapping.abort(),
 
         -- Don't autoselect first time on Enter
-        ["<CR>"] = cmp.mapping.confirm({ select = false }),
+        ["<CR>"] = cmp.mapping.confirm { select = false },
         ["<C-k>"] = cmp.mapping.select_prev_item(),
         ["<C-j>"] = cmp.mapping.select_next_item(),
         ["<C-n>"] = cmp.mapping.scroll_docs(4),
@@ -66,7 +66,7 @@ return {
             fallback() -- use default shift-tab behavior
           end
         end, { "i", "s" }),
-      }),
+      },
 
       -- Use LuaSnip to expand snippets
       snippet = {
@@ -84,7 +84,7 @@ return {
       },
 
       formatting = {
-        format = lspkind.cmp_format({
+        format = lspkind.cmp_format {
           mode = "symbol_text", -- Show both icon and text
           menu = {
             luasnip = "", -- Snippet icon
@@ -92,8 +92,8 @@ return {
             path = "", -- Folder icon
             nvim_lsp = "🅻", -- LSP badge
           },
-        }),
+        },
       },
-    })
+    }
   end,
 }

@@ -18,6 +18,7 @@ opt.signcolumn = "yes" -- Always show sign column (prevents shifting)
 -- Highlight when folded disabled in `autocmd.lua`
 opt.fillchars:append { fold = " " } -- drop trailing "..." when folded
 opt.foldtext = "" -- drop custom text when folded
+opt.foldlevel = 99 -- no folds on open
 
 -- Performance -----------------------------------------------------------------
 

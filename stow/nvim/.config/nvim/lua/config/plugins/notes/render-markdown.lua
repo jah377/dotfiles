@@ -1,5 +1,5 @@
 -- =============================================================================
--- FILE: lua/config/plugins/render-markdown.lua
+-- FILE: lua/config/plugins/notes/render-markdown.lua
 -- Improves visual display of Markdown and Quarto (.qmd) files
 --
 -- DOCUMENTATION:

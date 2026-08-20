@@ -1,5 +1,5 @@
 -- =============================================================================
--- FILE: lua/config/plugins/img-clip.lua
+-- FILE: lua/config/plugins/notes/img-clip.lua
 --
 -- PURPOSE:
 --   Paste screenshots, clipboard images, or image URLs into zettelkasten notes.

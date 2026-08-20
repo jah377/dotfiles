@@ -14,9 +14,7 @@ return {
     ---@module 'oil'
     ---@type oil.SetupOpts
     dependencies = {
-      -- mini.icons provides file type icons in the Oil buffer.
-      -- opts = {} triggers lazy.nvim to call setup() with empty config.
-      { "echasnovski/mini.icons", opts = {} },
+      "echasnovski/mini.nvim", -- config() lives in plugins/mini.lua
     },
 
     -- Oil is "lazy loaded" and triggered by keymap
@@ -25,7 +23,7 @@ return {
     },
 
     config = function()
-      require("oil").setup({
+      require("oil").setup {
         columns = {
           "icon", -- File type icon (from mini.icons)
           "permissions", -- Unix permissions (rwxr-xr-x)
@@ -54,7 +52,7 @@ return {
         -- accidental deletions.
         -- NOTE: Requires 'trash' CLI tool to be installed.
         delete_to_trash = true,
-      })
+      }
     end,
   },
 }

@@ -52,16 +52,16 @@ return {
   },
 
   config = function()
-    local select = require("nvim-treesitter-textobjects.select")
-    local move = require("nvim-treesitter-textobjects.move")
-    local swap = require("nvim-treesitter-textobjects.swap")
+    local select = require "nvim-treesitter-textobjects.select"
+    local move = require "nvim-treesitter-textobjects.move"
+    local swap = require "nvim-treesitter-textobjects.swap"
 
     -- =========================================================================
     -- CONFIGURATION
     -- =========================================================================
     -- In the new API (main branch), setup() only accepts select/move options.
     -- Keymaps must be registered separately via vim.keymap.set().
-    require("nvim-treesitter-textobjects").setup({
+    require("nvim-treesitter-textobjects").setup {
       select = {
         lookahead = true,
         include_surrounding_whitespace = false,
@@ -76,7 +76,7 @@ return {
       move = {
         set_jumps = true,
       },
-    })
+    }
 
     -- =========================================================================
     -- TEXT OBJECT SELECTION
@@ -169,10 +169,10 @@ return {
     -- Example: foo(a, b, c) with cursor on 'a', press <leader>ca
     -- Result:  foo(b, a, c)
     vim.keymap.set("n", "<leader>ca", function()
-      swap.swap_next("@parameter.inner")
+      swap.swap_next "@parameter.inner"
     end, { desc = "Swap parameter with next" })
     vim.keymap.set("n", "<leader>cA", function()
-      swap.swap_previous("@parameter.inner")
+      swap.swap_previous "@parameter.inner"
     end, { desc = "Swap parameter with previous" })
   end,
 }

@@ -28,7 +28,7 @@ return {
     priority = 1000,
 
     config = function()
-      require("catppuccin").setup({
+      require("catppuccin").setup {
         -- Use "auto" to automatically choose based on vim background setting.
         -- When background=light, uses latte; when background=dark, uses mocha.
         flavour = "auto",
@@ -160,11 +160,11 @@ return {
             indent_scope_color = "", -- Use default scope color
           },
         },
-      })
+      }
 
       -- Apply the colorscheme.
       -- This must be called after setup() to apply all configurations.
-      vim.cmd.colorscheme("catppuccin")
+      vim.cmd.colorscheme "catppuccin"
     end,
   },
 }

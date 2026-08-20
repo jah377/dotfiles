@@ -2,8 +2,8 @@
 -- FILE: lua/config/plugins/custom/img_clip_helpers.lua
 --
 -- PURPOSE:
---   Shared helpers for vault note images. Used by img-clip.lua (paste/naming)
---   and molten.lua / image.nvim (vault-root path resolution for inline preview).
+--   Shared helpers for vault note images. Used by notes/img-clip.lua (paste/naming)
+--   and notes/image.lua (vault-root path resolution for inline preview).
 --
 -- NAMING POLICY:
 --   Prompted names become `{YYYYMMDD}-{lower_snake_case}` under

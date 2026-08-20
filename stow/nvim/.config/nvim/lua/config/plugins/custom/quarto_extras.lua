@@ -3,7 +3,7 @@
 --
 -- PURPOSE:
 --   Utility functions for navigating and manipulating code cells in .qmd
---   (Quarto markdown) files. Used by molten.lua for buffer-local keymaps.
+--   (Quarto markdown) files. Used by notebook/molten.lua for buffer-local keymaps.
 --
 -- =============================================================================
 
@@ -26,9 +26,7 @@ local function find_cell_boundaries(row, opts)
   end
 
   if not cell_start then
-    if not opts.silent then
-      vim.notify("Not inside a code cell", vim.log.levels.WARN)
-    end
+    if not opts.silent then vim.notify("Not inside a code cell", vim.log.levels.WARN) end
     return nil, nil
   end
 
@@ -42,17 +40,13 @@ local function find_cell_boundaries(row, opts)
   end
 
   if not cell_end then
-    if not opts.silent then
-      vim.notify("Could not find end of code cell", vim.log.levels.WARN)
-    end
+    if not opts.silent then vim.notify("Could not find end of code cell", vim.log.levels.WARN) end
     return nil, nil
   end
 
   -- Verify cursor is actually inside the detected cell
   if cell_end < row then
-    if not opts.silent then
-      vim.notify("Not inside a code cell", vim.log.levels.WARN)
-    end
+    if not opts.silent then vim.notify("Not inside a code cell", vim.log.levels.WARN) end
     return nil, nil
   end
 
@@ -198,7 +192,7 @@ function M.restart_kernel()
     vim.notify("No active kernel", vim.log.levels.WARN)
     return
   end
-  vim.cmd({ cmd = "MoltenRestart", args = { kernels[1] }, bang = true })
+  vim.cmd { cmd = "MoltenRestart", args = { kernels[1] }, bang = true }
 end
 
 function M.replace_block_lang()

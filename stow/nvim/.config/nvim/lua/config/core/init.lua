@@ -4,8 +4,8 @@
 -- =============================================================================
 
 -- Must set vim.g.mapleader before `config.core.keymaps`
-require("config.core.globals")
+require "config.core.globals"
 
-require("config.core.options")
-require("config.core.keymaps")
-require("config.core.autocmds")
+require "config.core.options"
+require "config.core.keymaps"
+require "config.core.autocmds"

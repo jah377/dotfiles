@@ -45,7 +45,7 @@ return {
       vim.keymap.set("n", "<C-w>L", function()
         local cursor = vim.api.nvim_win_get_cursor(0)
         require("goto-preview").close_all_win()
-        vim.cmd("vsplit")
+        vim.cmd "vsplit"
         vim.api.nvim_set_current_buf(buf)
         vim.api.nvim_win_set_cursor(0, cursor)
       end, { buffer = buf, desc = "Break preview into right split" })

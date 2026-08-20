@@ -13,9 +13,7 @@
 -- `pyright` and `ruff` language servers. Warning is harmless but annoying.
 local original_notify = vim.notify
 vim.notify = function(msg, ...)
-  if msg:match("position_encoding param is required in vim.lsp.util.make_position_params") then
-    return
-  end
+  if msg:match "position_encoding param is required in vim.lsp.util.make_position_params" then return end
   return original_notify(msg, ...)
 end
 
@@ -25,16 +23,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspEncoding", {}),
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client then
-      client.offset_encoding = "utf-16"
-    end
+    if client then client.offset_encoding = "utf-16" end
   end,
 })
 
 -- Configure how LSP warning severity is visualized in gutter
 local severity = vim.diagnostic.severity
 
-vim.diagnostic.config({
+vim.diagnostic.config {
   severity_sort = true,
   underline = { severity = severity.ERROR }, -- Only underline errors
   virtual_lines = { current_line = true }, -- Show diagnostic on cursor line (0.11+)
@@ -47,4 +43,4 @@ vim.diagnostic.config({
       [severity.HINT] = "󰌶 ",
     },
   },
-})
+}

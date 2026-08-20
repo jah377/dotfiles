@@ -32,12 +32,12 @@ return {
         { "<leader>f", group = "find" }, -- plugins/telescope.lua
         { "<leader>9", group = "99" }, -- plugins/99.nvim
         { "<leader>c", group = "code" }, -- plugins/nvim-treesitter-textobject.lua
-        { "<leader>o", group = "obsidian" }, -- plugins/obsidian.lua
-        { "<leader>j", group = "jupyter" }, -- plugins/molten.lua
+        { "<leader>o", group = "obsidian" }, -- plugins/notes/obsidian.lua
+        { "<leader>j", group = "jupyter" }, -- plugins/notebook/molten.lua
         { "<leader>g", group = "git" }, -- plugins/git-blame.lua
 
         { "<leader>m", group = "markdown" }, -- plugins/fuzzy-finding.lua
-        -- img-clip.lua (<leader>ip), molten.lua (<leader>it)
+        -- notes/img-clip.lua (<leader>ip), notes/image.lua (<leader>it)
         { "<leader>i", group = "images" },
       },
 
@@ -63,7 +63,7 @@ return {
         "<leader>?",
         function()
           -- global = false means only show buffer-local keymaps
-          require("which-key").show({ global = false })
+          require("which-key").show { global = false }
         end,
         desc = "Show buffer keymaps",
       },

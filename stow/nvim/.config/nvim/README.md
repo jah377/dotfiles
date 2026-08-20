@@ -11,25 +11,24 @@ This configuration requires the following dependencies:
 
 ## Directory Structure
 
+lazy.nvim imports `lua/config/plugins/*.lua` and the named dirs `notebook/`, `notes/`, and `lsp/`. It does not recurse. `custom/` is require-only and must not be imported.
+
 ```
 ~/.config/nvim
-├── init.lua              # Entry point (loads lazy.nvim and your config)
-├── lazy-lock.json        # Auto-generated lockfile for plugin versions
-├── lua/
-│   └── config/           # Your custom non-plugin configuration
-│       ├── autocmds.lua  # Autocommands
-│       ├── keymaps.lua   # Key mappings
-│       ├── lazy.lua      # lazy.nvim setup
-│       ├── globals.lua   # Global variables
-│       └── options.lua   # General Neovim options
-│
-├── lua/plugins/          # Plugin specifications (loaded by lazy.nvim)
-│   └── ...               # More modular plugin files
-│
-├── after/
-│   └── ftplugin/         # Plugin specifications (loaded by lazy.nvim
-│
-└── docs/                 # Organize documentation related to config
+├── init.lua                 # Entry: core, then lazy, then lsp
+├── lazy-lock.json           # Pinned plugin commits
+├── lua/config/
+│   ├── lazy.lua             # lazy.nvim bootstrap and imports
+│   ├── core/                # globals, options, keymaps, autocmds
+│   ├── lsp/                 # diagnostics and lsp keymaps (not lazy specs)
+│   └── plugins/
+│       ├── *.lua            # plugin specs (mini, oil, which-key, …)
+│       ├── notebook/        # molten, quarto/otter
+│       ├── notes/           # image, img-clip, obsidian, render-markdown
+│       ├── lsp/             # mason, goto-preview
+│       └── custom/          # helpers required by specs; not imported
+├── after/ftplugin/          # filetype-local settings (not lazy specs)
+└── docs/
 ```
 
 ## Inspiration

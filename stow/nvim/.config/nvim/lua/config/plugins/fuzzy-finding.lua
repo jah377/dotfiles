@@ -26,28 +26,28 @@ local telescope_spec = {
   },
   event = "VimEnter",
   config = function()
-    require("telescope").setup({
+    require("telescope").setup {
       extensions = { ["ui-select"] = { require("telescope.themes").get_dropdown() } },
-    })
+    }
 
     pcall(require("telescope").load_extension, "fzf")
     pcall(require("telescope").load_extension, "ui-select")
     pcall(require("telescope").load_extension, "heading")
 
-    local builtin = require("telescope.builtin")
+    local builtin = require "telescope.builtin"
     local keymap = vim.keymap
 
     -- Helper: wraps a picker so <CR> opens in a vertical split
     local function open_vertical(picker_fn)
       return function()
-        local actions = require("telescope.actions")
-        picker_fn({
+        local actions = require "telescope.actions"
+        picker_fn {
           attach_mappings = function(_, map)
             map("i", "<CR>", actions.select_vertical)
             map("n", "<CR>", actions.select_vertical)
             return true
           end,
-        })
+        }
       end
     end
 
@@ -60,10 +60,10 @@ local telescope_spec = {
     keymap.set("n", "<leader>fr", builtin.resume, { desc = "Resume Search" })
     keymap.set("n", "<leader>fz", builtin.current_buffer_fuzzy_find, { desc = "Fuzzy Find in Buffer" })
     keymap.set("n", "<space>fL", function()
-      builtin.find_files({ cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy") })
+      builtin.find_files { cwd = vim.fs.joinpath(vim.fn.stdpath "data", "lazy") }
     end, { desc = "Find Lazy Plugin Files" })
     keymap.set("n", "<leader>fF", function()
-      builtin.find_files({ no_ignore = true, hidden = true })
+      builtin.find_files { no_ignore = true, hidden = true }
     end, { desc = "Find All Files (incl. ignored)" })
     keymap.set("n", "<leader>mh", "<cmd>Telescope heading<CR>", { desc = "[M]arkdown [H]eadings" })
   end,
@@ -83,17 +83,17 @@ local fff_spec = {
     debug = { enabled = true, show_scores = true },
   },
   config = function(_, opts)
-    local fff = require("fff")
+    local fff = require "fff"
     fff.setup(opts)
 
     local keymap = vim.keymap
     keymap.set("n", "<leader>ff", fff.find_files, { desc = "FFFind files" })
     keymap.set("n", "<leader>fc", function()
-      fff.find_files_in_dir("~/dotfiles")
+      fff.find_files_in_dir "~/dotfiles"
     end, { desc = "FFFind Config Files" })
     keymap.set("n", "<leader>fg", fff.live_grep, { desc = "FFFind live grep" })
     keymap.set("n", "<leader>fw", function()
-      fff.live_grep({ query = vim.fn.expand("<cword>") })
+      fff.live_grep { query = vim.fn.expand "<cword>" }
     end, { desc = "FFFind current word" })
   end,
 }

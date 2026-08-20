@@ -8,4 +8,4 @@ vim.b.overlength_disabled = true -- See `autocmds.lua`
 set.spell = true -- deactivated in `options.lua`
 set.shiftwidth = 2 -- Standard for nested lists
 
-require("config.core.markdown_folds").setup()
+require("config.filetype.markdown_folds").setup()

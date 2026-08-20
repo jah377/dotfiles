@@ -1,5 +1,5 @@
 -- ============================================================================
--- FILE: lua/config/plugins/obsidian.lua
+-- FILE: lua/config/plugins/notes/obsidian.lua
 --
 -- SUMMARY:
 --   Obsidian.nvim integration for the local zettelkasten vault.
