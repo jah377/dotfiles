@@ -43,7 +43,7 @@ brew install git
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
 
 # Add key to GitHub (Settings -> SSH and GPG keys -> New SSH Key)
-pbcopy < ~/.ssh/id_ed25519_work.pub
+pbcopy < ~/.ssh/id_ed25519.pub
 
 # Configure global git
 git config --global user.name {{NAME}}
@@ -162,8 +162,15 @@ bash ~/dotfiles/scripts/brew.sh
 # Download tmux dependencies
 bash ~/dotfiles/scripts/tmux.sh
 
-# Download cursor-cli
-bash ~/dotfiles/scripts/cursor_cli.sh
+# Set up Python venv for Neovim's molten/Jupyter integration
+bash ~/dotfiles/scripts/molten.sh
+
+# Clone the upstream repos that populate ai_skills/agents, ai_skills/commands,
+# and ai_skills/skills
+bash ~/dotfiles/ai_skills/install.sh
+
+# Install cursor-cli and symlink ai_skills/ into ~/.claude and ~/.cursor
+bash ~/dotfiles/scripts/ai.sh
 
 # Create symlinks to configuration files
 bash ~/dotfiles/scripts/stow.sh
@@ -192,7 +199,7 @@ cp -R ~/dotfiles/custom_keyboard/ABC_wo_opt_symbols.bundle ~/Library/Keyboard\ L
 
 ### Enable Full Disk Access
 
-Apps `wezterm`, `alacritty`, and `karabiner` require full disk access
+Apps `wezterm` and `karabiner` require full disk access
 permission. To grant access, go to _System Settings >> Privacy & Security >>
 Full Disk Access_.
 

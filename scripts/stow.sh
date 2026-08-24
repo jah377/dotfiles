@@ -9,6 +9,7 @@ stow editorconfig
 stow eza
 stow git
 stow karabiner
+stow kitty
 stow lazygit
 stow nvim
 stow starship
