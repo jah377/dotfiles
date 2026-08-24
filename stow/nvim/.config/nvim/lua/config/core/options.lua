@@ -104,7 +104,10 @@ opt.confirm = true -- Prompt to save on :q with unsaved changes
 -- Formatting ------------------------------------------------------------------
 
 -- :help fo-table for flag meanings
--- Note: ftplugins reset formatoptions, so autocmds.lua re-applies -r -o
+-- Note: this is only the global default. Filetype ftplugins (Neovim's
+-- built-in ones and after/ftplugin/*.lua) commonly `setlocal formatoptions`
+-- and can reintroduce flags removed here (eg. Python's runtime ftplugin
+-- adds `r`/`o` back via `croql`).
 vim.opt.formatoptions = vim.opt.formatoptions
   + "t" -- Auto-wrap text at textwidth
   + "c" -- Auto-wrap comments
