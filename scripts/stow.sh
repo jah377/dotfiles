@@ -17,6 +17,14 @@ stow tmux
 stow wezterm
 stow local
 
-# Cannot create symlinks if files already exist
-rm -rf ~/.zprofile ~/.zshrc
+# Backup existing ~/.z* files and remove to create symlinks
+backup_dir="$HOME/zsh_backups"
+mkdir -p "$backup_dir"
+shopt -s nullglob # skip loop if no matches
+
+for path in "$HOME"/.z*; do
+  base="$(basename "$path")"
+  cp -a "$path" "$backup_dir/${base}_backup"
+  rm -rf "$path"
+done
 stow zsh

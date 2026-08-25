@@ -1,3 +1,6 @@
+# Machine-specific interactive startup config
+[[ -f "$HOME/.zshrc" ]] && source "$HOME/.zshrc"
+
 # -- history ------------------------------------------------------------------
 source "$ZDOTDIR/conf.d/history.zsh"
 
