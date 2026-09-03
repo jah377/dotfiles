@@ -2,8 +2,9 @@
 -- FILE: lua/config/plugins/notes/img-clip.lua
 --
 -- PURPOSE:
---   Paste screenshots, clipboard images, or image URLs into zettelkasten notes.
---   Files land in $ZK_DIR/assets/; notes get vault-root Markdown links.
+--   Paste screenshots, clipboard images, or image URLs into markdown/quarto
+--   notes. Files land in `<git-root>/assets/`; notes get paths relative to the
+--   note file.
 --
 -- DEPENDENCIES (macOS):
 --   brew install pngpaste      -- clipboard image paste
@@ -12,9 +13,11 @@
 --
 -- WORKFLOW:
 --   1. Screenshot to clipboard (Cmd+Ctrl+Shift+4) or copy image / image URL
---   2. In a .md / .qmd note: <leader>ip
---   3. Enter a name (e.g. "Auth Diagram") → assets/YYYYMMDD-auth_diagram.png
---   4. Inserts: ![](assets/YYYYMMDD-auth_diagram.png)
+--   2. In a saved .md / .qmd note under a git repo: <leader>ip
+--   3. Enter a name (e.g. "Auth Diagram") → file at
+--      `<git-root>/assets/YYYYMMDD-auth_diagram.png`
+--   4. Inserts a note-relative link; depth depends on the note path (e.g. from
+--      `notes/foo.md` → `![](../assets/YYYYMMDD-auth_diagram.png)`)
 --
 -- DOCUMENTATION:
 --   > GitHub : https://github.com/HakonHarnes/img-clip.nvim
@@ -23,23 +26,30 @@
 
 local img_clip_helpers = require "config.plugins.custom.img_clip_helpers"
 
-local ASSETS_DIRNAME = img_clip_helpers.ASSETS_DIRNAME
-
-local function paste_vault_image()
+local function paste_image()
   local basename = img_clip_helpers.prompt_asset_basename()
   if not basename then return end
 
-  require("img-clip").paste_image { file_name = basename }
+  -- Capture note dir before paste so the template stays tied to this buffer
+  -- even if focus changes during download/copy.
+  img_clip_helpers._paste_note_dir = vim.fn.expand "%:p:h"
+  local ok, err = pcall(function()
+    require("img-clip").paste_image { file_name = basename }
+  end)
+  img_clip_helpers._paste_note_dir = nil
+  if not ok then vim.notify(tostring(err), vim.log.levels.ERROR) end
 end
 
 -- Markdown/quarto filetype defaults disable download_images and enable
--- url_encode_path; override both for vault-root asset links.
+-- url_encode_path; override both. Template emits a path relative to the note.
 local markdown_ft = {
   download_images = true,
   url_encode_path = false,
-  template = "![](" .. ASSETS_DIRNAME .. "/$FILE_NAME)",
+  template = img_clip_helpers.markdown_image_template,
   insert_mode_after_paste = false,
   use_cursor_in_template = false,
+  relative_template_path = true,
+  use_absolute_path = false,
 }
 
 return {
@@ -48,9 +58,15 @@ return {
   opts = {
     default = {
       dir_path = function()
-        return img_clip_helpers.assets_dir() or ASSETS_DIRNAME
+        -- No notify here: <leader>ip already notified via prompt_asset_basename.
+        -- Direct ImgClipPaste gets a single clear error from the err tag.
+        local assets, err = img_clip_helpers.assets_dir()
+        if not assets then error(img_clip_helpers.destination_error_message(err), 0) end
+        return assets
       end,
       prompt_for_file_name = false,
+      relative_template_path = true,
+      use_absolute_path = false,
     },
     filetypes = {
       markdown = markdown_ft,
@@ -60,7 +76,7 @@ return {
   keys = {
     {
       "<leader>ip",
-      paste_vault_image,
+      paste_image,
       mode = { "n", "v" },
       desc = "[I]mage [P]aste",
       ft = { "markdown", "quarto" },

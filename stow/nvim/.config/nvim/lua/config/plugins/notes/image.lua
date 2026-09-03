@@ -10,7 +10,8 @@
 --   - WezTerm + tmux: TERM must be xterm-kitty (tmux default-terminal), Kitty
 --     terminfo installed (scripts/wezterm.sh), allow-passthrough on
 --   - Needs ImageMagick CLI (`brew install imagemagick`) for magick_cli
---   - Vault-root assets/ resolution: config.plugins.custom.img_clip_helpers
+--   - Image links are note-relative (from img-clip paste); no custom
+--     resolve_image_path hook
 --   - Run :ImageReport to verify image setup
 --
 -- KEYMAPS (markdown / quarto):
@@ -20,8 +21,6 @@
 --   > image.nvim   : https://github.com/3rd/image.nvim
 --
 -- =============================================================================
-
-local img_clip_helpers = require "config.plugins.custom.img_clip_helpers"
 
 return {
   "3rd/image.nvim",
@@ -42,7 +41,6 @@ return {
       markdown = {
         enabled = true,
         filetypes = { "markdown", "quarto" },
-        resolve_image_path = img_clip_helpers.resolve_image_path,
         -- Want to see image while taking notes
         floating_windows = false, -- show in document
         only_render_image_at_cursor = false, -- always display image
