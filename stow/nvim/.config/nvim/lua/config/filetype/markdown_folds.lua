@@ -26,16 +26,16 @@ local HEADING_MARKER_QUERY = [[
 ]]
 
 local SUPPRESS = {
-  fenced_code_block = true,
-  list = true,
-  minus_metadata = true,
-  plus_metadata = true,
+   fenced_code_block = true,
+   list = true,
+   minus_metadata = true,
+   plus_metadata = true,
 }
 
 -- Reused across foldexpr calls (not re-entrant in normal fold compute).
 local get_node_opts = {
-  pos = { 0, 0 },
-  ignore_injections = true,
+   pos = { 0, 0 },
+   ignore_injections = true,
 }
 
 local query_set = false
@@ -43,69 +43,49 @@ local query_set = false
 local M = {}
 
 function M.foldexpr()
-  local lnum = vim.v.lnum
-  get_node_opts.pos[1] = lnum - 1
-  local node = vim.treesitter.get_node(get_node_opts)
-  while node do
-    if SUPPRESS[node:type()] then return "=" end
-    node = node:parent()
-  end
-  return vim.treesitter.foldexpr(lnum)
+   local lnum = vim.v.lnum
+   get_node_opts.pos[1] = lnum - 1
+   local node = vim.treesitter.get_node(get_node_opts)
+   while node do
+      if SUPPRESS[node:type()] then return "=" end
+      node = node:parent()
+   end
+   return vim.treesitter.foldexpr(lnum)
 end
 
 -- Fold to one level below the deepest heading (eg. max heading H3 -> show H1-H2)
 local function set_foldlevel_below_deepest_heading()
-  local parser = vim.treesitter.get_parser(0, "markdown")
-  local root = parser:parse()[1]:root()
-  local query = vim.treesitter.query.parse("markdown", HEADING_MARKER_QUERY)
+   local parser = vim.treesitter.get_parser(0, "markdown")
+   local root = parser:parse()[1]:root()
+   local query = vim.treesitter.query.parse("markdown", HEADING_MARKER_QUERY)
 
-  local max_level = 0
-  for _, node in query:iter_captures(root, 0) do
-    local level = tonumber(node:type():match "atx_h(%d)_marker")
-    max_level = math.max(max_level, level)
-  end
+   local max_level = 0
+   for _, node in query:iter_captures(root, 0) do
+      local level = tonumber(node:type():match("atx_h(%d)_marker"))
+      max_level = math.max(max_level, level)
+   end
 
-  if max_level > 0 then vim.opt_local.foldlevel = max_level - 1 end
+   if max_level > 0 then vim.opt_local.foldlevel = max_level - 1 end
 end
 
 function M.setup()
-  if not query_set then
-    vim.treesitter.query.set("markdown", "folds", FOLDS_QUERY)
-    query_set = true
-  end
-  vim.opt_local.foldmethod = "expr"
-  vim.opt_local.foldexpr = "v:lua.require'config.filetype.markdown_folds'.foldexpr()"
+   if not query_set then
+      vim.treesitter.query.set("markdown", "folds", FOLDS_QUERY)
+      query_set = true
+   end
+   vim.opt_local.foldmethod = "expr"
+   vim.opt_local.foldexpr = "v:lua.require'config.filetype.markdown_folds'.foldexpr()"
 
-  vim.api.nvim_create_autocmd("BufWinEnter", {
-    buffer = 0,
-    callback = set_foldlevel_below_deepest_heading,
-  })
+   vim.api.nvim_create_autocmd("BufWinEnter", {
+      buffer = 0,
+      callback = set_foldlevel_below_deepest_heading,
+   })
 
-  local opts = { buffer = 0 }
-  vim.keymap.set(
-    "n",
-    "<localleader>z1",
-    "<cmd>setlocal foldlevel=0<CR>",
-    vim.tbl_extend("force", opts, { desc = "Fold to # header" })
-  )
-  vim.keymap.set(
-    "n",
-    "<localleader>z2",
-    "<cmd>setlocal foldlevel=1<CR>",
-    vim.tbl_extend("force", opts, { desc = "Fold to ## header" })
-  )
-  vim.keymap.set(
-    "n",
-    "<localleader>z3",
-    "<cmd>setlocal foldlevel=2<CR>",
-    vim.tbl_extend("force", opts, { desc = "Fold to ### header" })
-  )
-  vim.keymap.set(
-    "n",
-    "<localleader>z4",
-    "<cmd>setlocal foldlevel=3<CR>",
-    vim.tbl_extend("force", opts, { desc = "Fold to #### header" })
-  )
+   local opts = { buffer = 0 }
+   vim.keymap.set("n", "<localleader>z1", "<cmd>setlocal foldlevel=0<CR>", vim.tbl_extend("force", opts, { desc = "Fold to # header" }))
+   vim.keymap.set("n", "<localleader>z2", "<cmd>setlocal foldlevel=1<CR>", vim.tbl_extend("force", opts, { desc = "Fold to ## header" }))
+   vim.keymap.set("n", "<localleader>z3", "<cmd>setlocal foldlevel=2<CR>", vim.tbl_extend("force", opts, { desc = "Fold to ### header" }))
+   vim.keymap.set("n", "<localleader>z4", "<cmd>setlocal foldlevel=3<CR>", vim.tbl_extend("force", opts, { desc = "Fold to #### header" }))
 end
 
 return M

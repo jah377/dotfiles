@@ -1,7 +1,21 @@
-column_width = 120
+# LuaRocks style guide: https://github.com/luarocks/lua-style-guide
 line_endings = "Unix"
 indent_type = "Spaces"
-indent_width = 2
+indent_width = 3
 quote_style = "AutoPreferDouble"
-call_parentheses = "None"
-collapse_simple_statement = "ConditionalOnly"
+
+# StyLua has no "unlimited" line width. A large column_width stops length-based wrapping;
+# the guide treats a very long line as a complexity problem, not a wrap target.
+column_width = 10000
+
+# Guide forbids omitting parentheses on a string or a single-line table.
+# It allows omitting them on a multi-line table; StyLua has no mode for that.
+# "Always" never omits, which satisfies the required cases.
+call_parentheses = "Always"
+
+# No space between a function name and "(".
+space_after_function_names = "Never"
+
+# Single-line "then return", "then break", and "function() return ... end".
+# StyLua also collapses a simple function-call body inside an if; the guide does not.
+collapse_simple_statement = "Always"

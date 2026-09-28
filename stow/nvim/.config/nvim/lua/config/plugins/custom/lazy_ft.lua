@@ -18,21 +18,19 @@ local M = {}
 ---@param pattern string|string[]
 ---@param on_buf fun(bufnr: integer)
 function M.on_filetypes(group, pattern, on_buf)
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = pattern,
-    group = vim.api.nvim_create_augroup(group, { clear = true }),
-    callback = function(ev)
-      on_buf(ev.buf)
-    end,
-  })
+   vim.api.nvim_create_autocmd("FileType", {
+      pattern = pattern,
+      group = vim.api.nvim_create_augroup(group, { clear = true }),
+      callback = function(ev) on_buf(ev.buf) end,
+   })
 
-  local want = {}
-  for _, ft in ipairs(type(pattern) == "table" and pattern or { pattern }) do
-    want[ft] = true
-  end
-  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_is_loaded(bufnr) and want[vim.bo[bufnr].filetype] then on_buf(bufnr) end
-  end
+   local want = {}
+   for _, ft in ipairs(type(pattern) == "table" and pattern or { pattern }) do
+      want[ft] = true
+   end
+   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_loaded(bufnr) and want[vim.bo[bufnr].filetype] then on_buf(bufnr) end
+   end
 end
 
 return M

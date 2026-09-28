@@ -19,74 +19,70 @@ local augroup = vim.api.nvim_create_augroup
 -- Drop folded highlight so folded sections render identically to surrounding text
 augroup("FoldedHighlightGroup", { clear = true })
 autocmd("ColorScheme", {
-  desc = "Link Folded highlight to Normal to suppress fold styling",
-  group = "FoldedHighlightGroup",
-  pattern = "*",
-  callback = function()
-    vim.api.nvim_set_hl(0, "Folded", { link = "Normal" })
-  end,
+   desc = "Link Folded highlight to Normal to suppress fold styling",
+   group = "FoldedHighlightGroup",
+   pattern = "*",
+   callback = function() vim.api.nvim_set_hl(0, "Folded", { link = "Normal" }) end,
 })
 
 -- Highlight text when yanking
 -- See `:help vim.highlight.on_yank`
 augroup("HighlightYankGroup", { clear = true })
 autocmd("TextYankPost", {
-  desc = "Highlight yanked text",
-  group = "HighlightYankGroup",
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+   desc = "Highlight yanked text",
+   group = "HighlightYankGroup",
+   callback = function() vim.highlight.on_yank() end,
 })
 
 -- Restore last cursor position when reopening a file
 augroup("LastCursorGroup", { clear = true })
 autocmd("BufReadPost", {
-  group = "LastCursorGroup",
-  callback = function()
-    local mark = vim.api.nvim_buf_get_mark(0, '"')
-    local lcount = vim.api.nvim_buf_line_count(0)
-    if mark[1] > 0 and mark[1] <= lcount then pcall(vim.api.nvim_win_set_cursor, 0, mark) end
-  end,
+   group = "LastCursorGroup",
+   callback = function()
+      local mark = vim.api.nvim_buf_get_mark(0, '"')
+      local lcount = vim.api.nvim_buf_line_count(0)
+      if mark[1] > 0 and mark[1] <= lcount then pcall(vim.api.nvim_win_set_cursor, 0, mark) end
+   end,
 })
 
 -- Show cursorline only in active window
 -- Requires autocmds for entering and leaving windows
 augroup("ActiveCursorlineGroup", { clear = true })
 autocmd({ "InsertLeave", "WinEnter" }, {
-  group = "ActiveCursorlineGroup",
-  callback = function()
-    if vim.w.auto_cursorline then
-      vim.wo.cursorline = true
-      vim.w.auto_cursorline = false
-    end
-  end,
+   group = "ActiveCursorlineGroup",
+   callback = function()
+      if vim.w.auto_cursorline then
+         vim.wo.cursorline = true
+         vim.w.auto_cursorline = false
+      end
+   end,
 })
 autocmd({ "InsertEnter", "WinLeave" }, {
-  group = "ActiveCursorlineGroup",
-  callback = function()
-    if vim.wo.cursorline then
-      vim.w.auto_cursorline = true
-      vim.wo.cursorline = false
-    end
-  end,
+   group = "ActiveCursorlineGroup",
+   callback = function()
+      if vim.wo.cursorline then
+         vim.w.auto_cursorline = true
+         vim.wo.cursorline = false
+      end
+   end,
 })
 
 -- Use `q` to quickly close "special" buffers
 -- "Special" buffer types defined in autocmd
 augroup("CloseSpecialBufferGroup", { clear = true })
 autocmd("FileType", {
-  group = "CloseSpecialBufferGroup",
-  pattern = {
-    "help", -- Neovim help documentation (:help)
-    "startuptime", -- :StartupTime profiling window
-    "qf", -- Quickfix and location list windows
-    "lspinfo", -- :LspInfo diagnostic window
-    "man", -- man pages (:Man)
-    "Oil", -- Oil.nvim file explorer
-    "checkhealth", -- :checkhealth diagnostic window
-    "lazy", -- lazy.nvim plugin manager window
-  },
-  command = [[
+   group = "CloseSpecialBufferGroup",
+   pattern = {
+      "help", -- Neovim help documentation (:help)
+      "startuptime", -- :StartupTime profiling window
+      "qf", -- Quickfix and location list windows
+      "lspinfo", -- :LspInfo diagnostic window
+      "man", -- man pages (:Man)
+      "Oil", -- Oil.nvim file explorer
+      "checkhealth", -- :checkhealth diagnostic window
+      "lazy", -- lazy.nvim plugin manager window
+   },
+   command = [[
           nnoremap <buffer><silent> q :close<CR>
           nnoremap <buffer><silent> <ESC> :close<CR>
           set nobuflisted
@@ -96,14 +92,14 @@ autocmd("FileType", {
 -- Automatically create parent directories when saving file to new path
 augroup("CreateParentDirGroup", { clear = true })
 autocmd("BufWritePre", {
-  desc = "Create parent directories on save",
-  group = "CreateParentDirGroup",
-  callback = function(event)
-    if event.match:match "^%w%w+:[\\/][\\/]" then return end -- Skip URLs
-    local file = vim.uv.fs_realpath(event.match) or event.match
-    local dir = vim.fn.fnamemodify(file, ":p:h")
-    vim.fn.mkdir(dir, "p")
-  end,
+   desc = "Create parent directories on save",
+   group = "CreateParentDirGroup",
+   callback = function(event)
+      if event.match:match("^%w%w+:[\\/][\\/]") then return end -- Skip URLs
+      local file = vim.uv.fs_realpath(event.match) or event.match
+      local dir = vim.fn.fnamemodify(file, ":p:h")
+      vim.fn.mkdir(dir, "p")
+   end,
 })
 
 -- Disable auto-commenting when opening a new line from comment
@@ -111,45 +107,43 @@ autocmd("BufWritePre", {
 -- See `:help formatoptions`
 augroup("AutoCommentGroup", { clear = true })
 autocmd("FileType", {
-  desc = "Disable auto-commenting on new line",
-  group = "AutoCommentGroup",
-  callback = function()
-    vim.opt_local.formatoptions:remove { "c", "r", "o" }
-  end,
+   desc = "Disable auto-commenting on new line",
+   group = "AutoCommentGroup",
+   callback = function() vim.opt_local.formatoptions:remove({ "c", "r", "o" }) end,
 })
 
 -- Highlight text beyond `vim.bo.textwidth`.
 -- `matchadd()` creates window-local matches, so replacing the current window's
 -- match avoids stale highlights when a buffer-local ftplugin changes textwidth.
 local function update_overlength_match()
-  if vim.w.overlength_match_id then
-    pcall(vim.fn.matchdelete, vim.w.overlength_match_id)
-    vim.w.overlength_match_id = nil
-  end
+   if vim.w.overlength_match_id then
+      pcall(vim.fn.matchdelete, vim.w.overlength_match_id)
+      vim.w.overlength_match_id = nil
+   end
 
-  if vim.b.overlength_disabled then return end
+   if vim.b.overlength_disabled then return end
 
-  local tw = vim.bo.textwidth
-  if tw <= 0 then return end
+   local tw = vim.bo.textwidth
+   if tw <= 0 then return end
 
-  vim.api.nvim_set_hl(0, "OverLength", { fg = "#ff5555" })
-  vim.w.overlength_match_id = vim.fn.matchadd("OverLength", string.format("\\%%>%dv.\\+", tw))
+   vim.api.nvim_set_hl(0, "OverLength", { fg = "#ff5555" })
+   vim.w.overlength_match_id = vim.fn.matchadd("OverLength", string.format("\\%%>%dv.\\+", tw))
 end
 
 augroup("OverLengthGroup", { clear = true })
 autocmd({ "BufWinEnter", "WinEnter", "FileType" }, {
-  desc = "Highlight text beyond textwidth",
-  group = "OverLengthGroup",
-  callback = function()
-    -- FileType can fire before after/ftplugin files finish; scheduling lets
-    -- filetype-specific textwidth overrides settle before the match is rebuilt.
-    vim.schedule(update_overlength_match)
-  end,
+   desc = "Highlight text beyond textwidth",
+   group = "OverLengthGroup",
+   callback = function()
+      -- FileType can fire before after/ftplugin files finish; scheduling lets
+      -- filetype-specific textwidth overrides settle before the match is rebuilt.
+      vim.schedule(update_overlength_match)
+   end,
 })
 
 autocmd("OptionSet", {
-  desc = "Update overlength highlight when textwidth changes",
-  group = "OverLengthGroup",
-  pattern = "textwidth",
-  callback = update_overlength_match,
+   desc = "Update overlength highlight when textwidth changes",
+   group = "OverLengthGroup",
+   pattern = "textwidth",
+   callback = update_overlength_match,
 })

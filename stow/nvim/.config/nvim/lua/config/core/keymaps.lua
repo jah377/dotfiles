@@ -21,17 +21,13 @@ kbd("v", ">", ">gv", { desc = "Indent right and reselect" })
 -- Clipboard -------------------------------------------------------------------
 
 kbd("n", "<leader>ym", function()
-  local messages = vim.fn.execute "messages"
-  vim.fn.setreg("+", messages)
+   local messages = vim.fn.execute("messages")
+   vim.fn.setreg("+", messages)
 end, { desc = "[Y]ank [M]essages" })
 
-kbd("n", "<leader>yf", function()
-  vim.fn.setreg("+", vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t"))
-end, { desc = "[Y]ank [F]ile" })
+kbd("n", "<leader>yf", function() vim.fn.setreg("+", vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")) end, { desc = "[Y]ank [F]ile" })
 
-kbd("n", "<leader>yp", function()
-  vim.fn.setreg("+", vim.api.nvim_buf_get_name(0))
-end, { desc = "[Y]ank [P]ath" })
+kbd("n", "<leader>yp", function() vim.fn.setreg("+", vim.api.nvim_buf_get_name(0)) end, { desc = "[Y]ank [P]ath" })
 
 -- Navigation ------------------------------------------------------------------
 

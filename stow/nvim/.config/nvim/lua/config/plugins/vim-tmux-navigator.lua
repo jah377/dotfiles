@@ -12,25 +12,25 @@
 -- =============================================================================
 
 return {
-  "christoomey/vim-tmux-navigator",
-  lazy = false,
+   "christoomey/vim-tmux-navigator",
+   lazy = false,
 
-  -- Must preserve tmux zoom state before the plugin loads
-  init = function()
-    -- Preserve tmux zoom state when navigating from Neovim to a tmux pane.
-    --
-    -- By default, navigating from Vim to tmux would unzoom a zoomed pane.
-    -- With this setting, if you have a tmux pane zoomed and navigate away
-    -- from Neovim, the pane stays zoomed. This prevents accidentally
-    -- losing your zoomed state.
-    vim.g.tmux_navigator_preserve_zoom = 1
-  end,
+   -- Must preserve tmux zoom state before the plugin loads
+   init = function()
+      -- Preserve tmux zoom state when navigating from Neovim to a tmux pane.
+      --
+      -- By default, navigating from Vim to tmux would unzoom a zoomed pane.
+      -- With this setting, if you have a tmux pane zoomed and navigate away
+      -- from Neovim, the pane stays zoomed. This prevents accidentally
+      -- losing your zoomed state.
+      vim.g.tmux_navigator_preserve_zoom = 1
+   end,
 
-  keys = {
-    { "<C-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-    { "<C-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-    { "<C-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-    { "<C-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-    { "<C-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-  },
+   keys = {
+      { "<C-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<C-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<C-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<C-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<C-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+   },
 }

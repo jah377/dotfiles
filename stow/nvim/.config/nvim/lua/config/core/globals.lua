@@ -26,4 +26,4 @@ global.have_nerd_font = true
 
 -- Python provider for molten-nvim remote plugin. Points to dedicated venv
 -- with pynvim installed (required for :UpdateRemotePlugins and Jupyter kernel execution).
-global.python3_host_prog = vim.fn.expand "~/.venvs/nvim-python/bin/python"
+global.python3_host_prog = vim.fn.expand("~/.venvs/nvim-python/bin/python")

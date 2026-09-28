@@ -22,99 +22,99 @@
 -- =============================================================================
 
 return {
-  {
-    "stevearc/conform.nvim",
+   {
+      "stevearc/conform.nvim",
 
-    -- Load on "VeryLazy" event - after initial UI render.
-    -- Formatting isn't needed until you start editing.
-    event = "VeryLazy",
+      -- Load on "VeryLazy" event - after initial UI render.
+      -- Formatting isn't needed until you start editing.
+      event = "VeryLazy",
 
-    dependencies = {
-      -- Ensures formatter tools (stylua, ruff, etc.) are installed
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-      -- Mason is the package manager for external tools
-      "williamboman/mason.nvim",
-    },
+      dependencies = {
+         -- Ensures formatter tools (stylua, ruff, etc.) are installed
+         "WhoIsSethDaniel/mason-tool-installer.nvim",
+         -- Mason is the package manager for external tools
+         "williamboman/mason.nvim",
+      },
 
-    config = function()
-      local conform = require "conform"
+      config = function()
+         local conform = require("conform")
 
-      conform.setup {
-        formatters_by_ft = {
-          lua = {
-            "stylua", -- standard Lua formatter
-          },
+         conform.setup({
+            formatters_by_ft = {
+               lua = {
+                  "stylua", -- standard Lua formatter
+               },
 
-          python = {
-            "isort", -- First: organize imports alphabetically
-            "ruff_fix", -- Second: auto-fix linting issues
-            "ruff_format", -- Third: format the code (like Black)
-          },
+               python = {
+                  "isort", -- First: organize imports alphabetically
+                  "ruff_fix", -- Second: auto-fix linting issues
+                  "ruff_format", -- Third: format the code (like Black)
+               },
 
-          markdown = {
-            "prettierd", -- Daemon version - faster for repeated formatting
-            "prettier", -- Regular version - fallback if daemon isn't running
-            stop_after_first = true, -- Only run one (the first that works)
-          },
+               markdown = {
+                  "prettierd", -- Daemon version - faster for repeated formatting
+                  "prettier", -- Regular version - fallback if daemon isn't running
+                  stop_after_first = true, -- Only run one (the first that works)
+               },
 
-          quarto = {
-            -- injected: formats embedded code blocks by language via treesitter.
-            -- Extracts {python} blocks, runs ruff_fix/ruff_format/isort on them,
-            -- then writes the result back. Reuses the python formatter chain.
-            "injected",
-            -- prettierd/prettier: formats the surrounding markdown structure.
-            -- Both listed so prettierd runs when the daemon is up; prettier
-            -- runs as fallback. Output is idempotent so running both is harmless.
-            "prettierd",
-            "prettier",
-          },
+               quarto = {
+                  -- injected: formats embedded code blocks by language via treesitter.
+                  -- Extracts {python} blocks, runs ruff_fix/ruff_format/isort on them,
+                  -- then writes the result back. Reuses the python formatter chain.
+                  "injected",
+                  -- prettierd/prettier: formats the surrounding markdown structure.
+                  -- Both listed so prettierd runs when the daemon is up; prettier
+                  -- runs as fallback. Output is idempotent so running both is harmless.
+                  "prettierd",
+                  "prettier",
+               },
 
-          yaml = {
-            "yamlfmt",
-          },
-        },
-
-        -- Prettier does not infer a parser for .qmd; teach both formatters to
-        -- treat Quarto files as markdown.
-        formatters = {
-          prettier = {
-            options = {
-              ext_parsers = { qmd = "markdown" },
-              ft_parsers = { quarto = "markdown" },
+               yaml = {
+                  "yamlfmt",
+               },
             },
-          },
-          prettierd = {
-            prepend_args = function(_, ctx)
-              local ext = vim.fn.fnamemodify(ctx.filename, ":e")
-              if ext == "qmd" then return { "--parser=markdown" } end
+
+            -- Prettier does not infer a parser for .qmd; teach both formatters to
+            -- treat Quarto files as markdown.
+            formatters = {
+               prettier = {
+                  options = {
+                     ext_parsers = { qmd = "markdown" },
+                     ft_parsers = { quarto = "markdown" },
+                  },
+               },
+               prettierd = {
+                  prepend_args = function(_, ctx)
+                     local ext = vim.fn.fnamemodify(ctx.filename, ":e")
+                     if ext == "qmd" then return { "--parser=markdown" } end
+                  end,
+               },
+            },
+
+            -- Default options that apply to all formatters
+            default_format_opts = {
+               -- If no formatter is configured for a file type, try LSP formatting
+               -- as a fallback. This provides reasonable behavior for any file type.
+               lsp_format = "fallback",
+            },
+
+            format_on_save = function(bufnr)
+               if vim.b[bufnr].disable_autoformat then return end
+
+               -- Maximum time to wait for formatting before giving up (in ms).
+               -- Some formatters are slow on large files; this prevents hanging.
+               return {
+                  timeout_ms = 3000,
+               }
             end,
-          },
-        },
 
-        -- Default options that apply to all formatters
-        default_format_opts = {
-          -- If no formatter is configured for a file type, try LSP formatting
-          -- as a fallback. This provides reasonable behavior for any file type.
-          lsp_format = "fallback",
-        },
+            -- Show a notification when formatting fails
+            notify_on_error = true,
 
-        format_on_save = function(bufnr)
-          if vim.b[bufnr].disable_autoformat then return end
-
-          -- Maximum time to wait for formatting before giving up (in ms).
-          -- Some formatters are slow on large files; this prevents hanging.
-          return {
-            timeout_ms = 3000,
-          }
-        end,
-
-        -- Show a notification when formatting fails
-        notify_on_error = true,
-
-        -- Show a notification when no formatters are available for a file type
-        -- Helps debug why formatting isn't working
-        notify_no_formatters = true,
-      }
-    end,
-  },
+            -- Show a notification when no formatters are available for a file type
+            -- Helps debug why formatting isn't working
+            notify_no_formatters = true,
+         })
+      end,
+   },
 }

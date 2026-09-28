@@ -16,7 +16,7 @@ opt.signcolumn = "yes" -- Always show sign column (prevents shifting)
 -- Folding ---------------------------------------------------------------------
 
 -- Highlight when folded disabled in `autocmd.lua`
-opt.fillchars:append { fold = " " } -- drop trailing "..." when folded
+opt.fillchars:append({ fold = " " }) -- drop trailing "..." when folded
 opt.foldtext = "" -- drop custom text when folded
 opt.foldlevel = 99 -- no folds on open
 
@@ -109,15 +109,15 @@ opt.confirm = true -- Prompt to save on :q with unsaved changes
 -- and can reintroduce flags removed here (eg. Python's runtime ftplugin
 -- adds `r`/`o` back via `croql`).
 vim.opt.formatoptions = vim.opt.formatoptions
-  + "t" -- Auto-wrap text at textwidth
-  + "c" -- Auto-wrap comments
-  - "r" -- No comment leader on Enter
-  - "o" -- No comment leader on o/O
-  + "q" -- Format comments with gq
-  - "a" -- No auto-format paragraphs
-  + "n" -- Recognize numbered lists
-  + "j" -- Remove comment leader when joining
+   + "t" -- Auto-wrap text at textwidth
+   + "c" -- Auto-wrap comments
+   - "r" -- No comment leader on Enter
+   - "o" -- No comment leader on o/O
+   + "q" -- Format comments with gq
+   - "a" -- No auto-format paragraphs
+   + "n" -- Recognize numbered lists
+   + "j" -- Remove comment leader when joining
 
 -- Messages --------------------------------------------------------------------
 
-opt.shortmess:append "IWc" -- Suppress intro, "written", completion msgs
+opt.shortmess:append("IWc") -- Suppress intro, "written", completion msgs

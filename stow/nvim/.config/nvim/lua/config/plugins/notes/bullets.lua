@@ -18,9 +18,7 @@
 -- =============================================================================
 
 return {
-  "bullets-vim/bullets.vim",
-  ft = { "markdown", "quarto", "text", "gitcommit", "scratch" },
-  init = function()
-    vim.g.bullets_enabled_file_types = { "markdown", "quarto", "text", "gitcommit", "scratch" }
-  end,
+   "bullets-vim/bullets.vim",
+   ft = { "markdown", "quarto", "text", "gitcommit", "scratch" },
+   init = function() vim.g.bullets_enabled_file_types = { "markdown", "quarto", "text", "gitcommit", "scratch" } end,
 }

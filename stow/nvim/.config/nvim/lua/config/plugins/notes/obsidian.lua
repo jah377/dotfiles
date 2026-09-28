@@ -31,86 +31,77 @@
 -- ============================================================================
 
 return {
-  "obsidian-nvim/obsidian.nvim",
+   "obsidian-nvim/obsidian.nvim",
 
-  -- Load early so note commands are available during normal editing.
-  priority = 1000,
+   -- Load early so note commands are available during normal editing.
+   priority = 1000,
 
-  dependencies = {
-    { "dmtrKovalenko/fff.nvim", opts = {} },
-  },
-  config = function()
-    local zk_inbox = vim.env.ZK_INBOX_DIR
+   dependencies = {
+      { "dmtrKovalenko/fff.nvim", opts = {} },
+   },
+   config = function()
+      local zk_inbox = vim.env.ZK_INBOX_DIR
 
-    require("obsidian").setup {
-      legacy_commands = false, -- to be removed in 4.0.0
-      workspaces = { { name = "zettelkasten", path = "~/zettelkasten" } },
-      notes_subdir = zk_inbox, -- workspace subdir name
-      new_notes_location = "notes_subdir", -- use `new_notes_location`
-      templates = { folder = "templates" }, -- workspace subdir name
-      ui = { enable = false }, -- render-markdown.nvim handles all markdown UI
-      link = { auto_update = true }, -- automatically update links
-      frontmatter = { enabled = false }, -- use templates instead
-    }
+      require("obsidian").setup({
+         legacy_commands = false, -- to be removed in 4.0.0
+         workspaces = { { name = "zettelkasten", path = "~/zettelkasten" } },
+         notes_subdir = zk_inbox, -- workspace subdir name
+         new_notes_location = "notes_subdir", -- use `new_notes_location`
+         templates = { folder = "templates" }, -- workspace subdir name
+         ui = { enable = false }, -- render-markdown.nvim handles all markdown UI
+         link = { auto_update = true }, -- automatically update links
+         frontmatter = { enabled = false }, -- use templates instead
+      })
 
-    local fff = require "fff"
-    local kbd = vim.keymap.set
-    local zk_dir = vim.env.ZK_DIR
-    local zk_reviewed_dir = vim.env.ZK_REVIEWED_DIR
+      local fff = require("fff")
+      local kbd = vim.keymap.set
+      local zk_dir = vim.env.ZK_DIR
+      local zk_reviewed_dir = vim.env.ZK_REVIEWED_DIR
 
-    -- Insert the note template and remove leading blank lines it may leave behind.
-    kbd("n", "<leader>on", function()
-      vim.cmd "Obsidian template note"
+      -- Insert the note template and remove leading blank lines it may leave behind.
+      kbd("n", "<leader>on", function()
+         vim.cmd("Obsidian template note")
 
-      local first_content_line = vim.fn.nextnonblank(1)
-      if first_content_line > 1 then vim.api.nvim_buf_set_lines(0, 0, first_content_line - 1, false, {}) end
-    end, { desc = "[O]bsidian [N]ote from template" })
+         local first_content_line = vim.fn.nextnonblank(1)
+         if first_content_line > 1 then vim.api.nvim_buf_set_lines(0, 0, first_content_line - 1, false, {}) end
+      end, { desc = "[O]bsidian [N]ote from template" })
 
-    -- Strip date from note title and replace dashes with spaces.
-    -- Must have cursor on title for keybinding to work.
-    kbd(
-      "n",
-      "<leader>ot",
-      ":s/\\(: \\)[0-9]\\{8}__*/\\1/ | s/[-_]/ /g<cr>",
-      { desc = "[O]bsidian format note [T]itle" }
-    )
+      -- Strip date from note title and replace dashes with spaces.
+      -- Must have cursor on title for keybinding to work.
+      kbd("n", "<leader>ot", ":s/\\(: \\)[0-9]\\{8}__*/\\1/ | s/[-_]/ /g<cr>", { desc = "[O]bsidian format note [T]itle" })
 
-    -- Search note files in workspace
-    kbd("n", "<leader>of", function()
-      fff.find_files_in_dir(zk_dir)
-    end, { desc = "[O]bsidian [F]ind file" })
+      -- Search note files in workspace
+      kbd("n", "<leader>of", function() fff.find_files_in_dir(zk_dir) end, { desc = "[O]bsidian [F]ind file" })
 
-    kbd("n", "<leader>og", function()
-      fff.live_grep { cwd = zk_dir }
-    end, { desc = "[O]bsidian live [G]rep" })
+      kbd("n", "<leader>og", function() fff.live_grep({ cwd = zk_dir }) end, { desc = "[O]bsidian live [G]rep" })
 
-    -- Keep note file; move from the capture directory to the review queue.
-    kbd("n", "<leader>ok", function()
-      local current_file = vim.fn.expand "%:p"
-      local target_dir = zk_reviewed_dir
-      local target_file = vim.fs.joinpath(target_dir, vim.fn.fnamemodify(current_file, ":t"))
+      -- Keep note file; move from the capture directory to the review queue.
+      kbd("n", "<leader>ok", function()
+         local current_file = vim.fn.expand("%:p")
+         local target_dir = zk_reviewed_dir
+         local target_file = vim.fs.joinpath(target_dir, vim.fn.fnamemodify(current_file, ":t"))
 
-      if vim.fn.rename(current_file, target_file) == 0 then
-        vim.cmd "bd"
-      else
-        vim.notify("Could not move note to " .. target_dir, vim.log.levels.WARN)
-      end
-    end, { desc = "[O]bsidian [K]eep note" })
+         if vim.fn.rename(current_file, target_file) == 0 then
+            vim.cmd("bd")
+         else
+            vim.notify("Could not move note to " .. target_dir, vim.log.levels.WARN)
+         end
+      end, { desc = "[O]bsidian [K]eep note" })
 
-    -- Delete current note file
-    kbd("n", "<leader>odd", function()
-      local current_file = vim.fn.expand "%:p"
+      -- Delete current note file
+      kbd("n", "<leader>odd", function()
+         local current_file = vim.fn.expand("%:p")
 
-      if vim.fn.delete(current_file) == 0 then
-        vim.cmd "bd"
-      else
-        vim.notify("Could not delete note " .. current_file, vim.log.levels.WARN)
-      end
-    end, { desc = "[O]bsidian [D]elete note" })
+         if vim.fn.delete(current_file) == 0 then
+            vim.cmd("bd")
+         else
+            vim.notify("Could not delete note " .. current_file, vim.log.levels.WARN)
+         end
+      end, { desc = "[O]bsidian [D]elete note" })
 
-    -- Use Obsidian's note-aware commands for links and tasks.
-    kbd("n", "<leader>oo", "<cmd>Obsidian follow_link<cr>", { desc = "[O]bsidian [O]pen link" })
-    kbd("n", "<leader>oh", "<cmd>Obsidian toc<cr>", { desc = "[O]bsidian find [H]eaders" })
-    kbd("n", "<leader>ob", "<cmd>Obsidian backlinks<cr>", { desc = "[O]bsidian [B]acklinks" })
-  end,
+      -- Use Obsidian's note-aware commands for links and tasks.
+      kbd("n", "<leader>oo", "<cmd>Obsidian follow_link<cr>", { desc = "[O]bsidian [O]pen link" })
+      kbd("n", "<leader>oh", "<cmd>Obsidian toc<cr>", { desc = "[O]bsidian find [H]eaders" })
+      kbd("n", "<leader>ob", "<cmd>Obsidian backlinks<cr>", { desc = "[O]bsidian [B]acklinks" })
+   end,
 }

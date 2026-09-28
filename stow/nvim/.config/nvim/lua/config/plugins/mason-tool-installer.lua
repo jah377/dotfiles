@@ -27,53 +27,53 @@
 -- =============================================================================
 
 return {
-  {
-    -- Plugin identifier from GitHub
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
+   {
+      -- Plugin identifier from GitHub
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
 
-    -- This plugin depends on Mason being available
-    dependencies = {
-      "williamboman/mason.nvim",
-    },
+      -- This plugin depends on Mason being available
+      dependencies = {
+         "williamboman/mason.nvim",
+      },
 
-    -- No event or keys - load eagerly to ensure tools install on startup.
-    -- We want formatters available immediately when you open any file.
+      -- No event or keys - load eagerly to ensure tools install on startup.
+      -- We want formatters available immediately when you open any file.
 
-    -- Configuration function
-    config = function()
-      require("mason-tool-installer").setup {
-        -- List of tools to ensure are installed.
-        -- Mason will automatically download and install these if missing.
-        -- Tool names must match Mason's package names exactly.
-        ensure_installed = {
-          -- Lua formatter - enforces consistent code style
-          "stylua",
+      -- Configuration function
+      config = function()
+         require("mason-tool-installer").setup({
+            -- List of tools to ensure are installed.
+            -- Mason will automatically download and install these if missing.
+            -- Tool names must match Mason's package names exactly.
+            ensure_installed = {
+               -- Lua formatter - enforces consistent code style
+               "stylua",
 
-          -- Python linter and formatter - extremely fast, replaces flake8/black
-          "ruff",
+               -- Python linter and formatter - extremely fast, replaces flake8/black
+               "ruff",
 
-          -- Python import sorter - organizes imports alphabetically
-          "isort",
+               -- Python import sorter - organizes imports alphabetically
+               "isort",
 
-          -- Daemon version of Prettier - keeps running in background for speed
-          -- Used for Markdown formatting
-          "prettierd",
+               -- Daemon version of Prettier - keeps running in background for speed
+               -- Used for Markdown formatting
+               "prettierd",
 
-          -- Prettier itself - fallback if prettierd isn't available
-          "prettier",
+               -- Prettier itself - fallback if prettierd isn't available
+               "prettier",
 
-          -- YAML-specific linter and formatter
-          "yamllint",
-          "yamlfmt",
-        },
+               -- YAML-specific linter and formatter
+               "yamllint",
+               "yamlfmt",
+            },
 
-        -- Automatically check for and install updates to these tools
-        auto_update = true,
+            -- Automatically check for and install updates to these tools
+            auto_update = true,
 
-        -- Run installation check when Neovim starts.
-        -- This ensures any missing tools are installed immediately.
-        run_on_start = true,
-      }
-    end,
-  },
+            -- Run installation check when Neovim starts.
+            -- This ensures any missing tools are installed immediately.
+            run_on_start = true,
+         })
+      end,
+   },
 }
