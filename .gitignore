@@ -4,6 +4,7 @@
 # AI files
 .claude/settings.local.json
 plan/
+ai_skills/skills/synced/
 
 # macOS system files
 .DS_Store
