@@ -1,12 +1,15 @@
--- =============================================================================
+-- ============================================================================
 -- FILE: init.lua
--- Entry point for Neovim configuration. Loads modules in order:
--- =============================================================================
+-- Entry point for the Neovim configuration. Load order matters:
+--   1. config.core   : leader keys, options, keymaps, autocmds, highlights
+--   2. config.lazy   : plugin manager bootstrap and plugin specs
+--   3. config.lsp.*  : LSP behaviour that relies on plugins being available
+-- ============================================================================
 
--- Must set global leader before plugins
+-- Sets vim.g.mapleader, which plugins read when they define their keymaps.
 require("config.core")
 
--- Must load plugins before lsp configuration
+-- Plugin specs may require plugins lazily; nothing below may run before this.
 require("config.lazy")
 
 require("config.lsp.diagnostics")
