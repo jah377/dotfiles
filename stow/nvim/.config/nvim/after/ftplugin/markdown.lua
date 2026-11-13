@@ -1,11 +1,14 @@
--- Markdown filetype settings (overrides options.lua)
+-- Markdown filetype settings (override options.lua; run after Neovim's
+-- ftplugin/markdown.vim)
 
 local set = vim.opt_local
 
+-- Opt out of format-on-save and the trailing-whitespace trim (conform.lua and
+-- mini.lua both honour this flag): prettier rewrites notes, and two trailing
+-- spaces are a hard line break in Markdown.
 vim.b.disable_autoformat = true
-vim.b.overlength_disabled = true -- See `autocmds.lua`
+vim.b.overlength_disabled = true -- see core/autocmds.lua
 
-set.spell = true -- deactivated in `options.lua`
-set.shiftwidth = 2 -- Standard for nested lists
+set.spell = true -- off globally in options.lua
 
-require("config.filetype.markdown_folds").setup()
+require("config.lib.markdown_folds").setup()
