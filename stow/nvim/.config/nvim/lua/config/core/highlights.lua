@@ -21,9 +21,9 @@ local function apply_custom_highlights()
     -- options.lua via fillchars/foldtext).
     vim.api.nvim_set_hl(0, "Folded", { link = "Normal" })
 
-    -- Theme-independent red so the overlength marker looks identical in the
-    -- light and dark flavours.
-    vim.api.nvim_set_hl(0, "OverLength", { fg = "#ff5555" })
+    -- -- Theme-independent red so the overlength marker looks identical in the
+    -- -- light and dark flavours.
+    -- vim.api.nvim_set_hl(0, "OverLength", { fg = "#ff5555" })
 
     -- Follows the MiniHipatterns* naming so the keyword reads like the
     -- built-in FIXME/HACK/TODO/NOTE groups.
