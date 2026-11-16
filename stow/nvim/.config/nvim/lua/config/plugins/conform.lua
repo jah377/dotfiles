@@ -2,119 +2,109 @@
 -- FILE: lua/config/plugins/conform.lua
 --
 -- PURPOSE:
---   Configures conform.nvim, a lightweight and fast code formatter plugin.
---   Conform runs external formatting tools (like Prettier, Black, stylua)
---   on your code, either automatically on save or manually.
+--   conform.nvim runs external formatters (stylua, ruff, prettier, ...) on
+--   save and on demand. LSP formatting is only a fallback.
 --
 -- WHY CONFORM INSTEAD OF LSP FORMATTING?
---   - Faster: External tools are often faster than LSP formatting
---   - More options: Can use any CLI formatter, not just LSP-provided ones
---   - Better control: Precise configuration per file type
---   - Fallback support: Can try multiple formatters in sequence
+--   - Any CLI formatter, not only what the language server offers
+--   - Per-filetype chains with fallbacks
+--   - One code path for format-on-save and range formatting (<leader>lf)
 --
 -- RELATED FILES:
---   - plugins/mason-tool-installer.lua : Installs the formatter tools
---   - plugins/lsp/mason.lua : Installs LSP servers (separate from formatters)
+--   - plugins/mason-tool-installer.lua : installs the formatter binaries
+--   - plugins/mason.lua                : installs LSP servers (separate concern)
+--   - after/ftplugin/markdown.lua      : sets vim.b.disable_autoformat
 --
 -- DOCUMENTATION:
 --   > GitHub : https://github.com/stevearc/conform.nvim
---
 -- =============================================================================
 
+--- First formatter in `...` that is available for bufnr, else the first name
+--- so conform reports the missing tool instead of silently skipping. This is
+--- conform's documented recipe for "prettierd, else prettier". It is used
+--- instead of `stop_after_first` because that flag applies to a whole chain,
+--- and quarto needs `injected` to run as well as one prettier variant.
+--- @param bufnr integer
+--- @param ... string formatter names in order of preference
+--- @return string
+local function first_available(bufnr, ...)
+    local conform = require("conform")
+    for i = 1, select("#", ...) do
+        local formatter = select(i, ...)
+        if conform.get_formatter_info(formatter, bufnr).available then return formatter end
+    end
+    return (select(1, ...))
+end
+
+--- @param bufnr integer
+--- @return string "prettierd" when its daemon can run, else "prettier"
+local function prettier_for(bufnr) return first_available(bufnr, "prettierd", "prettier") end
+
 return {
-   {
-      "stevearc/conform.nvim",
+    "stevearc/conform.nvim",
 
-      -- Load on "VeryLazy" event - after initial UI render.
-      -- Formatting isn't needed until you start editing.
-      event = "VeryLazy",
+    -- After the initial UI render; formatting is not needed before editing
+    event = "VeryLazy",
 
-      dependencies = {
-         -- Ensures formatter tools (stylua, ruff, etc.) are installed
-         "WhoIsSethDaniel/mason-tool-installer.nvim",
-         -- Mason is the package manager for external tools
-         "williamboman/mason.nvim",
-      },
+    dependencies = {
+        "WhoIsSethDaniel/mason-tool-installer.nvim", -- installs the tools below
+        "williamboman/mason.nvim", -- puts Mason's bin directory on PATH
+    },
 
-      config = function()
-         local conform = require("conform")
+    opts = {
+        formatters_by_ft = {
+            lua = { "stylua" },
 
-         conform.setup({
-            formatters_by_ft = {
-               lua = {
-                  "stylua", -- standard Lua formatter
-               },
-
-               python = {
-                  "isort", -- First: organize imports alphabetically
-                  "ruff_fix", -- Second: auto-fix linting issues
-                  "ruff_format", -- Third: format the code (like Black)
-               },
-
-               markdown = {
-                  "prettierd", -- Daemon version - faster for repeated formatting
-                  "prettier", -- Regular version - fallback if daemon isn't running
-                  stop_after_first = true, -- Only run one (the first that works)
-               },
-
-               quarto = {
-                  -- injected: formats embedded code blocks by language via treesitter.
-                  -- Extracts {python} blocks, runs ruff_fix/ruff_format/isort on them,
-                  -- then writes the result back. Reuses the python formatter chain.
-                  "injected",
-                  -- prettierd/prettier: formats the surrounding markdown structure.
-                  -- Both listed so prettierd runs when the daemon is up; prettier
-                  -- runs as fallback. Output is idempotent so running both is harmless.
-                  "prettierd",
-                  "prettier",
-               },
-
-               yaml = {
-                  "yamlfmt",
-               },
+            -- DECISION: isort stays alongside ruff. ruff's import sorting (the
+            -- `I` rules) is off by default and must be enabled per project;
+            -- isort sorts regardless, so dropping it would stop import sorting
+            -- in every project that never opted in.
+            python = {
+                "isort", -- organise imports
+                "ruff_fix", -- auto-fix lint findings
+                "ruff_format", -- Black-compatible formatting
             },
 
-            -- Prettier does not infer a parser for .qmd; teach both formatters to
-            -- treat Quarto files as markdown.
-            formatters = {
-               prettier = {
-                  options = {
-                     ext_parsers = { qmd = "markdown" },
-                     ft_parsers = { quarto = "markdown" },
-                  },
-               },
-               prettierd = {
-                  prepend_args = function(_, ctx)
-                     local ext = vim.fn.fnamemodify(ctx.filename, ":e")
-                     if ext == "qmd" then return { "--parser=markdown" } end
-                  end,
-               },
+            markdown = function(bufnr) return { prettier_for(bufnr) } end,
+
+            -- injected: formats fenced {python} blocks with the python chain
+            -- above via treesitter; prettier then formats the surrounding
+            -- markdown. Only one prettier variant runs per save.
+            quarto = function(bufnr) return { "injected", prettier_for(bufnr) } end,
+
+            yaml = { "yamlfmt" },
+        },
+
+        -- Prettier does not infer a parser for .qmd. The two formatters expose
+        -- different knobs: conform's prettier definition reads ext_parsers,
+        -- while prettierd only takes raw CLI arguments.
+        formatters = {
+            prettier = {
+                options = {
+                    ext_parsers = { qmd = "markdown" },
+                    ft_parsers = { quarto = "markdown" },
+                },
             },
-
-            -- Default options that apply to all formatters
-            default_format_opts = {
-               -- If no formatter is configured for a file type, try LSP formatting
-               -- as a fallback. This provides reasonable behavior for any file type.
-               lsp_format = "fallback",
+            prettierd = {
+                prepend_args = function(_, ctx)
+                    if vim.fn.fnamemodify(ctx.filename, ":e") == "qmd" then return { "--parser=markdown" } end
+                end,
             },
+        },
 
-            format_on_save = function(bufnr)
-               if vim.b[bufnr].disable_autoformat then return end
+        -- Filetypes without a formatter above fall back to LSP formatting
+        default_format_opts = {
+            lsp_format = "fallback",
+        },
 
-               -- Maximum time to wait for formatting before giving up (in ms).
-               -- Some formatters are slow on large files; this prevents hanging.
-               return {
-                  timeout_ms = 3000,
-               }
-            end,
+        -- Returning nil skips format-on-save; buffers opt out with
+        -- vim.b.disable_autoformat (after/ftplugin/markdown.lua).
+        format_on_save = function(bufnr)
+            if vim.b[bufnr].disable_autoformat then return end
+            return { timeout_ms = 3000 } -- a slow formatter must not hang the write
+        end,
 
-            -- Show a notification when formatting fails
-            notify_on_error = true,
-
-            -- Show a notification when no formatters are available for a file type
-            -- Helps debug why formatting isn't working
-            notify_no_formatters = true,
-         })
-      end,
-   },
+        notify_on_error = true,
+        notify_no_formatters = true, -- explains why nothing happened on save
+    },
 }
