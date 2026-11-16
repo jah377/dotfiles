@@ -1,81 +1,70 @@
 -- =============================================================================
 -- FILE: lua/config/lsp/keymaps.lua
--- LSP keymaps, active only when a language server attaches to buffer.
+-- LSP keymaps, created per buffer when a language server attaches.
 -- Built-in (Neovim 0.10+): K=hover, C-S=signature, C-]=definition, C-O=back
 -- =============================================================================
 
--- Must create autocmd that runs when any LSP server attaches to buffer
 vim.api.nvim_create_autocmd("LspAttach", {
-   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+    desc = "Buffer-local LSP keymaps",
+    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+    callback = function(event)
+        -- Plugins are required inside the callback so they load lazily and
+        -- only once an LSP buffer exists. goto-preview itself loads on
+        -- LspAttach (plugins/goto-preview.lua); lazy.nvim registered that
+        -- handler during startup, before this file ran, so it has executed by
+        -- now.
+        local goto_preview = require("goto-preview")
+        local builtin = require("telescope.builtin")
+        local sorters = require("telescope.sorters")
 
-   -- Callback function adds "LSP:" prefix to all keymaps defined below
-   callback = function(event)
-      local function map(mode, keys, func, desc) vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc, silent = true }) end
-      -- Restart LSP attached to current buffer
-      map("n", "<leader>lx", "<cmd>LspRestart<CR>", "Restart")
+        --- Buffer-local keymap with an "LSP: " description prefix.
+        --- @param mode string|string[]
+        --- @param keys string
+        --- @param rhs string|function
+        --- @param desc string
+        local function map(mode, keys, rhs, desc) vim.keymap.set(mode, keys, rhs, { buffer = event.buf, desc = "LSP: " .. desc, silent = true }) end
 
-      -- Use `goto-preview` plugin to show relevant information
-      --  > definition : where variable was created
-      --  > declaration : unless in C/C++, same as definition
-      --  > references : Telescope-backend to see where used
-      --  > implementation : where abstract classes defined
-      --  > type-definition : where type/class/interface defined
-      local gp = require("goto-preview")
-      map("n", "<leader>ld", gp.goto_preview_definition, "Preview Definition")
-      map("n", "<leader>lD", gp.goto_preview_declaration, "Preview Declaration")
-      map("n", "<leader>lr", gp.goto_preview_references, "Preview References")
-      map("n", "<leader>li", gp.goto_preview_implementation, "Preview Implementation")
-      map("n", "<leader>lt", gp.goto_preview_type_definition, "Preview Type Definition")
+        map("n", "<leader>lx", "<cmd>LspRestart<CR>", "Restart")
 
-      -- List all symbols across entire workspace or project (ie. other files)
-      map("n", "<leader>lsw", require("telescope.builtin").lsp_workspace_symbols, "Workspace Symbols")
+        -- Previews open in a floating window (goto-preview):
+        --  > definition      : where the symbol was created
+        --  > declaration     : same as definition outside C/C++
+        --  > references      : Telescope list of usages
+        --  > implementation  : where an abstract class is implemented
+        --  > type definition : where the type/class/interface is defined
+        map("n", "<leader>ld", goto_preview.goto_preview_definition, "Preview Definition")
+        map("n", "<leader>lD", goto_preview.goto_preview_declaration, "Preview Declaration")
+        map("n", "<leader>lr", goto_preview.goto_preview_references, "Preview References")
+        map("n", "<leader>li", goto_preview.goto_preview_implementation, "Preview Implementation")
+        map("n", "<leader>lt", goto_preview.goto_preview_type_definition, "Preview Type Definition")
 
-      -- List all symbols used in current file, in order of appearance
-      local builtin = require("telescope.builtin")
+        -- Symbol pickers
+        map("n", "<leader>lsw", builtin.lsp_workspace_symbols, "Workspace Symbols")
+        map("n", "<leader>lss", function()
+            -- Document order rather than fuzzy score, so the list reads like an outline
+            builtin.lsp_document_symbols({ sorting_strategy = "ascending", sorter = sorters.get_substr_matcher() })
+        end, "Document Symbols")
+        map("n", "<leader>lsc", function() builtin.lsp_document_symbols({ symbols = { "Class" } }) end, "Document Classes")
+        map("n", "<leader>lsf", function() builtin.lsp_document_symbols({ symbols = { "Function", "Method" } }) end, "Document Functions")
 
-      map("n", "<leader>lss", function()
-         builtin.lsp_document_symbols({
-            sorting_strategy = "ascending",
-            sorter = require("telescope.sorters").get_substr_matcher(),
-         })
-      end, "Document Symbols")
+        map("n", "<leader>la", vim.lsp.buf.code_action, "Code Action")
+        map("n", "<leader>ln", vim.lsp.buf.rename, "Rename")
 
-      -- List all class symbols in document
-      map("n", "<leader>lsc", function() builtin.lsp_document_symbols({ symbols = { "Class" } }) end, "Document Classes")
+        -- Range formatting goes through conform.nvim (plugins/conform.lua), the
+        -- same path as format-on-save, so both apply identical formatters.
+        -- conform.format() uses the visual selection as the range when called
+        -- from visual mode. lsp_format = "fallback" mirrors default_format_opts.
+        map("x", "<leader>lf", function() require("conform").format({ async = true, lsp_format = "fallback" }) end, "Format Range")
 
-      -- List all function/method symbols in document
-      map("n", "<leader>lsf", function() builtin.lsp_document_symbols({ symbols = { "Function", "Method" } }) end, "Document Functions")
+        -- Diagnostics (quickfix navigation keymaps live in core/keymaps.lua)
+        map("n", "<leader>lq", vim.diagnostic.setqflist, "Quickfix List")
+        map("n", "<leader>lT", function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end, "Toggle Diagnostics")
+        map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, "Previous Diagnostic")
+        map("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next Diagnostic")
 
-      -- Show list of available automated fixes/refactoring provided by LSP
-      map("n", "<leader>la", vim.lsp.buf.code_action, "Code Action")
-
-      -- Rename symbol under cursor throughout entire project
-      map("n", "<leader>ln", vim.lsp.buf.rename, "Rename")
-
-      -- Format visually selected range of code
-      -- Plugin `conform.nvim` used to format files
-      map("v", "<leader>lf", vim.lsp.buf.format, "Format Range")
-
-      -- View all diagnostics in current buffer as quickfix list
-      -- Navigation keybindings defined in `core.keymaps`
-      map("n", "<leader>lq", vim.diagnostic.setqflist, "Quickfix List")
-
-      -- Quickly toggle diagnostics off in visually annoying
-      map("n", "<leader>lT", function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end, "Toggle Diagnostics")
-
-      -- Quickly navigate between diagnostic messages
-      map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, "Previous Diagnostic")
-
-      map("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next Diagnostic")
-
-      -- Show function signature help (parameter names and types)
-      -- Note: `K` for hover info; `CTRL-S` for signature help in insert-mode
-      map("n", "<leader>lk", vim.lsp.buf.signature_help, "Signature Help")
-
-      -- Show functions that call the function under cursor
-      map("n", "<leader>lc", vim.lsp.buf.incoming_calls, "Incoming Calls")
-
-      -- Show functions that the function under cursor uses
-      map("n", "<leader>lC", vim.lsp.buf.outgoing_calls, "Outgoing Calls")
-   end,
+        -- `K` shows hover; `CTRL-S` shows signature help in insert mode
+        map("n", "<leader>lk", vim.lsp.buf.signature_help, "Signature Help")
+        map("n", "<leader>lc", vim.lsp.buf.incoming_calls, "Incoming Calls")
+        map("n", "<leader>lC", vim.lsp.buf.outgoing_calls, "Outgoing Calls")
+    end,
 })
