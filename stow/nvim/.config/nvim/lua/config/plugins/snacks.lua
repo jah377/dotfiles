@@ -1,132 +1,36 @@
 -- =============================================================================
 -- FILE: lua/config/plugins/snacks.lua
--- Collection of 20+ small quality-of-life plugins (like mini.nvim)
+-- Small quality-of-life modules from snacks.nvim.
+--
+-- Only the modules in use are listed. Every snacks module is off unless
+-- `enabled = true` is passed, and most modules (lazygit, terminal, notify,
+-- win, ...) are libraries that only act when called, so `enabled = false`
+-- entries are noise. Features deliberately NOT taken from snacks because
+-- another plugin owns them: picker (telescope/fff), explorer (oil), indent
+-- guides (mini.indentscope), images (image.nvim), window dimming (catppuccin).
 --
 -- DOCUMENTATION:
 --   > GitHub : https://github.com/folke/snacks.nvim
---
 -- =============================================================================
 
 return {
-   {
-      "folke/snacks.nvim",
-      priority = 1000, -- high priority (load before other plugins)
-      lazy = false, -- load immediately
+    "folke/snacks.nvim",
+    priority = 1000, -- before other plugins: bigfile must see the first buffer
+    lazy = false,
 
-      opts = {
-         -- =====================================================================
-         -- ENABLED FEATURES
-         -- =====================================================================
-
-         -- Disable heavy features (LSP, Treesitter, etc.) for large files
-         bigfile = {
+    opts = {
+        -- Disable heavy features (LSP, treesitter, ...) for very large files
+        bigfile = {
             enabled = true,
-            notify = true, -- Show notification when bigfile mode activates
-            size = 1.5 * 1024 * 1024, -- Threshold: 1.5 MB
-         },
+            notify = true,
+            size = 1.5 * 1024 * 1024, -- bytes
+        },
 
-         -- Speed up initial file rendering when you run `nvim <file>` from
-         -- the command line. Provides faster time-to-first-render.
-         quickfile = { enabled = true },
+        -- Render the file given on the command line before plugins finish loading
+        quickfile = { enabled = true },
 
-         -- Enhanced sign column (gutter) rendering with better visual styling.
-         -- The sign column shows line numbers, git changes, diagnostics, etc.
-         statuscolumn = {
-            enabled = true,
-            opts = { statuscolumn = {} },
-         },
-
-         -- =====================================================================
-         -- DISABLED FEATURES (functionality provided elsewhere)
-         -- =====================================================================
-
-         -- Dimming inactive windows - handled by theme.lua (catppuccin)
-         dim = { enabled = false },
-
-         -- File explorer - we use oil.nvim instead
-         explorer = { enabled = false },
-
-         -- GitHub integration - prefer viewing in browser
-         gh = { enabled = false },
-
-         -- Git features - we use lazygit in tmux instead
-         git = { enabled = false },
-
-         -- Open in GitHub web - prefer browser integration
-         gitbrowse = { enabled = false },
-
-         -- Image viewing - we use image.nvim if needed
-         image = { enabled = false },
-
-         -- Indentation guides - we use mini.indentscope instead
-         indent = { enabled = false },
-
-         -- Fuzzy finder - we use telescope.nvim instead
-         picker = { enabled = false },
-
-         -- Lazygit integration - we run lazygit directly in tmux
-         lazygit = { enabled = false },
-
-         -- =====================================================================
-         -- DISABLED FEATURES (not needed/wanted)
-         -- =====================================================================
-
-         -- Smooth animations - can be distracting
-         animate = { enabled = false },
-
-         -- Keep layout when deleting buffers - not needed
-         bufdelete = { enabled = false },
-
-         -- Startup dashboard - we prefer starting clean
-         dashboard = { enabled = false },
-
-         -- Fancy input UI - default is fine
-         input = { enabled = false },
-
-         -- Better vim.keymap.set - not needed
-         keymap = { enabled = false },
-
-         -- Window layout management - not needed
-         layout = { enabled = false },
-
-         -- Notification system - disabled in theme.lua as well
-         notifier = { enabled = false },
-
-         -- Notification utilities - not needed
-         notify = { enabled = false },
-
-         -- Lua profiler - only needed for debugging
-         profiler = { enabled = false },
-
-         -- LSP-aware file renaming - using LSP directly
-         rename = { enabled = false },
-
-         -- Scope-based navigation - not needed
-         scope = { enabled = false },
-
-         -- Persistent scratch buffers - not needed
-         scratch = { enabled = false },
-
-         -- Smooth scrolling - still has some jank
-         scroll = { enabled = false },
-
-         -- Floating terminal - we use tmux for terminals
-         terminal = { enabled = false },
-
-         -- Toggle keymaps - not needed
-         toggle = { enabled = false },
-
-         -- Utility functions - internal use
-         util = { enabled = false },
-
-         -- Floating windows for docs - not needed
-         win = { enabled = false },
-
-         -- Navigate LSP references with highlighting - not needed
-         words = { enabled = false },
-
-         -- Zen/focus mode - not needed
-         zen = { enabled = false },
-      },
-   },
+        -- Sign/number column rendering. Defaults are used as-is
+        -- (left: mark, sign; right: fold, git).
+        statuscolumn = { enabled = true },
+    },
 }

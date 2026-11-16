@@ -3,7 +3,8 @@
 --
 -- PURPOSE:
 --   One lazy spec for echasnovski/mini.nvim. Keep a single spec: lazy.nvim
---   merges by plugin name and runs one config() (oil.lua also lists mini.nvim).
+--   merges specs by plugin name and runs one config() (oil.lua and
+--   render-markdown.lua list mini.nvim as a dependency for icons).
 --
 -- MODULES:
 --   comment     : gcc / gc{motion} / gc / dgc
@@ -17,47 +18,50 @@
 --
 -- DOCUMENTATION:
 --   > https://github.com/echasnovski/mini.nvim
---
 -- =============================================================================
 
 return {
-   "echasnovski/mini.nvim",
-   config = function()
-      require("mini.comment").setup()
-      require("mini.cursorword").setup()
-      require("mini.icons").setup()
-      require("mini.pairs").setup()
+    "echasnovski/mini.nvim",
+    config = function()
+        require("mini.comment").setup()
+        require("mini.cursorword").setup()
+        require("mini.icons").setup()
+        require("mini.pairs").setup()
+        require("mini.surround").setup()
 
-      require("mini.surround").setup()
+        local indentscope = require("mini.indentscope")
+        indentscope.setup({
+            draw = { animation = indentscope.gen_animation.none() }, -- instant display
+            options = { border = "both", indent_at_cursor = true, try_as_border = true },
+            symbol = "|",
+        })
 
-      require("mini.indentscope").setup({
-         -- Disable animation (instant display)
-         draw = { animation = require("mini.indentscope").gen_animation.none() },
-         options = { border = "both", indent_at_cursor = true, try_as_border = true },
-         symbol = "|",
-      })
+        -- The MiniHipatternsAssumptions group is defined in core/highlights.lua
+        -- with the other custom groups, so it survives colorscheme changes.
+        local hipatterns = require("mini.hipatterns")
+        hipatterns.setup({
+            highlighters = {
+                fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+                hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+                todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+                note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+                assumptions = { pattern = "%f[%w]()ASSUMPTIONS()%f[%W]", group = "MiniHipatternsAssumptions" },
+                hex_color = hipatterns.gen_highlighter.hex_color(),
+            },
+        })
 
-      local hipatterns = require("mini.hipatterns")
-      vim.api.nvim_set_hl(0, "MiniHipatternsAssumptions", { fg = "#ffffff", bg = "#9d7cd8", bold = true })
-      hipatterns.setup({
-         highlighters = {
-            fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
-            hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-            todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
-            note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
-            assumptions = { pattern = "%f[%w]()ASSUMPTIONS()%f[%W]", group = "MiniHipatternsAssumptions" },
-            hex_color = hipatterns.gen_highlighter.hex_color(),
-         },
-      })
-
-      require("mini.trailspace").setup()
-      vim.api.nvim_create_autocmd("BufWritePre", {
-         desc = "Trim trailing whitespace on save",
-         group = vim.api.nvim_create_augroup("MiniTrailspaceTrim", { clear = true }),
-         callback = function()
-            require("mini.trailspace").trim()
-            require("mini.trailspace").trim_last_lines()
-         end,
-      })
-   end,
+        local trailspace = require("mini.trailspace")
+        trailspace.setup()
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            desc = "Trim trailing whitespace on save",
+            group = vim.api.nvim_create_augroup("MiniTrailspaceTrim", { clear = true }),
+            callback = function(event)
+                -- Same opt-out as conform's format-on-save: markdown relies on two
+                -- trailing spaces for hard line breaks (after/ftplugin/markdown.lua).
+                if vim.b[event.buf].disable_autoformat then return end
+                trailspace.trim()
+                trailspace.trim_last_lines()
+            end,
+        })
+    end,
 }

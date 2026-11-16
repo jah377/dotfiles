@@ -17,81 +17,86 @@
 -- =============================================================================
 
 return {
-   "hrsh7th/nvim-cmp",
-   dependencies = {
-      "onsails/lspkind.nvim",
-      "saadparwaiz1/cmp_luasnip",
-      "L3MON4D3/LuaSnip",
-      "rafamadriz/friendly-snippets",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-   },
+    "hrsh7th/nvim-cmp",
 
-   config = function()
-      local lspkind = require("lspkind")
-      local cmp = require("cmp")
-      local luasnip = require("luasnip")
+    -- Completion is only needed once typing starts; loading on InsertEnter
+    -- keeps nvim-cmp and its seven sources out of the startup path.
+    event = "InsertEnter",
 
-      require("luasnip.loaders.from_vscode").lazy_load()
+    dependencies = {
+        "onsails/lspkind.nvim",
+        "saadparwaiz1/cmp_luasnip",
+        "L3MON4D3/LuaSnip",
+        "rafamadriz/friendly-snippets",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lsp-signature-help",
+    },
 
-      cmp.setup({
-         performance = { max_view_entries = 15 },
+    config = function()
+        local lspkind = require("lspkind")
+        local cmp = require("cmp")
+        local luasnip = require("luasnip")
 
-         mapping = cmp.mapping.preset.insert({
-            ["<C-y>"] = cmp.mapping.complete(),
-            ["<esc>"] = cmp.mapping.abort(),
+        require("luasnip.loaders.from_vscode").lazy_load()
 
-            -- Don't autoselect first time on Enter
-            ["<CR>"] = cmp.mapping.confirm({ select = false }),
-            ["<C-k>"] = cmp.mapping.select_prev_item(),
-            ["<C-j>"] = cmp.mapping.select_next_item(),
-            ["<C-n>"] = cmp.mapping.scroll_docs(4),
-            ["<C-p>"] = cmp.mapping.scroll_docs(-4),
+        cmp.setup({
+            performance = { max_view_entries = 15 },
 
-            -- If snippet, expand snippet or jump to next placeholder
-            ["<Tab>"] = cmp.mapping(function(fallback)
-               if luasnip.expand_or_locally_jumpable() then
-                  luasnip.expand_or_jump()
-               else
-                  fallback()
-               end
-            end, { "i", "s" }),
+            mapping = cmp.mapping.preset.insert({
+                ["<C-y>"] = cmp.mapping.complete(),
+                ["<esc>"] = cmp.mapping.abort(),
 
-            -- If snippet, jump to previous snippet placeholder
-            ["<S-Tab>"] = cmp.mapping(function(fallback)
-               if luasnip.jumpable(-1) then
-                  luasnip.jump(-1)
-               else
-                  fallback() -- use default shift-tab behavior
-               end
-            end, { "i", "s" }),
-         }),
+                -- Don't autoselect first time on Enter
+                ["<CR>"] = cmp.mapping.confirm({ select = false }),
+                ["<C-k>"] = cmp.mapping.select_prev_item(),
+                ["<C-j>"] = cmp.mapping.select_next_item(),
+                ["<C-n>"] = cmp.mapping.scroll_docs(4),
+                ["<C-p>"] = cmp.mapping.scroll_docs(-4),
 
-         -- Use LuaSnip to expand snippets
-         snippet = {
-            expand = function(args) luasnip.lsp_expand(args.body) end,
-         },
+                -- If snippet, expand snippet or jump to next placeholder
+                ["<Tab>"] = cmp.mapping(function(fallback)
+                    if luasnip.expand_or_locally_jumpable() then
+                        luasnip.expand_or_jump()
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
 
-         sources = {
-            { name = "luasnip" }, -- Snippets
-            { name = "nvim_lsp" }, -- LSP completion
-            { name = "buffer" }, -- Words from current buffer
-            { name = "path" }, -- File paths
-            { name = "nvim_lsp_signature_help" }, -- Function signatures
-         },
-
-         formatting = {
-            format = lspkind.cmp_format({
-               mode = "symbol_text", -- Show both icon and text
-               menu = {
-                  luasnip = "", -- Snippet icon
-                  buffer = "", -- File icon
-                  path = "", -- Folder icon
-                  nvim_lsp = "🅻", -- LSP badge
-               },
+                -- If snippet, jump to previous snippet placeholder
+                ["<S-Tab>"] = cmp.mapping(function(fallback)
+                    if luasnip.jumpable(-1) then
+                        luasnip.jump(-1)
+                    else
+                        fallback() -- use default shift-tab behavior
+                    end
+                end, { "i", "s" }),
             }),
-         },
-      })
-   end,
+
+            -- Use LuaSnip to expand snippets
+            snippet = {
+                expand = function(args) luasnip.lsp_expand(args.body) end,
+            },
+
+            sources = {
+                { name = "luasnip" }, -- Snippets
+                { name = "nvim_lsp" }, -- LSP completion
+                { name = "buffer" }, -- Words from current buffer
+                { name = "path" }, -- File paths
+                { name = "nvim_lsp_signature_help" }, -- Function signatures
+            },
+
+            formatting = {
+                format = lspkind.cmp_format({
+                    mode = "symbol_text", -- Show both icon and text
+                    menu = {
+                        luasnip = "", -- Snippet icon
+                        buffer = "", -- File icon
+                        path = "", -- Folder icon
+                        nvim_lsp = "🅻", -- LSP badge
+                    },
+                }),
+            },
+        })
+    end,
 }

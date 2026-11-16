@@ -17,8 +17,11 @@
 --   > GitHub : https://github.com/bullets-vim/bullets.vim
 -- =============================================================================
 
+-- One list drives both the lazy-load trigger and the plugin's own filter
+local FILETYPES = { "markdown", "quarto", "text", "gitcommit", "scratch" }
+
 return {
-   "bullets-vim/bullets.vim",
-   ft = { "markdown", "quarto", "text", "gitcommit", "scratch" },
-   init = function() vim.g.bullets_enabled_file_types = { "markdown", "quarto", "text", "gitcommit", "scratch" } end,
+    "bullets-vim/bullets.vim",
+    ft = FILETYPES,
+    init = function() vim.g.bullets_enabled_file_types = FILETYPES end,
 }
