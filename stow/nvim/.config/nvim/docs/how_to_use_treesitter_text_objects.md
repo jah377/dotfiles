@@ -23,8 +23,8 @@ Comprehensive guide to nvim-treesitter-textobjects keybindings with Lua examples
 | `]M` / `[M` | Next/prev function end   | Jump to end               |
 | `]c` / `[c` | Next/prev class start    | Navigate classes          |
 | `]a` / `[a` | Next/prev parameter      | Navigate params           |
-| `<leader>a` | Swap param with next     | Reorder parameters        |
-| `<leader>A` | Swap param with prev     | Reorder parameters        |
+| `<leader>ca` | Swap param with next    | Reorder parameters        |
+| `<leader>cA` | Swap param with prev    | Reorder parameters        |
 
 ## Common Workflows
 
@@ -44,7 +44,7 @@ Comprehensive guide to nvim-treesitter-textobjects keybindings with Lua examples
 ### Workflow 3: Reorder function parameters
 
 1. Position cursor on parameter to move
-2. Swap with next: `<leader>a`
+2. Swap with next: `<leader>ca`
 3. Repeat until in desired position
 
 ### Workflow 4: Delete all loop code
