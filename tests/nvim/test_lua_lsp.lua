@@ -11,7 +11,7 @@
 -- `CTRL-T` to return to point
 
 local function hello(object)
-  print("Hello " .. object)
+   print("Hello " .. object)
 end
 
 hello("world")
