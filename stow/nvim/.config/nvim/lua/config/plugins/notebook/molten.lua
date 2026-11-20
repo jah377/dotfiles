@@ -64,10 +64,11 @@ return {
    init = function()
       vim.g.molten_image_provider = "image.nvim" -- use image.nvim for inline image rendering
       vim.g.molten_wrap_output = true
-      vim.g.molten_virt_text_output = false -- disabled; weird behavior with plots
-      vim.g.molten_auto_open_output = false -- use <leader>jo explicitly
-      vim.g.molten_output_win_max_height = 40
-      vim.g.molten_virt_lines_off_by_1 = true
+      vim.g.molten_virt_text_output = true -- output stays visible below each cell after the cursor leaves
+      vim.g.molten_image_location = "float" -- plots in virt text are buggy; show them only in the float
+      vim.g.molten_virt_text_max_lines = 100 -- longer output is truncated with an "N More Lines" marker
+      vim.g.molten_auto_open_output = true -- also open the float when the cursor enters a cell
+      vim.g.molten_output_win_max_height = 100
       vim.g.molten_use_border_highlights = true
       vim.g.molten_enter_output_behavior = "open_and_enter"
    end,
